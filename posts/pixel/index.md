@@ -1,0 +1,76 @@
+---
+title: "代码帮我画像素画"
+date: "25 Feb 2021"
+draft: false
+tags: ["前端"]
+---
+
+这一阵子迷上了像素风格，很有复古的味道，加上小时候玩宝可梦的时候还是像素风格，牵扯出了太多情怀。
+甚至把自己的电脑壁纸也换成了像素风。很有感觉😝
+
+<!--more-->
+
+![](./desktop.png)
+
+想自己在像素风上创作，但是感觉自己是没有那种艺术细胞……所以就在想，能不能自己把一张正常的图片转换成像素风？🤔
+
+## 思路⭐
+
+1. 使用canvas将图片缩小，使其丢失部分像素信息
+2. 再将缩小的图片绘制出来
+3. 将缩小的图片放大，使能看到其像素点
+
+其实就是小的图片放大，会感觉到糊的效果。
+
+## Code💻
+
+禁止浏览器的平滑处理其实就是是否抗锯齿。
+用正则表达式限制输入框只能输入0-100，意味着让图片缩放的百分比（100就是没有缩放，达不到像素化的效果）
+
+```js
+const pixel = (canvas, image, scale) => {
+	scale *= 0.01;
+
+	canvas.width = image.width;
+	canvas.height = image.height;
+
+	// 将图片缩小
+	let scaledW = canvas.width * scale;
+	let scaledH = canvas.height * scale;
+
+	let ctx = canvas.getContext("2d");
+
+	// 禁止浏览器的平滑处理
+	ctx.imageSmoothingEnabled = false;
+	ctx.mozImageSmoothingEnabled = false;
+	ctx.webkitImageSmoothingEnabled = false;
+	ctx.msImageSmoothingEnabled = false;
+
+	//将缩小后的图片绘制出来
+	ctx.drawImage(image, 0, 0, scaledW, scaledH);
+	//将缩小后的图片还原到原来的大小
+	ctx.drawImage(canvas, 0, 0, scaledW, scaledH, 0, 0, canvas.width, canvas.height);
+};
+
+btn.addEventListener(
+	"click",
+	function () {
+		const Regex = new RegExp(/^100$|^(\d|[1-9]\d)(\.\d+)*$/);
+		let scale = input.value;
+		if (scale == "") {
+			scale = 40;
+		}
+		if (!Regex.test(scale)) {
+			window.alert("输入不规范");
+			return;
+		}
+		console.log(scale);
+		pixel(canvas, img, scale);
+	},
+	false,
+);
+```
+
+## 效果👇
+
+![](./eg.png)

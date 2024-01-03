@@ -1,0 +1,290 @@
+---
+title: 关于HG地图
+tags: ["前端", "Vue"]
+date: "30 Jul 2020"
+---
+
+最近都在学习前端的路上缓慢前进，在了解了Vue后就开始学习Typescript，每次学习到新东西的时候都会忍不住用新的东西去做一个自己感兴趣的东西，可能自己觉得这样子很Coooooooooooool！👊
+
+<!--more-->
+
+之前偶然间也看到了吉珠的地图，觉得很优秀，碰巧我们学校没有相关的产品，只有一张画出来图片地图，稍加思索
+
+- 考虑到了便携性，决定放在移动端使用
+- 要可以标示出学校的设施地点
+- 校巴的路线以及上下车地点
+- 要有产品的介绍还有学校的介绍
+- 最好能够看到学校实景
+
+加上自己之前学了vue，便打算结合vue来写，说干就干，起飞！✈️
+
+然后第一天就翻车在了创建项目上。
+
+一开始装的Vue的版本是2.x版本，创建新项目的webpack版本是3.6的，使用Typescript的时候会提示需要升级webpack到4.x版本，一开始并没有考虑太多，它提示啥问题就Google啥问题怎么解决（面向搜索引擎编程），大致看了一圈，都是卸载旧版的依赖装新的依赖，同时修改配置，但是他们的教程基本都不一样，唯一一样的地方就是都很复杂，也不知道咋选，就挑了个顺眼的就开始照着写，结果失败了……后面发现Vue3.x版本开始都已经开始适配Typescript了，即创建项目的时候就可以选择是否使用Typescript，同时自动给你配置好……啊这。
+
+旧版本Vue卸载！
+
+> npm uninstall vue-cli -g
+
+最新版本Vue安装！
+
+> npm install -g @vue/cli
+
+再来一遍，起飞！✈️
+
+项目地址：[HgMap](https://github.com/Magren0321/hgmap)
+地图链接：[华广地图](https://map.xingkong.us/)
+
+## 环境依赖
+
+- vue/cli 4.4.6
+- typescript
+- element-ui：ui组件
+- vue-class-component：类装饰器
+- vue-property-decorator：基于 vue 组织里 vue-class-component 所做的拓展
+- vue2-svg-icon：SVG图标组件
+- 地图资源来自高德地图api
+
+注：由于vue-cli 4版本不自带vue.config.js，故需自行在根目录创建并且配置，否则打包项目会找不到静态资源。
+
+## Vue 和 Typescript的使用
+
+### 前提
+
+script标签加入 : lang=“ts”
+
+```js
+<script lang="ts">···</script>
+```
+
+### 创建组件
+
+```js
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+
+@Component
+export default class Test extends Vue {}
+```
+
+### 组件的引入
+
+```js
+import Mapmenu from '@/components/Mapmenu.vue'
+
+@Component({
+ components: {
+   Mapmenu
+}
+})
+```
+
+### data对象
+
+boolean或者string等简单类型typescript会自动识别，不需要告知类型,不然运行的时候它还给我个报错……
+
+```js
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
+export default class Map extends Vue {
+ map: any = null
+ dialog = false
+ name = "MAGREN"
+}
+```
+
+### method 方法
+
+可不用逗号隔开，直接写在export default里，需要注明返回类型
+
+```js
+<script lang="ts">
+import { Component,Vue,Prop,Emit } from 'vue-property-decorator';
+import markers from '@/config/markers.ts'
+
+@Component
+export default class Mapmenu extends Vue {
+
+ show = true
+ // methods
+ //学校介绍
+ toPageSchoolInfo(): void{
+   this.$router.push({
+     path:'/schoolinfo'
+  })
+}
+
+    ………………
+}
+```
+
+### Prop以及Emit 用于父子组件传参
+
+#### 父组件
+
+:map = 'map’表示将父组件的map参数传入子组件，并且命名为map。
+@show-dialog=“handleChildValue” 表示将子组件传来的值在handleChildValue方法中处理。
+
+```js
+<template>
+<Mapmenu :map='map' @show-dialog="handleChildValue"></Mapmenu>
+</template>
+
+<script lang="ts">
+// @ is an alias to /src
+import AMap from '@/config/amap.ts'
+import Mapmenu from '@/components/Mapmenu.vue'
+import { Component,Vue } from 'vue-property-decorator';
+
+@Component({
+ components: {
+   Mapmenu
+}
+})
+
+export default class Map extends Vue {
+  dialog = false
+  ……
+
+  private handleChildValue(val: boolean) {
+       // val: 子组件传过来的值
+     this.dialog = val;
+    }
+}
+```
+
+#### 子组件
+
+调用父组件传过来的参数直接使用this.xxx
+需要向父组件传递参数直接调用@Emit注解里的方法。
+
+```js
+<script lang="ts">
+//引入Prop和Emit
+import { Component,Vue,Prop,Emit } from 'vue-property-decorator';
+import markers from '@/config/markers.ts'
+
+@Component
+export default class Mapmenu extends Vue {
+
+ show = true
+
+ //接收父组件传来的值
+ @Prop()
+ private map: any
+
+ //向父组件传值
+ @Emit()
+ private showDialog(){
+   return this.show
+}
+}
+```
+
+## 高德地图加载和使用
+
+### 高德地图加载
+
+封装地图，并通过Promise进行一个异步加载，TypeScript在编译时对window类型做了判断,不允许直接调用window.xx，改成any类型即可使用。加载前先判断是否已经存在。
+
+```js
+export default function MapLoader(): Promise<void>{
+ return new Promise((resolve, reject) => {
+   const win: any = window
+   if (win.AMap) {
+     resolve(win.AMap)
+  } else {
+     const url='高德地图api'
+     const script: HTMLScriptElement = document.createElement('script')
+     script.charset = 'utf-8'
+     script.src = url
+     script.onerror = reject
+     document.head.appendChild(script)
+  }
+   win.onLoad = () => {
+     resolve(win.AMap)
+  }
+})
+}
+```
+
+在需要的地方调用
+
+```js
+<template>
+ <div id="map">
+   <div id="container">
+
+   </div>
+ </div>
+</template>
+
+<script lang="ts">
+import AMap from '@/config/amap.ts'
+import { Component,Vue } from 'vue-property-decorator';
+
+export default class Map extends Vue {
+ map: any = null
+
+ //初始化地图
+ async initAMap(): Promise<void> {
+  try {
+   const res: any = await AMap();
+   this.map = new res.Map("container", {  //装载在id为container的div
+     viewMode:'3D', // 地图模式,手机下只有2d效果
+     resizeEnable: true, //是否监控地图容器尺寸变化
+     zoom: 17, //初始化地图层级，
+     center: [113.172847,23.43399], //初始化地图中心点，
+     pitch:40, // 地图俯仰角度，有效范围 0 度- 83 度
+     buildingAnimation:true, //3d地图显示动画
+    });
+    this.personOptions(this.map,true)
+  }catch (err) {
+     console.error(err);
+  }
+}
+
+ mounted() {
+    this.initAMap();
+}
+}
+</script>
+```
+
+### 给地图添加marker
+
+```js
+const win: any = window
+const marker = new win.AMap.Marker({
+         position: new win.AMap.LngLat(113.171688,23.433279),  //marker的坐标
+})
+```
+
+在marker上方添加文本:
+
+```js
+marker.setLabel({
+	//label默认蓝框白底左上角显示l
+	offset: new win.AMap.Pixel(0, -3), //设置文本标注偏移量
+	content: "商业街", //设置文本标注内容
+	direction: "top", //设置文本标注方位
+});
+```
+
+修改样式：
+此时css标签中不能打 scoped ，否则无法生效，这个问题关乎css的作用域
+
+```css
+.amap-marker-label {
+	padding: 5px;
+	border-radius: 3px;
+	border-color: ##54b7e7;
+	border-width: 0px;
+	color: ##54b7e7;
+}
+```
+
+最后调用add方法添加：
+
+```js
+this.map.add(marker);
+```

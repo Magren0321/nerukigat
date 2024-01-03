@@ -1,0 +1,286 @@
+---
+title: node.js + MongoDB
+tags: ["NodeJs", "MongoDB", "后端"]
+date: "16 Sep 2020"
+---
+
+最近开学事情逐渐多了起来，星空、康课还有学校的课程……一切都开始逐渐步入正轨，唯独我的学习之路还在跑偏。
+经常会停下来不知道学什么，也提不起动力学，担心自己学的东西派不上用场，也担心自己半途而废。
+也难怪有万事开头难这种说法了。
+但是一旦行动起来，忙起来的时候就会感到充实。只要动起来，无论结果怎样，都总比没有尝试过的好。
+**但行好事，莫问前程**
+
+<!-- more -->
+
+我也纠结过是学习用node.js还是Java去操作后端数据库。
+有的人说学node.js，前端工程师都要会这个；也有的人说学java，去学ssm，学spring全家桶；还有的人说node.js没有前途；
+最后在网上看到了一个答案，
+**他说：程序员本身不该受语言的约束，更不该受框架的约束。什么样的场景用什么样的工具。**
+所谓的没有前途一直都是错误的使用正确的工具。
+你得有一颗拿c++造宇宙飞船的心。🚀
+
+## node.js是什么？
+
+根据官方的说法：
+
+> Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine.
+
+Node.js 就是一個能执行 JavaScript 的环境，而 V8 则是主流浏览器 - Google Chrome 的 JavaScript 引擎，负责、执行 JavaScript。
+Node.js再加上一系列的c/c++套件，成功的让我们的服务器端也可以执行JavaScript。
+
+## 环境安装
+
+### node.js安装
+
+下载地址：[Node.js官网下载](http://nodejs.cn/download/)
+
+### MongoDB数据库
+
+下载地址：[MongoDB官网下载](https://www.mongodb.com/try/download/community)
+
+### 启动服务
+
+在MongoDB文件夹下的bin目录下用命令行输入：**.\mongo** 来启动服务
+
+### 可视化工具 Robo3T
+
+用于可视化操作MongoDB数据库，下载地址：[Robo3T](https://robomongo.org/download)
+
+## express
+
+Express 是一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。
+
+### express脚手架
+
+express脚手架安装：
+
+> npm install -g express-generator
+
+创建express项目：
+
+> express test
+
+> cd test
+
+> npm install
+
+运行：
+
+> npm start
+
+浏览器访问：
+
+> http://localhost:3000/
+
+### express脚手架引入babel
+
+引入babel是为了转译 ECMAScript 2015+ 至可兼容浏览器的版本，说白了就是为了让我们使用ES6。
+
+#### 依赖
+
+修改后记得执行npm install以更新依赖包。
+
+```js
+{
+  "name": "test",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./index.js",
+    "devstart": "nodemon ./index.js"
+  },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-3": "^6.22.0",
+    "babel-register": "^6.24.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "mongoose": "^5.10.5",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0"
+  }
+}
+```
+
+#### 新建.babelrc于根目录
+
+文件代码如下：
+
+```js
+{
+  	"presets": ["stage-3"],
+  	"plugins": [
+  		"transform-async-to-generator",
+        "transform-es2015-modules-commonjs",
+        "transform-export-extensions"
+    ]
+}
+```
+
+#### 新建index.js于根目录
+
+文件代码如下：
+
+```js
+require("babel-core/register");
+require("./bin/www");
+```
+
+此时语法支持import等es6语法。
+
+## node.js操作MongoDB数据库
+
+### 依赖
+
+在项目根目录下安装Mongoose
+
+> npm install mongoose --save
+
+### 链接数据库
+
+利用mongoose来链接MongoDB
+在项目中创建**db.js**文件：
+
+```js
+"use strict";
+
+import mongoose from "mongoose";
+
+mongoose.connect("mongodb://localhost:27017/test", { useNewUrlParser: true });
+
+const db = mongoose.connection;
+
+db.once("open", () => {
+	console.log("连接数据库成功");
+});
+
+db.on("error", function (error) {
+	console.error("Error in MongoDb connection: " + error);
+	mongoose.disconnect();
+});
+
+db.on("close", function () {
+	console.log("数据库断开，重新连接数据库");
+});
+
+export default db;
+```
+
+接着在app.js中引入
+
+```
+import db from './mongodb/db';
+```
+
+这个时候运行项目会在MongoDB中创建一个test的库，但是由于里面没有数据所以并不会显示出来。
+
+### 添加数据
+
+```js
+//引入模块
+import mongoose from "mongoose";
+import db from "./mongodb/db";
+// 创建schema
+// schema是MongoDB里的一个集合，也可以说是库中的一张表
+let testSchema = new mongoose.Schema({
+	name: String,
+	age: Number,
+});
+
+// 通过connection和schema创建model
+let testModel = connection.model("test1", testSchema);
+
+// 通过实例化model创建文档
+let test = new testModel({
+	name: "Magren",
+	age: 20,
+});
+
+// 将文档插入到数据库，save方法返回一个Promise对象。
+test.save().then((doc) => {
+	console.log(doc);
+});
+```
+
+添加成功后MongoDB数据库里会多了test1这么一个表，同时表中会多了一条name为Magren，age为20的数据。
+
+### 读取数据
+
+```js
+//引入模块
+import mongoose from "mongoose";
+import db from "./mongodb/db";
+
+let testSchema = new mongoose.Schema({
+	name: String,
+	age: Number,
+});
+
+let testModel = connection.model("test1", testSchema);
+
+//查询条件，查询name为Magren的记录，格式为键值对
+//查询条件为空的时候即查询该表中的全部数据
+testModel.find({ name: "Magren" }).then((doc) => {
+	console.log(doc);
+});
+```
+
+为了复用代码，降低耦合度，一般将Schema以及Model模块的代码单独出来。
+
+### 更新数据
+
+```js
+//引入模块
+import mongoose from "mongoose";
+import db from "./mongodb/db";
+
+let testSchema = new mongoose.Schema({
+	name: String,
+	age: Number,
+});
+
+let testModel = connection.model("test1", testSchema);
+
+//第一个参数是查询条件，找到name为Magren这条数据
+//第二个参数是要修改的值
+testModel.updateMany({ name: "Magren" }, { age: 18 }).then((result) => {
+	console.log(result);
+});
+```
+
+### 删除数据
+
+```js
+//引入模块
+import mongoose from "mongoose";
+import db from "./mongodb/db";
+
+let testSchema = new mongoose.Schema({
+	name: String,
+	age: Number,
+});
+
+let testModel = connection.model("test1", testSchema);
+
+//删除name为Magren的数据
+testModel.removeMany({ name: "Magren" }).then((result) => {
+	console.log(result);
+});
+```
+
+## 最后
+
+现在只是学习了基本的node.js对MongoDB数据库的操作，改天尝试做一个小项目，部署到服务器上，感觉又会踩很多坑……
+但如果没有实践也只是纸上谈兵，加紧自己学习的脚步吧。
+毕竟都已经大三了啊。✊

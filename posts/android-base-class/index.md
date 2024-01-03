@@ -1,0 +1,589 @@
+---
+title: Android基类的设计
+tags: ["Android"]
+date: "09 Jan 2020"
+---
+
+> 这两天开始放寒假，在家呆着也是呆着，遂决定找星空以前Android方向大佬写的项目学习下，看看别人代码的结构以及有什么方法可以降低代码的耦合度，然后在师兄的项目里接触到了BaseActivity，在这里记录一下
+
+<!--more-->
+
+## 为什么设计基类
+
+- 方便代码编写，减少重复代码和冗余逻辑，优化代码
+- 优化程序架构，降低耦合度，方便拓展、修改
+- 版面更干净，减少了诸如生命周期日志等重复逻辑的占用版面
+
+## 设计的基本思路
+
+- 生命周期的调试日志输出
+- 绑定视图
+- 常用OnClick方法
+- Back方法，Toast以及Activity等操作
+- 常用第三方工具（ButterKnife等）
+- 标题栏是否显示，是否全屏，初始化数据等
+
+## 具体基类的封装
+
+### BaseActivity
+
+```java
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity
+        implements BaseView<P> {
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    Unbinder bind;
+
+    /**
+     * 进度对话框
+     */
+    protected ProgressDialog mProgressDialog;
+    /**
+     * 泛型确定Presenter
+     */
+    protected P mPresenter;
+
+    @Override
+    protected final void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 设置为竖屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setContentView(bindLayout());
+        // ButterKnife绑定布局
+        bind = ButterKnife.bind(this);
+
+        mPresenter = createPresenter();
+        if (mPresenter != null) {
+            // 调用Presenter初始化方法
+            mPresenter.onStart();
+        }
+
+        // 准备数据
+        prepareData();
+        // 初始化标题栏
+        initToolbar();
+        // 初始化视图
+        initView();
+        // 初始化数据
+        initData(savedInstanceState);
+        // 初始化事件监听
+        initEvent();
+    }
+
+
+    /**
+     * 创建Presenter
+     *
+     * @return 泛型Presenter
+     */
+    protected abstract P createPresenter();
+
+    /**
+     * 实现BasePresenter接口的setPresenter方法
+     *
+     * @param presenter createPresenter()创建的Presenter
+     */
+    @Override
+    public void setPresenter(P presenter) {
+        mPresenter = presenter;
+    }
+
+    /**
+     * 初始化Toolbar
+     */
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+    }
+
+    /**
+     * 设置Toolbar标题
+     *
+     * @param title 标题
+     */
+    protected void setToolbarTitle(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
+    /**
+     * 设置Toolbar显示返回按钮及标题
+     *
+     * @param title 标题
+     */
+    protected void setToolbarBackEnable(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_white_24dp);
+            setToolbarTitle(title);
+        }
+
+    }
+
+    /**
+     * 绑定布局
+     *
+     * @return 布局文件的资源ID
+     */
+    protected abstract int bindLayout();
+
+    /**
+     * 准备数据（从Intent获取上一个界面传过来的数据或其他需要初始化的数据）
+     */
+    protected abstract void prepareData();
+
+    /**
+     * 初始化视图，findViewById等等
+     */
+    protected abstract void initView();
+
+    /**
+     * 初始化数据，从本地或服务器开始获取数据
+     *
+     * @param savedInstanceState 界面非正常销毁时保存的数据
+     */
+    protected abstract void initData(Bundle savedInstanceState);
+
+    /**
+     * 初始化事件监听，setOnClickListener等等
+     */
+    protected abstract void initEvent();
+
+    /**
+     * 实现BaseView的showToast(CharSequence msg)
+     *
+     * @param msg 吐司显示的信息
+     */
+    @Override
+    public void showToast(CharSequence msg) {
+        ToastUtils.shortToast(this, msg);
+    }
+
+    /**
+     * 实现BaseView的showToast(int msgId)
+     *
+     * @param msgId 吐司显示的字符串资源id
+     */
+    @Override
+    public void showToast(int msgId) {
+        ToastUtils.shortToast(this, msgId);
+    }
+
+    /**
+     * 实现BaseView的showLoadingDialog(CharSequence msg)
+     * 显示加载对话框
+     *
+     * @param msg 对话框的提示内容
+     */
+    @Override
+    public void showLoadingDialog(CharSequence msg) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setTitle(R.string.title_dialog_tips);
+            mProgressDialog.setMessage(msg);
+        } else {
+            mProgressDialog.setTitle(R.string.title_dialog_tips);
+        }
+        mProgressDialog.show();
+    }
+
+    /**
+     * 实现BaseView的hideLoadingDialog()
+     * 隐藏加载对话框
+     */
+    @Override
+    public void hideLoadingDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    /**
+     * Activity销毁时清理资源
+     */
+    @Override
+    protected void onDestroy() {
+        // ButterKnife解除绑定
+        bind.unbind();
+        // 销毁Presenter
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+        super.onDestroy();
+    }
+
+    /**
+     * 隐藏键盘
+     */
+    public void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // （仅有Activity的应用中SDK自动调用，不需要单独写）
+        // 保证 onPageEnd 在onPause之前调用,因为 onPause 中会保存信息。
+        MobclickAgent.onPageEnd(this.getClass().getSimpleName());
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。)
+        MobclickAgent.onPageStart(this.getClass().getSimpleName());
+        //统计时长
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
+```
+
+#### BaseFragment
+
+```java
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment
+        implements BaseView<P> {
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    private Unbinder mUnbinder;
+    protected P mPresenter;
+
+    protected ProgressDialog mProgressDialog;
+
+    private ActionBar mActionbar;
+
+    @Nullable
+    @Override
+    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mPresenter = createPresenter();
+        if (mPresenter != null) {
+            mPresenter.onStart();
+        }
+        View root = inflater.inflate(bindLayout(), container, false);
+        mUnbinder = ButterKnife.bind(this, root);
+        prepareData(savedInstanceState);
+        initToolbar();
+        // 初始化视图
+        initView(root);
+        initData(savedInstanceState);
+        initEvent();
+        return root;
+    }
+
+
+    protected abstract P createPresenter();
+
+
+    @Override
+    public void setPresenter(P presenter) {
+        mPresenter = presenter;
+    }
+
+    /**
+     * 准备数据
+     *
+     * @param savedInstanceState
+     */
+    protected abstract void prepareData(Bundle savedInstanceState);
+
+    /**
+     * 绑定fragment的布局文件
+     *
+     * @return
+     */
+    protected abstract int bindLayout();
+
+    /**
+     * 初始化数据
+     *
+     * @param savedInstanceState
+     */
+    protected abstract void initData(Bundle savedInstanceState);
+
+    /**
+     * 初始化界面
+     *
+     * @param rootView
+     */
+    protected abstract void initView(View rootView);
+
+    /**
+     * 初始化事件监听器
+     */
+    protected abstract void initEvent();
+
+
+    /**
+     * 初始化Toolbar
+     */
+    private void initToolbar() {
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        mActionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    }
+
+    /**
+     * 设置Toolbar标题
+     *
+     * @param title 标题
+     */
+    protected void setToolbarTitle(String title) {
+        if (mActionbar != null) {
+            mActionbar.setTitle(title);
+        }
+    }
+
+    /**
+     * 设置Toolbar显示返回按钮及标题
+     *
+     * @param title 标题
+     */
+    protected void setToolbarBackEnable(String title) {
+        if (mActionbar != null) {
+            mActionbar.setDisplayHomeAsUpEnabled(true);
+            mActionbar.setHomeAsUpIndicator(R.drawable.ic_arrow_white_24dp);
+        }
+    }
+
+    @Override
+    public void showToast(CharSequence msg) {
+        ToastUtils.shortToast(APP.getAppContext(), msg);
+    }
+
+    @Override
+    public void showToast(int msgId) {
+        ToastUtils.shortToast(APP.getAppContext(), msgId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void showLoadingDialog(CharSequence msg) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getContext());
+            mProgressDialog.setMessage(msg);
+        } else {
+            mProgressDialog.setTitle(R.string.title_dialog_tips);
+        }
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        mUnbinder.unbind();
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(this.getClass().getSimpleName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(this.getClass().getSimpleName());
+    }
+
+}
+```
+
+#### BasePresenter
+
+```java
+public interface BasePresenter {
+
+    void onStart();
+
+    void onDestroy();
+
+}
+```
+
+#### BaseView
+
+```java
+public interface BaseView<P> {
+
+    void setPresenter(P presenter);
+
+    void showToast(CharSequence msg);
+
+    void showToast(int msgId);
+
+    void showLoadingDialog(CharSequence msg);
+
+    void hideLoadingDialog();
+
+}
+```
+
+#### Impl类
+
+```java
+public abstract class BasePresenterImpl implements BasePresenter {
+    protected CompositeDisposable mSubscriptions;
+
+    @Override
+    public void onStart() {
+        if (mSubscriptions == null) {
+            mSubscriptions = new CompositeDisposable();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mSubscriptions != null) {
+            mSubscriptions.dispose();
+            mSubscriptions.clear();
+        }
+    }
+}
+```
+
+#### APP类
+
+> 用于获取全局的context
+
+```java
+public class APP extends Application {
+
+    private static Context appContext;
+    private static long exitTime = 0;
+
+    /**
+     * 获取Application的Context
+     *
+     * @return 全局Context
+     */
+    public static Context getAppContext() {
+        return appContext;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        appContext = getApplicationContext();
+    }
+
+    /**
+     * 退出APP
+     */
+    public static void exitApp() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            ToastUtils.shortToast(getAppContext(), appContext.getString(R.string.text_press_again));
+            exitTime = System.currentTimeMillis();
+        } else {
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+    }
+}
+```
+
+## 具体使用
+
+### Contract 契约类
+
+> 契约类用于定义同一个界面的view和presenter的接口，通过规范的方法命名或注释，可以清晰的看到整个页面的逻辑。
+
+```java
+public interface myContract {
+
+    interface View extends BaseView<Presenter> {
+    }
+
+    interface Presenter extends BasePresenter {
+
+    }
+}
+```
+
+#### Presenter
+
+```java
+public class SamplePresenter extends BasePresenterImpl implements myContract.Presenter {
+
+    private final myContract.View mView;
+    public SamplePresenter(myContract.View view) {
+        mView = view;
+        this.mView.setPresenter(this);
+    }
+}
+```
+
+#### Activiy
+
+```java
+public class SampleActivity extends BaseActivity<myContract.Presenter> implements myContract.View {
+
+    @BindView(R.id.tv_sample_text)
+    TextView mTvSample;
+
+    @Override
+    protected myContract.Presenter createPresenter() {
+        return new SamplePresenter(this);
+    }
+
+    @Override
+    protected int bindLayout() {
+        //TODO:添加视图，记得添加androidmanifest
+        return R.layout.activity_sample;
+    }
+
+    @Override
+    protected void prepareData() {
+        //TODO:准备数据 比如：从数据库加载数据，或者网络请求数据等等
+    }
+
+    @Override
+    protected void initView() {
+        //TODO:初始化视图 比如：recycleview的准备，添加adapter等等
+        mTvSample.setText("这是一个sample");
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+        //TODO:初始化数据 比如：将数据加入到view中
+    }
+
+    @Override
+    protected void initEvent() {
+        //TODO:初始化事件监听 比如：增加监听器，下拉刷新，加载更多等等
+    }
+}
+```

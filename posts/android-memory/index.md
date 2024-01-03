@@ -1,0 +1,55 @@
+---
+title: 说说Android的内存泄露和溢出
+tags: ["Android"]
+date: "01 Mar 2020"
+---
+
+虽然在大学以来学习了一年多的安卓，已经可以完成一部分的需求，但是在Android这方面的底层知识和一些概念我应该不算非常了解，借着这个长假的机会打算好好熟悉下。
+
+<!--more-->
+
+## Android内存泄漏
+
+**内存泄漏是指保存了不可能再被访问的变量引用，导致垃圾回收器无法回收内存。**
+也就是说：
+在Java中有些对象的生命周期是有限的，当它们完成了特定的逻辑后会被回收，但是，如果在对象的生命周期本该被回收时，这个对象仍然还被别的对象所持有引用，那么就会导致内存泄漏。
+具体例子：
+
+```java
+public class LeakAct extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.aty_leak);
+        test();
+    }
+
+    public void test() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }z
+            }
+        }).start();
+    }
+}
+```
+
+test是一个非静态内部类，当我们finish的时候，该实例不会真正销毁，GC机制也不会进行该实例的垃圾回收，因为**_匿名内部类和非静态内部类持有外部类的强引用， _**也就是说test持有外部activity的强引用，而thread内部while(true)是死循环，线程不会停止，对外部activity的强引用也不会消失。这样就造成了内存泄漏。
+
+**解决方案**
+
+> 1.将内部类变成静态内部类; 2.如果有强引用Activity中的属性，则将该属性的引用方式改为弱引用; 3.在业务允许的情况下，当Activity执行onDestory时，结束这些耗时任务;
+
+## Android内存溢出
+
+**内存溢出指的是APP向系统申请超过最大阀值的内存请求，系统不会再分配多余的空间，从而造成内存溢出**
+
+- 典型的例子就是加载多张大图，导致内存耗尽，可以对图片进行适当的质量压缩或者尺寸压缩。
+- 当某个界面存在内存泄露，反复进入该界面，将导致一直有新对象创建但是无法回收，最终导致内存耗尽，造成内存溢出。
