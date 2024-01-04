@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "clsx": "^2.1.0",
     "contentlayer": "^0.3.4",
     "date-fns": "^3.0.6",
+    "framer-motion": "^10.17.4",
     "next": "14.0.4",
     "next-contentlayer": "^0.3.4",
     "react": "^18",
