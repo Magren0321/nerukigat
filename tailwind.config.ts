@@ -10,6 +10,8 @@ const config: Config = {
     extend: {
       colors:{
         primary: '#007AFF',
+        bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
+        textColor: "hsl(var(--theme-text) / <alpha-value>)",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

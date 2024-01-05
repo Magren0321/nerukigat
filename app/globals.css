@@ -2,20 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer base {
+	:root {
+		color-scheme: light;
+		--theme-bg: 0deg 0% 96%;
+		--theme-text: 203deg 11% 15%;
+	}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+	@media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --theme-bg: 210deg 6% 12%;
+      --theme-text: 220deg 3% 95%;
+    }
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
+	html body {
+		@apply mx-auto min-h-screen bg-bgColor text-textColor antialiased;
+	}
 }
