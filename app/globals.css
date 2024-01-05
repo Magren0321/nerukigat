@@ -18,6 +18,6 @@
   }
 
 	html body {
-		@apply mx-auto min-h-screen bg-bgColor text-textColor antialiased;
+		@apply mx-auto h-full bg-bgColor text-textColor antialiased scroll-smooth overflow-y-scroll;
 	}
 }

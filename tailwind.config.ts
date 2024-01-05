@@ -9,7 +9,6 @@ const config: Config = {
   theme: {
     extend: {
       colors:{
-        primary: '#007AFF',
         bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
         textColor: "hsl(var(--theme-text) / <alpha-value>)",
       },
