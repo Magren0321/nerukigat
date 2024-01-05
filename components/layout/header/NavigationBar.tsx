@@ -16,6 +16,10 @@ const navigationItems = [
     text: '博客'
   },
   {
+    href: '/archive',
+    text: '归档'
+  },
+  {
     href: '/about',
     text: '关于'
   },
