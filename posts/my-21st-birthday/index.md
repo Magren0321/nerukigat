@@ -1,6 +1,6 @@
 ---
 title: "写在自己21岁生日"
-date: "21 Mar 2021"
+date: 21 Mar 2021
 draft: false
 tags: ["日常"]
 ---

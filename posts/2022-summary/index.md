@@ -1,6 +1,6 @@
 ---
 title: "2022 , 脚踏实地，仰望星空"
-date: "31 Dec 2022"
+date: 31 Dec 2022
 draft: false
 tags: ["年度总结", "日常"]
 ---

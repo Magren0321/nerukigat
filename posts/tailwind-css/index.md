@@ -1,7 +1,6 @@
 ---
 title: "Tailwind CSS初尝试"
-date: "15 Feb 2023"
-draft: false
+date: 15 Feb 2023
 tags: ["CSS", "前端"]
 ---
 

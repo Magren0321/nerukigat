@@ -1,6 +1,6 @@
 ---
 title: "2021 , 否极泰来"
-date: "30 Dec 2021"
+date: 30 Dec 2021
 draft: false
 tags: ["年度总结", "日常"]
 ---

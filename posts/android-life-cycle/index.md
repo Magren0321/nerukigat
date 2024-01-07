@@ -1,7 +1,7 @@
 ---
 title: Android Activity生命周期
 tags: ["Android"]
-date: "06 Mar 2020"
+date: 06 Mar 2020
 ---
 
 先上Google提供的经典图，是对Activity生命周期各个阶段之间导航转换的直观展现。

@@ -1,7 +1,7 @@
 ---
 title: Rxjava的CompositeDisposable
 tags: ["Android"]
-date: "29 Mar 2020"
+date: 29 Mar 2020
 ---
 
 之前在学习Rxjava的时候发现仍有部分知识点自己遗漏了，不够严谨，在这里补充多一个知识点。那就是CompositeDisposable类。

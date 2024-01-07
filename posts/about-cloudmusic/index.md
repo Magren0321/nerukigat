@@ -1,6 +1,6 @@
 ---
 title: "关于CloudMusic"
-date: "28 Jan 2021"
+date: 28 Jan 2021
 draft: false
 tags: ["Vue", "前端"]
 ---

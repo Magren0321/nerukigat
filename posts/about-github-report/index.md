@@ -1,6 +1,6 @@
 ---
 title: "关于Github Report 👨‍🚀"
-date: "30 Jul 2021"
+date: 30 Jul 2021
 draft: false
 tags: ["React", "前端"]
 ---

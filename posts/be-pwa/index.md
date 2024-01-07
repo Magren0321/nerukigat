@@ -1,6 +1,6 @@
 ---
 title: "将博客变成PWA"
-date: "03 Apr 2021"
+date: 03 Apr 2021
 draft: false
 tags: ["前端"]
 ---

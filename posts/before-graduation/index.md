@@ -1,6 +1,6 @@
 ---
 title: "毕业前夕"
-date: "03 May 2022"
+date: 03 May 2022
 draft: false
 tags: ["日常"]
 ---

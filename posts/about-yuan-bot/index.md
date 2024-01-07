@@ -1,6 +1,6 @@
 ---
 title: "关于Yuan-bot🤖"
-date: "24 Jul 2022"
+date: 24 Jul 2022
 draft: false
 tags: ["NodeJs", "前端"]
 ---

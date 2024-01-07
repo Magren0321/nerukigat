@@ -1,6 +1,6 @@
 ---
 title: "关于我在2021年求职给卷烂的一些事"
-date: "24 Nov 2021"
+date: 24 Nov 2021
 draft: false
 tags: ["日常"]
 ---

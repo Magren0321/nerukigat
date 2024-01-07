@@ -1,6 +1,6 @@
 ---
 title: "关于ChatRoom"
-date: "10 Feb 2021"
+date: 10 Feb 2021
 draft: false
 tags: ["React", "NodeJs", "前端"]
 ---

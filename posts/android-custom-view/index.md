@@ -1,7 +1,7 @@
 ---
 title: Android自定义view的定义
 tags: ["Android"]
-date: "14 Apr 2020"
+date: 14 Apr 2020
 ---
 
 > 自定义 View 就是通过继承 View 或者 View 的子类，并在新的类里面实现相应的处理逻辑（重写相应的方法），以达到自己想要的效果。

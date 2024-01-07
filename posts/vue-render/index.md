@@ -1,6 +1,6 @@
 ---
 title: "记一次Vue render的踩坑"
-date: "23 Jan 2023"
+date: 23 Jan 2023
 tags: ["Vue", "前端"]
 ---
 

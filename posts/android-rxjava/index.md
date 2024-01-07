@@ -1,7 +1,7 @@
 ---
 title: Android的rxjava2
 tags: ["Android"]
-date: "13 Mar 2020"
+date: 13 Mar 2020
 ---
 
 RxJava是利用观察者模式来实现一些列的操作，所以对于观察者模式中的观察者，被观察者，以及订阅、事件需要有一个了解。

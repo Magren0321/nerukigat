@@ -1,7 +1,7 @@
 ---
 title: node.js+express写接口
 tags: ["NodeJs", "后端", "Express"]
-date: "19 Oct 2020"
+date: 19 Oct 2020
 ---
 
 前一段时间学习了node.js操作mongoDB数据库，现在追加一篇写接口的记录。

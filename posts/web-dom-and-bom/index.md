@@ -1,7 +1,7 @@
 ---
 title: HTML的DOM和浏览器的BOM
 tags: ["前端"]
-date: "09 May 2020"
+date: 09 May 2020
 ---
 
 记录下自己最近看的知识点。
