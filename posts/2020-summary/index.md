@@ -21,7 +21,7 @@ tags: ["年度总结", "日常"]
 
 可惜以上的项目随着考试月的到来以及天气降温全部停掉了🐷
 
-![](./keep_run.png)
+![](/postImg/2020-summary/keep_run.png)
 
 ### Code
 
@@ -37,9 +37,9 @@ tags: ["年度总结", "日常"]
 - 当全世界在讨论2077的时候我才购入了动物森友会，跟着她一块岛建中。
 - 买了零件亲自给5s更换电池以及排线，梦回高中。
 
-![](./switchGame.png)
+![](/postImg/2020-summary/switchGame.png)
 
-![](./iphone5s.png)
+![](/postImg/2020-summary/iphone5s.png)
 
 ### 日常
 
@@ -81,4 +81,4 @@ tags: ["年度总结", "日常"]
 2020虽然充满遗憾，但还是要充满对生活的热情。人间值得，未来可期。
 遗憾会是惊喜的序曲。
 
-![](./2020final.jpg)
+![](/postImg/2020-summary/2020final.jpg)

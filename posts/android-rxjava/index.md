@@ -81,7 +81,7 @@ observable.subscribe(observer);
 ### 结果
 
 先调用onSubscribe，然后走了onNext，最后以onComplete收尾：
-![输出结果](./rxjava_result.png)
+![输出结果](/postImg/android-rxjava/rxjava_result.png)
 
 ## 线程的调度
 

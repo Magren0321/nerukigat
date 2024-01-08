@@ -43,4 +43,4 @@ tags: ["日常"]
 
 > _仅以此文献给自己，祝自己生日快乐_
 
-![](./mom_me.jpg)
+![](/postImg/my-23rd-birthday/mom_me.jpg)

@@ -168,7 +168,7 @@ $("##bt").click(apiUrl, function (event) {
 ```
 
 结果：
-![](./promise_test.png)
+![](/postImg/web-promise/promise_test.png)
 
 ## 遇到的问题
 
@@ -185,7 +185,7 @@ $("##bt").click(apiUrl, function (event) {
 所以怎么还没说怎么解决嗷？？？
 
 在搜到的文章里面大部分都是后端配合设置一个请求权限，但是我这是野生的api。。。我还腆着脸去要求别人做这做那哦？
-![](./shuidajiao.jpg)
+![](/postImg/web-promise/shuidajiao.jpg)
 
 直到我找到个方法，**jsonp**
 

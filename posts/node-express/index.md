@@ -166,9 +166,9 @@ app.use(test);
 
 ### POST测试：
 
-将POST的body设置成**x-www-form-urlencoded**，下图为更新数据的接口示例： ![更新数据](./postman_updata.png)
+将POST的body设置成**x-www-form-urlencoded**，下图为更新数据的接口示例： ![更新数据](/postImg/node-express/postman_updata.png)
 
 ### GET测试：
 
 下图为根据ID获取一条数据的示例
-![](./postman_get.png)
+![](/postImg/node-express/postman_get.png)

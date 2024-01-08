@@ -25,8 +25,8 @@ tags: ["Vue", "前端"]
 - 推荐歌单
 
 项目截图：
-![](./1.png)![](./2.png)![](./3.png)
-![](./4.png)![](./5.png)
+![](/postImg/about-cloudmusic/1.png)![](/postImg/about-cloudmusic/2.png)![](/postImg/about-cloudmusic/3.png)
+![](/postImg/about-cloudmusic/4.png)![](/postImg/about-cloudmusic/5.png)
 
 ## 播放
 
@@ -47,7 +47,7 @@ tags: ["Vue", "前端"]
 
 我的解决办法是给滑块组件引入了 **@mousedown** 和 **@mouseup**，当鼠标按下的时候将一个变量赋值为true，抬起的时候为false，修改@timeupdate中的方法，设定其只有在该变量为false的时候才会对滑块组件赋值，但是滑动滑块的时候也得修改当前的播放时间，所以给滑块组件引入了 **@change** ，当手动更改了滑块的值的时候会触发该方法，在这个方法里面对audio的播放进度进行修改。
 
-![](./6.png)
+![](/postImg/about-cloudmusic/6.png)
 
 ### 歌词实现
 

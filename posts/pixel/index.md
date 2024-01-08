@@ -9,7 +9,7 @@ tags: ["前端"]
 
 <!--more-->
 
-![](./desktop.png)
+![](/postImg/pixel/desktop.png)
 
 想自己在像素风上创作，但是感觉自己是没有那种艺术细胞……所以就在想，能不能自己把一张正常的图片转换成像素风？🤔
 
@@ -72,4 +72,4 @@ btn.addEventListener(
 
 ## 效果👇
 
-![](./eg.png)
+![](/postImg/pixel/eg.png)

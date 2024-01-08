@@ -46,7 +46,7 @@ PWA 全称为 Progressive Web App，中文译为渐进式 Web APP，其目的是
     "theme_color": "##ffffff", //主题颜色
     "background_color": "##d4d4d4", //启动时闪屏的背景颜色
     "display": "standalone", //定义开发人员对Web应用程序的首选显示模式。
-    "start_url": "./index.html", //开始加载的url
+    "start_url": "/postImg/be-pwa/index.html", //开始加载的url
     "icons": [ //程序图标
       {
         "src": "avatar152.png",
@@ -148,4 +148,4 @@ self.addEventListener("refreshHomePage", function (response) {
 最后说说如何使用pwa吧，在手机上，只需通过支持的浏览器（如 Chrome以及小米自带的浏览器）访问 PWA 页面地址，Chrome会在加载完页面后弹出添加页面的提示，如果没有的话（如IOS的Safari），需要手动点击浏览器的更多，然后直接添加到桌面上即可。
 
 PC端的话Chrome的右上角（网页链接的最右端）有一个下载按钮，点击后就会添加到电脑桌面。如果要卸载的话只是删除电脑桌面的快捷方式是不可以的，需要打开来然后在PWA页面的上方点击卸载按钮。
-![](./blog1.png)![](./blog2.png)
+![](/postImg/be-pwa/blog1.png)![](/postImg/be-pwa/blog2.png)

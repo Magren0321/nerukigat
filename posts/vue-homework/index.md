@@ -56,7 +56,7 @@ date: 10 Jul 2020
 
 因为最终所有的路由都会给加载到index.html里面，所以在html里的body添加一个外边距为0的样式也可以解决这个问题。
 
-![登陆界面](./vuetest_login.png)
+![登陆界面](/postImg/vue-homework/vuetest_login.png)
 
 ### 传参问题
 
