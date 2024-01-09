@@ -1,7 +1,7 @@
 ---
 title: Vue下的EventBus
 tags: ["前端", "Vue"]
-date: "12 Oct 2020"
+date: 12 Oct 2020
 ---
 
 EventBus是用于Vue中组件通信的一种方式，常见的父子组件沟通方式有emit和props。

@@ -1,7 +1,7 @@
 ---
 title: node.js + MongoDB
 tags: ["NodeJs", "MongoDB", "后端"]
-date: "16 Sep 2020"
+date: 16 Sep 2020
 ---
 
 最近开学事情逐渐多了起来，星空、康课还有学校的课程……一切都开始逐渐步入正轨，唯独我的学习之路还在跑偏。

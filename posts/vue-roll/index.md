@@ -1,7 +1,7 @@
 ---
 title: Vue下监听页面滚动以及移动端触摸事件
 tags: ["前端", "Vue"]
-date: "27 Aug 2020"
+date: 27 Aug 2020
 ---
 
 无聊刷知乎的时候发现了一个前端设计的宝藏网站[awwwards](https://www.awwwards.com/)，对上面大佬实现的网站表示望洋兴叹，

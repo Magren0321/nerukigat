@@ -1,6 +1,6 @@
 ---
 title: "博客迁移至Hugo"
-date: "08 Jan 2021"
+date: 08 Jan 2021
 draft: false
 tags: ["日常"]
 ---

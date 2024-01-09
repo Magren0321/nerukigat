@@ -1,7 +1,6 @@
 ---
 title: "Tailwind CSS初尝试"
-date: "15 Feb 2023"
-draft: false
+date: 15 Feb 2023
 tags: ["CSS", "前端"]
 ---
 
@@ -187,8 +186,8 @@ Tailwind 中的每个功能类都可以有条件的应用于不同的断点（�
 ## 最后
 
 原子化css个人感觉是个值得关注的趋势，目前Twitter、~~facebook~~ Meta等大厂都在使用。
-![](./twitter.jpg)
-![](./facebook.jpg)
+![](/postImg/tailwind-css/twitter.jpg)
+![](/postImg/tailwind-css/facebook.jpg)
 
 如果团队是根据一套设计规范去进行设计的话，用Tailwind CSS会非常舒服。同时个人感觉用其写布局非常爽，几个 class 就可以解决问题，不需要再做无意义的命名。😆
 
@@ -197,4 +196,4 @@ Tailwind 中的每个功能类都可以有条件的应用于不同的断点（�
 这里也推荐下antfu写的 [Unocss](https://github.com/unocss/unocss) - 具有高性能且极具灵活性的即时原子化 CSS 引擎。
 
 最后希望大家CSS完全理解。💡
-![](./css.jpg)
+![](/postImg/tailwind-css/css.jpg)

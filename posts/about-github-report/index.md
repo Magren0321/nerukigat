@@ -1,6 +1,6 @@
 ---
 title: "关于Github Report 👨‍🚀"
-date: "30 Jul 2021"
+date: 30 Jul 2021
 draft: false
 tags: ["React", "前端"]
 ---
@@ -15,13 +15,13 @@ Github作为世界上最大的开源社区，对我编程的学习可以说是�
 
 <!--more-->
 
-![](./login.png)
+![](/postImg/about-github-report/login.png)
 
-![](./welcome.png)
+![](/postImg/about-github-report/welcome.png)
 
-![](./repinfo.png)
+![](/postImg/about-github-report/repinfo.png)
 
-![](./contributions.png)
+![](/postImg/about-github-report/contributions.png)
 
 ## NES.css🚀
 

@@ -1,7 +1,7 @@
 ---
 title: 用vue实现的期末作业
 tags: ["前端", "Vue"]
-date: "10 Jul 2020"
+date: 10 Jul 2020
 ---
 
 终于度过了紧张刺激的期末以及三个大作业两个大作业的答辩。
@@ -56,7 +56,7 @@ date: "10 Jul 2020"
 
 因为最终所有的路由都会给加载到index.html里面，所以在html里的body添加一个外边距为0的样式也可以解决这个问题。
 
-![登陆界面](./vuetest_login.png)
+![登陆界面](/postImg/vue-homework/vuetest_login.png)
 
 ### 传参问题
 

@@ -1,7 +1,7 @@
 ---
 title: node.js+express写接口
 tags: ["NodeJs", "后端", "Express"]
-date: "19 Oct 2020"
+date: 19 Oct 2020
 ---
 
 前一段时间学习了node.js操作mongoDB数据库，现在追加一篇写接口的记录。
@@ -166,9 +166,9 @@ app.use(test);
 
 ### POST测试：
 
-将POST的body设置成**x-www-form-urlencoded**，下图为更新数据的接口示例： ![更新数据](./postman_updata.png)
+将POST的body设置成**x-www-form-urlencoded**，下图为更新数据的接口示例： ![更新数据](/postImg/node-express/postman_updata.png)
 
 ### GET测试：
 
 下图为根据ID获取一条数据的示例
-![](./postman_get.png)
+![](/postImg/node-express/postman_get.png)

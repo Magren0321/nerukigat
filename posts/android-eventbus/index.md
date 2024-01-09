@@ -1,7 +1,7 @@
 ---
 title: Android的EventBus使用
 tags: ["Android"]
-date: "16 Apr 2020"
+date: 16 Apr 2020
 ---
 
 这两天在网上想着找Android系统学习的路线，然后发现了阿里云上的阿里巴巴Android开发手册，虽然网上已经有免费下载的地方了，不过凭着不能白嫖的感觉，我还是花钱支持了下，其实就卖一块钱，而且还有一份考试证书的资格，总的来说还是很舒服的。
@@ -96,13 +96,13 @@ EventBus.getDefault().register(this);
 通过上面的方法，实现了在MainActivity中注册EventBus事件，然后写好响应事件的方法，当跳转到另一个Activity，点击按钮向MainActivity发送Event事件，同时我们回到MainActivity的时候发现我们的事件已经接收到并且呈现了出来。
 
 MainActivity:
-![](./eventMain1.png)
+![](/postImg/android-eventbus/eventMain1.png)
 
 SendMainActivity:
-![](./eventSend.png)
+![](/postImg/android-eventbus/eventSend.png)
 
 返回MainActivity：
-![](./eventMain2.png)
+![](/postImg/android-eventbus/eventMain2.png)
 
 这是一般事件的使用方法，但是我想的传递数据是在当前Activity向下一个Activity传递数据并且在下一个Activity使用，但是我用上面的方法去实现的时候发现并不能派上用场，后面我才清楚了这里得用上我们的黏性事件。
 
@@ -173,10 +173,10 @@ EventBus.getDefault().register(this);
 这时候我们就可以实现直接向下一个Activity发送事件并且在里面获取并使用了。
 
 1.SendActivity
-![](./eventSend.png)
+![](/postImg/android-eventbus/eventSend.png)
 
 2.MainActivity
-![](./eventMain2.png)
+![](/postImg/android-eventbus/eventMain2.png)
 
 ### EventBus处理事件的线程
 

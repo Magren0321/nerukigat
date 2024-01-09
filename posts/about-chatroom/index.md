@@ -1,6 +1,6 @@
 ---
 title: "关于ChatRoom"
-date: "10 Feb 2021"
+date: 10 Feb 2021
 draft: false
 tags: ["React", "NodeJs", "前端"]
 ---
@@ -16,16 +16,16 @@ tags: ["React", "NodeJs", "前端"]
 项目地址：[ChatRoom](https://github.com/Magren0321/ChatRoom)
 
 项目截图：
-![](./3.png)
-![](./2.png)
-![](./1.png)
+![](/postImg/about-chatroom/3.png)
+![](/postImg/about-chatroom/2.png)
+![](/postImg/about-chatroom/1.png)
 
 ## 后端
 
 后端基于Node.js + Express + Socket.io + MongoDB
 Node.js操作MongoDB以及用express写接口之前都有在博客中大致的总结过：
-[Node.js+express](./node-express/)
-[Node.Js操作MongoDB](./node-mongodb/)
+[Node.js+express](/posts/node-express/)
+[Node.Js操作MongoDB](/posts/node-mongodb/)
 这次用的新东西就是Socket.io。
 
 ### 前人的工作👇

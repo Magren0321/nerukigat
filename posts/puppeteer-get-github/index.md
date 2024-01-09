@@ -1,7 +1,6 @@
 ---
 title: "Puppeteer爬取Github指北"
-date: "07 Jul 2021"
-draft: false
+date: 07 Jul 2021
 tags: ["NodeJs", "前端"]
 ---
 
@@ -91,7 +90,7 @@ await el.type(text);
 > http://localhost:4000/getAllContributions/Magren0321
 
 返回数据示例：
-![](./test.png)
+![](/postImg/puppeteer-get-github/test.png)
 
 ## 踩到的坑
 

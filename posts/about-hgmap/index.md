@@ -1,7 +1,7 @@
 ---
 title: 关于HG地图
 tags: ["前端", "Vue"]
-date: "30 Jul 2020"
+date: 30 Jul 2020
 ---
 
 最近都在学习前端的路上缓慢前进，在了解了Vue后就开始学习Typescript，每次学习到新东西的时候都会忍不住用新的东西去做一个自己感兴趣的东西，可能自己觉得这样子很Coooooooooooool！👊

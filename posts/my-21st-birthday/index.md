@@ -1,6 +1,6 @@
 ---
 title: "写在自己21岁生日"
-date: "21 Mar 2021"
+date: 21 Mar 2021
 draft: false
 tags: ["日常"]
 ---
@@ -51,6 +51,6 @@ tags: ["日常"]
 
 > **_生活明朗，万物可爱，人间值得，未来可期。_**
 
-![](./gift2.png)
+![](/postImg/my-21st-birthday/gift2.png)
 
-![](./gift3.png)
+![](/postImg/my-21st-birthday/gift3.png)

@@ -1,7 +1,7 @@
 ---
 title: es6中的promise
 tags: ["前端"]
-date: "27 May 2020"
+date: 27 May 2020
 ---
 
 **Promise**，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。
@@ -168,7 +168,7 @@ $("##bt").click(apiUrl, function (event) {
 ```
 
 结果：
-![](./promise_test.png)
+![](/postImg/web-promise/promise_test.png)
 
 ## 遇到的问题
 
@@ -185,7 +185,7 @@ $("##bt").click(apiUrl, function (event) {
 所以怎么还没说怎么解决嗷？？？
 
 在搜到的文章里面大部分都是后端配合设置一个请求权限，但是我这是野生的api。。。我还腆着脸去要求别人做这做那哦？
-![](./shuidajiao.jpg)
+![](/postImg/web-promise/shuidajiao.jpg)
 
 直到我找到个方法，**jsonp**
 
