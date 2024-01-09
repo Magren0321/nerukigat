@@ -17,15 +17,20 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
 
   return (
     <PostContainer>
-      <article className="prose dark:prose-invert max-w-full">
-        <div className="mb-8 text-center">
-          <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
-            {format(parseISO(post.date), 'LLLL d, yyyy')}
-          </time>
-          <h1 className="text-3xl font-bold">{post.title}</h1>
+      <div className='relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid'>
+        <article className="prose dark:prose-invert max-w-full">
+          <div className="mb-8 text-center">
+            <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
+              {format(parseISO(post.date), 'LLLL d, yyyy')}
+            </time>
+            <h1 className="text-3xl font-bold">{post.title}</h1>
+          </div>
+          <div className="[&>*]:mb-3 [&>*:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: post.body.html }} />
+        </article>
+        <div>
+          
         </div>
-        <div className="[&>*]:mb-3 [&>*:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: post.body.html }} />
-      </article>
+      </div>
     </PostContainer>
   )
 }
