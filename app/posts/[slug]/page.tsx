@@ -2,7 +2,9 @@
 import { format, parseISO } from 'date-fns'
 import { allPosts } from 'contentlayer/generated'
 import { PostContainer } from '@/components/layout/container/PostContainer'
+import { Image } from '@/components/ui/img/Image'
 import { useMDXComponent } from 'next-contentlayer/hooks'
+
 
 export const generateStaticParams = async () => allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
 
@@ -39,7 +41,9 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
           <Component
-            components={{}}
+            components={{
+              img: Image
+            }}
           />
         </article>
         <div>
