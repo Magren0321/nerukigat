@@ -24,14 +24,14 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
         <article className="prose dark:prose-invert max-w-full">
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-bold">{post.title}</h1>
-            <div>
-              <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
+            <div className='text-xs text-gray-600 dark:text-zinc-100'>
+              <time dateTime={post.date}>
                 {format(parseISO(post.date), 'LLLL d, yyyy')}
               </time>
-              <span className="text-xs text-gray-600"> • </span>
-              <span className="text-xs text-gray-600">
+              <span> • </span>
+              <span>
                 {post.tags.map((tag) => (
-                  <span key={tag} className="inline-block px-1 text-xs font-medium text-gray-600 uppercase">
+                  <span key={tag} className="inline-block px-1 font-medium uppercase">
                     #{tag}
                   </span>
                 ))}
