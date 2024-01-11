@@ -1,0 +1,206 @@
+---
+title: Android的EventBus使用
+tags:
+  - Android
+publish: true
+date: 2020/04/16
+slug: android-eventbuts
+description: Android的EventBus使用
+---
+
+这两天在网上想着找Android系统学习的路线，然后发现了阿里云上的阿里巴巴Android开发手册，虽然网上已经有免费下载的地方了，不过凭着不能白嫖的感觉，我还是花钱支持了下，其实就卖一块钱，而且还有一份考试证书的资格，总的来说还是很舒服的。
+
+网址在下面：
+
+> [阿里巴巴Android开发手册](https://edu.aliyun.com/course/813?spm=5176.10731460.0.0.6a8739f4neg819)
+
+估摸是我接触的太少的缘故，在一开始的第一条我就懵掉了
+
+> 1. 【强制】Activity 间的数据通信，对于数据量比较大的，避免使用 Intent + Parcelable 的方式，可以考虑 EventBus 等替代方案，以免造成 TransactionTooLargeException。
+
+这个**EventBus**……是啥？？？
+
+# EventBus概述
+
+EventBus是一个Android事件发布/订阅框架，通过解耦发布者和订阅者简化Android事件传递，这里的事件可以理解为消息。事件传递既可以用于Android四大组件间通讯，也可以用于异步线程和主线程间通讯等。
+传统的事件传递方式包括：Handler、BroadcastReceiver、Interface回调，相比之下EventBus的有点是代码简洁，使用简单，并将事件发布和 订阅充分解耦。
+
+在这里面，又有三个对象：
+
+- **事件Event**：就是消息，分为一般事件和Sticky（黏性）事件，Sticky事件的特殊在于，当事件发布后，再有订阅者订阅该类型事件，依然能收到该类型 事件的最近的一个Sticky事件
+- **订阅者Subscriber**：订阅事件的对象，当发布者发布事件猴，EventBus会执行订阅者的事件响应函数。订阅者通过register接口订阅某个事件类型，unregister接口退订
+- **发布者**：发布事件的对象，通过post接口发布事件，黏性事件通过postSticky
+
+Github地址：[EventBus](https://github.com/greenrobot/EventBus)
+
+# 使用
+
+道理我都懂，但是我得知道它是怎么用的，不然日后复制起来粘贴在哪都不知道，于是我在网上找到了它的使用方法。
+
+## 一般事件
+
+### 自定义一个事件类
+
+```java
+public class Event {
+
+    String message;
+
+
+    public Event(String message){
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+```
+
+### 在需要接收消息的页面注册
+
+```java
+EventBus.getDefault().register(this);
+```
+
+### 接收消息的方法
+
+```java
+@Subscribe(threadMode = ThreadMode.MAIN)
+   public void getEvent(Event event) {
+       msg = event.getMessage();
+       tv.setText(msg);
+   }
+```
+
+### 发送事件
+
+```java
+@OnClick(R.id.bt_return)
+    public void renturnActivity(){
+        //发送事件
+        EventBus.getDefault().post(new Event("Magren"));
+        finish();
+    }
+```
+
+### 在注册的页面销毁的时候反注册
+
+```java
+@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //反注册
+        EventBus.getDefault().unregister(this);
+    }
+```
+
+通过上面的方法，实现了在MainActivity中注册EventBus事件，然后写好响应事件的方法，当跳转到另一个Activity，点击按钮向MainActivity发送Event事件，同时我们回到MainActivity的时候发现我们的事件已经接收到并且呈现了出来。
+
+MainActivity:
+![](android-eventbuts/eventMain1.png)
+
+SendMainActivity:
+![](android-eventbuts/eventSend.png)
+
+返回MainActivity：
+![](android-eventbuts/eventMain2.png)
+
+这是一般事件的使用方法，但是我想的传递数据是在当前Activity向下一个Activity传递数据并且在下一个Activity使用，但是我用上面的方法去实现的时候发现并不能派上用场，后面我才清楚了这里得用上我们的黏性事件。
+
+## Sticky事件
+
+### 自定义一个事件类
+
+```java
+public class Event {
+
+    String message;
+
+
+    public Event(String message){
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+```
+
+### 在需要接收消息的页面注册
+
+```java
+EventBus.getDefault().register(this);
+```
+
+### 接收消息的方法
+
+此时多了sticky = true
+
+```java
+@Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
+    public void getEvent(Event event) {
+        msg = event.getMessage();
+        tv.setText(msg);
+    }
+```
+
+### 发送事件
+
+先发送消息后进行Activity的跳转，注意这里是postSticky，发送黏性事件
+
+```java
+@OnClick(R.id.bt_return)
+   public void renturnActivity(){
+       //发送事件
+       EventBus.getDefault().postSticky(new Event("Magren"));
+       Intent intent = new Intent(this,MainActivity.class);
+       startActivity(intent);
+
+   }
+```
+
+### 在注册的页面销毁的时候反注册
+
+```java
+@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //反注册
+        EventBus.getDefault().unregister(this);
+    }
+```
+
+这时候我们就可以实现直接向下一个Activity发送事件并且在里面获取并使用了。
+
+1.SendActivity
+![](android-eventbuts/eventSend.png)
+
+2.MainActivity
+![](android-eventbuts/eventMain2.png)
+
+## EventBus处理事件的线程
+
+上面我们的注解@Subscribe(threadMode = ThreadMode.MAIN)里面用了ThreadMode.MAIN这个模式，其实表示的是这个函数在主线程里面进行，EventBus给我们提供了总共有4中线程模式
+
+- ThreadMode.MAIN：表示无论事件是在哪个线程发布出来的，该事件订阅方法onEvent都会在UI线程中执行，这个在Android中是非常有用的，因为在Android中只能在UI线程中更新UI，所有在此模式下的方法是不能执行耗时操作的。
+- ThreadMode.POSTING：表示事件在哪个线程中发布出来的，事件订阅函数onEvent就会在这个线程中运行，也就是说发布事件和接收事件在同一个线程。使用这个方法时，在onEvent方法中不能执行耗时操作，如果执行耗时操作容易导致事件分发延迟。
+- ThreadMode.BACKGROUND：表示如果事件在UI线程中发布出来的，那么订阅函数onEvent就会在子线程中运行，如果事件本来就是在子线程中发布出来的，那么订阅函数直接在该子线程中执行。
+- ThreadMode.AYSNC：使用这个模式的订阅函数，那么无论事件在哪个线程发布，都会创建新的子线程来执行订阅函数
+
+# 注意点
+
+- 注册一般写在onCreate或者onStart中，尽量不要写在onResume，可能出现多次注册，多次注册会出现报错以及APP闪退
+- 取消注册一定写在onDestory,写在onStop可能会引发异常，同时检查或许会导致页面退出的情况，及时取消注册
+- 注册前可以先判断是否已经注册
+
+```java
+if (!EventBus.getDefault().isRegistered(this)) {
+    EventBus.getDefault().register(this);
+}
+```
+
+- 未声明threadMode的时候默认线程模式是ThreadMode.POSTING
+
+以上就是我从网上总结的部分EventBus的使用以及自己的实操，每次随便逛逛都可以发现我不懂的知识点，任重道远
