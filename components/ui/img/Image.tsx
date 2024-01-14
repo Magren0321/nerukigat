@@ -23,7 +23,7 @@ export const Image = (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElemen
               height={100}
               onLoad={() => setIsReady(true)}
               onError={() => setIsReady(false)}
-              className={clsx('opacity-0 transition-opacity duration-500', isReady && 'opacity-100')}
+              className={clsx('opacity-0 transition-opacity duration-500 rounded-xl', isReady && 'opacity-100')}
             />
         </PhotoView>
       </PhotoProvider>
