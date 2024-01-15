@@ -1,9 +1,9 @@
-// app/posts/[slug]/page.tsx
 import { format, parseISO } from 'date-fns'
 import { allPosts } from 'contentlayer/generated'
 import { PostContainer } from '@/components/layout/container/PostContainer'
 import { Image } from '@/components/ui/img/Image'
 import { Heading1 ,Heading2 ,Heading3 } from '@/components/ui/heading/Heading'
+import { PostTree } from '@/components/ui/toc/PostTree'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { PostProvider } from '@/providers/post/PostProvider'
 
@@ -63,9 +63,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
             />
           </PostProvider>
         </article>
-        <div>
-          
-        </div>
+        <PostTree />
       </div>
     </PostContainer>
   )

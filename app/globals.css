@@ -17,7 +17,31 @@
     }
   }
 
-	html body {
-		@apply mx-auto h-full bg-bgColor text-textColor antialiased scroll-smooth overflow-y-scroll;
+	html, body {
+		@apply relative mx-auto h-full bg-bgColor text-textColor antialiased scroll-smooth;
 	}
+  ::-webkit-scrollbar-thumb:horizontal {
+    width: 5px;
+    background-color: transparent;
+    -webkit-border-radius: 6px;
+  }
+  ::-webkit-scrollbar-track-piece {
+    background-color: transparent; 
+    -webkit-border-radius: 0;
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb:vertical {
+    height: 20px;
+    background-color: #999;
+    -webkit-border-radius: 4px;
+    outline-offset: -2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    height: 20px;
+    background-color: #9f9f9f;
+    -webkit-border-radius: 4px;
+  }
 }
