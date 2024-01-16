@@ -1,0 +1,89 @@
+---
+title: 💻 About my blog
+date: 2023/06/11
+tags: 
+- 日常
+- 前端
+- Blog
+- Nextjs
+publish: true
+slug: about-my-blog
+description: About my blog
+---
+This blog post marks my first attempt at writing in English, so the article may lack fluency and contain grammatical errors. (I simply want to improve my English skills. 😊)
+
+# 🚀 Foreword
+
+I have been building and writing on my personal blog website since my college years. I have previously used Hexo and Hugo to build my website, as well as other blogging platforms.
+
+However, I recently realized that I had been relying on other people's frameworks and themes. I didn't want to be like everyone else. Why couldn't I have my own unique website?
+
+That's why I created this project, which now serves as my blog. It grants me the freedom to customize the content, style, and layout to my liking, which is very liberating. I also enjoy the process of creating it and I can learn about Nextjs framework.
+
+[View Online](https://magren.cc/)
+
+Github: [magren.cc](https://github.com/Magren0321/magren.cc)
+
+# 🦊 What did I do？
+
+- Using Next.js 13 and App router, also it’s Image and Link component. (The Image component can utomatically optimize images and also supports responsive design.  And the Link component can  be preloaded, and when the user hovers over the Link component, Next.js will automatically preload the target page's code.)
+- Tailwind CSS for multi-terminal adaptation and dark mode.
+- <del>By Using Notion and Notion api, that I can use Notion as database and I can write my blog on Notion.</del> Because its API was too slow, 
+I have now switched to reading from a local MDX file.
+- The website has basic blog features such as tags, reading lists, and an 'about me' section.
+
+# 💻 **Stacks & Uses**
+
+- Framework: [Next.js](https://nextjs.org/)
+- Database: [Notion](https://www.notion.so/) and [Notion api](https://developers.notion.com/reference/intro)
+- Styling: [Tailwindcss](https://tailwindcss.com/)
+- Deployment: [Vercel](https://vercel.com/)
+
+## **🎈 Running Locally**
+
+1. Create Notion Database and Notion integration. Reference [Notion api](https://developers.notion.com/docs/getting-started)
+- Prepare two empty databases, one for storing blogs and one for storing reading lists.
+- The database for storing blogs can refer to [Blog template](https://www.notion.so/84fa36df17354ab98d687d616674572c?pvs=21)
+- Create [Integrations](https://www.notion.so/my-integrations), get the token, and connect to the database
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/Magren0321/magren.cc.git
+```
+
+1. Go to the project directory
+
+```bash
+cd magren.cc
+```
+
+1. Install dependencies
+
+```bash
+pnpm i
+```
+
+1. Set up .env file
+
+```bash
+NOTION_KEY=Your Integrations token
+NOTION_DATABASE_ID=Your database id for storing blogs
+```
+
+1.  Run the development server
+
+```bash
+pnpm dev
+```
+
+## **✨** Deploy your site
+
+Visit the [Vercel](http://vercel.com), create a project, and import your GitHub project. At the same time, set the environment variables and add the `NOTION_KEY`, `NOTION_DATABASE_ID` .
+
+# 📅 After that
+
+(WIP) The project is still under construction. I plan to continue optimizing and maintaining it to improve its functionality.
+
+<del>In the next step, I will add a comment feature and an RSS link..</del>  
+I have added them all.

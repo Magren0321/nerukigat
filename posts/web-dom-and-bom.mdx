@@ -1,0 +1,308 @@
+---
+title: HTML的DOM和浏览器的BOM
+tags:
+  - 前端
+slug: web-dom-and-bom
+date: 2020/05/09
+description: 记录下自己最近看的知识点。
+publish: true
+---
+
+记录下自己最近看的知识点。
+
+
+# HTML DOM (文档对象模型)
+
+概述： 当网页被加载时，浏览器会创建页面的文档对象模型（Document Object Model）。
+
+## 查找HTML元素
+
+通常，通过 JavaScript可以操作需要操作 HTML 元素。
+
+为了做到这件事情，必须首先找到该元素。有三种方法来做这件事：
+
+- 通过 id 找到 HTML 元素：var x=document.getElementById(“intro”);
+- 通过标签名找到 HTML 元素：var y=document.getElementsByTagName(“p”);
+- 通过类名找到 HTML 元素：var x=document.getElementsByClassName(“intro”);
+
+## 改变HTML内容
+
+使用 innerHTML 属性。
+
+```html
+<html>
+<body>
+
+<p id="p1">Hello World!</p>
+
+<script>
+document.getElementById("p1").innerHTML="新文本!";
+</script>
+
+</body>
+</html>
+```
+
+## 改变HTML样式
+
+使用style
+
+```html
+<body>
+ 
+<p id="p1">Hello World!</p>
+<p id="p2">Hello World!</p>
+
+<script>
+document.getElementById("p2").style.color="blue";
+document.getElementById("p2").style.fontFamily="Arial";
+document.getElementById("p2").style.fontSize="larger";
+</script>
+
+</body>
+```
+
+## 使用事件
+
+```html
+<body>
+
+<h1 id="id1">我的标题 1</h1>
+<button type="button"
+onclick="document.getElementById('id1').style.color='red'">
+按钮</button>
+
+</body>
+```
+
+### JS中定义函数绑定事件
+
+```js
+var funcc = function () {
+                alert("hello world")
+            }
+var aa = document.getElementById('vv')
+aa.onclick = funcc
+```
+
+### 利用addEventListener
+
+```j
+document.getElementById('vv').addEventListener('click',funcc);
+
+
+document.getElementById('vv').addEventListener('click',function () {
+           alert('hahah')
+        })
+```
+
+## onload 和 onunload 事件
+
+- onload 和 onunload 事件会在用户进入或离开页面时被触发。
+- onload 事件可用于检测访问者的浏览器类型和浏览器版本，并基于这些信息来加载网页的正确版本。
+- onload 和 onunload 事件可用于处理 cookie。
+
+```js
+<body onload="checkCookies()">
+
+<script>
+function checkCookies(){
+	if (navigator.cookieEnabled==true){
+		alert("Cookies 可用")
+	}
+	else{
+		alert("Cookies 不可用")
+	}
+}
+</script>
+	
+</body>
+```
+
+## onchange 事件
+
+onchange 事件常结合对输入字段的验证来使用。
+
+```html
+<!-- 当输入框内容改变，焦点离开输入框的时候会调用函数 -->
+<input type="text" id="fname" onchange="upperCase()">
+```
+
+## onmouseover ，onmouseout和onmousedown，onmouseup 事件
+
+- onmouseover：当鼠标移到html元素上方的时候触发事件
+- onmouseout：当鼠标从html元素上方移开的时候触发事件
+- onmousedown：当鼠标点下元素的时候，触发事件
+- onmouseup：当鼠标释放按钮时，触发事件。
+
+## HTMLCollection 对象
+
+概述：getElementsByTagName() 方法返回 HTMLCollection 对象。HTMLCollection 对象类似包含 HTML 元素的一个数组。集合中的元素可以通过索引(以 0 为起始位置)来访问。
+
+```js
+var x = document.getElementsByTagName("p");
+y = x[1];   //访问第二个p元素
+```
+
+## NodeList 对象
+
+概述：NodeList 对象是一个从文档中获取的节点列表 (集合) 。
+
+通过**querrySelectorAll**属性来获取对象
+
+```js
+var myNodeList = document.querySelectorAll("p");
+```
+
+同样通过索引的方法来访问元素。
+
+## NodeList和HTMLCollection两者的区别
+
+- HTMLCollection 元素可以通过 name，id 或索引来获取。
+- NodeList 只能通过索引来获取。
+- 只有 NodeList 对象有包含属性节点和文本节点。
+
+# 浏览器对象模型 (BOM)
+
+该对象表示浏览器窗口，全局变量是 window 对象的属性。全局函数是 window 对象的方法（包括document）。
+
+## Window 尺寸
+
+- window.innerHeight - 浏览器窗口的内部高度(包括滚动条)
+- window.innerWidth - 浏览器窗口的内部宽度(包括滚动条)
+
+## Window Screen
+
+- screen.availWidth - 可用的屏幕宽度
+- screen.availHeight - 可用的屏幕高度
+
+## Window Location
+
+- location.hostname 返回 web 主机的域名
+- location.pathname 返回当前页面的路径和文件名
+- location.port 返回 web 主机的端口 （80 或 443）
+- location.protocol 返回所使用的 web 协议（http: 或 https:）
+- location.href 返回当前页面的URL
+- location.assign(url) 加载 URL 指定的新的 HTML 文档。 就相当于一个链接，跳转到指定的url，当前页面会转为新页面内容，可以点击后退返回上一个页面。
+- location.replace(url) 通过加载 URL 指定的文档来替换当前文档 ，这个方法是替换当前窗口页面，前后两个页面共用一个窗口，所以是没有后退返回上一页的。
+
+## Window History
+
+- history.back() - 与在浏览器点击后退按钮相同
+- history.forward() - 与在浏览器中点击向前按钮相同
+
+**在进行前进后退功能上，也可以通过history.go()方法来实现**
+
+```js
+history.go(1);  // go() 里面的参数表示跳转页面的个数 例如 history.go(1) 表示前进一个页面
+history.go(-1);  // go() 里面的参数表示跳转页面的个数 例如 history.go(-1) 表示后退一个页面
+history.go(0);  // go() 里面的参数为0,表示刷新页面
+```
+
+## 弹窗
+
+### 警告框
+
+alert()
+
+```js
+alert("警告框！");
+```
+
+### 确认框
+
+confirm()
+
+```js
+var r=confirm("按下按钮");
+if (r==true)
+{
+    x="你按下了\"确定\"按钮!";
+}
+else
+{
+    x="你按下了\"取消\"按钮!";
+}
+```
+
+### 提示框
+
+prompt() - 当提示框出现后，用户需要输入某个值，然后点击确认或取消按钮才能继续操纵。
+
+```js
+var person=prompt("请输入");
+if (person!=null && person!=""){
+    document.getElementById("demo").innerHTML=person;
+}
+```
+
+## JavaScript 计时事件
+
+- setInterval() - 间隔指定的毫秒数不停地执行指定的代码。括弧内两个参数，第一个参数是函数，第二个参数是毫秒数。
+- setTimeout() - 在指定的毫秒数后执行指定代码。第一个参数是函数，第二个参数是毫秒数。
+
+关于停止计时的方法：**clearInterval()** 和 **clearTimeout()**
+
+```js
+var myVar=setInterval(function(){myTimer()},1000);
+function myTimer(){
+   alert("Hello");
+}
+function myStopFunction(){
+    clearInterval(myVar);
+}
+
+
+var myVar;
+function myFunction()
+{
+    myVar=setTimeout(function(){alert("Hello")},3000);
+}
+function myStopFunction()
+{
+    clearTimeout(myVar);
+}
+```
+
+## Cookie
+
+概述：Cookie 是一些数据, 存储于你电脑上的文本文件中。以键值对的形式储存。
+
+### 创建Cookie
+
+```js
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT"; //expries是该cookie的过期时间，默认情况下，cookie 在浏览器关闭时删除
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/"; //path 参数告诉浏览器 cookie 的路径。默认情况下，cookie 属于当前页面。
+```
+
+### 读取 Cookie
+
+```js
+var x = document.cookie;
+```
+
+### 修改 Cookie
+
+```js
+document.cookie="username=John Smith; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/"; //类似创建，直接覆盖
+```
+
+### Cookie的获取
+
+设置了新的 cookie，旧的 cookie 不会被覆盖。 新 cookie 将添加到 document.cookie 中，所以如果重新读取document.cookie，将获得如下所示的数据：
+cookie1=value; cookie2=value;
+
+```js
+function getCookie(cname)
+{
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i<ca.length; i++) 
+  {
+    var c = ca[i].trim();
+    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+  }
+  return "";
+}
+```
+

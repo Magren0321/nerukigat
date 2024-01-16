@@ -4,20 +4,13 @@ import { NormalContainer } from "@/components/layout/container/NomalContainer"
 export default function About() {
   return (
     <NormalContainer>
-      <div>
-        <h1 className="text-3xl font-bold ">
+      <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium text-zinc-700">
+        <h2>
           👋 About Me
-        </h1>
-        <p className="my-6 text-base text-zinc-600 dark:text-zinc-400">
+        </h2>
+        <blockquote>
           一片树林分出两条路 —— 而我选择了人迹更少的一条，从此决定了我一生的道路。
-        </p>
-      </div>
-      <article className="prose dark:prose-invert max-w-full
-        prose-a:relative
-        prose-a:mr-3
-        prose-a:after:content-['↗']
-        prose-a:after:absolute
-        prose-a:after:bottom-0">
+        </blockquote>
         <h2>关于我</h2>
         <span>Hi，我是Magren，见字如晤，很高兴认识你。</span><br></br>
         <span>生于千禧，正值弱冠之年，已成为资深社畜，社恐 & ISTP-A，现在在<del>北京</del>南京某厂做前端开发，辛苦搬砖中。</span><br></br>
