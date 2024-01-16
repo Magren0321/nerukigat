@@ -4,7 +4,7 @@ import { NormalContainer } from "@/components/layout/container/NomalContainer"
 export default function About() {
   return (
     <NormalContainer>
-      <article className="prose dark:prose-invert max-w-full">
+      <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium text-zinc-700">
         <h2>
           👋 About Me
         </h2>
