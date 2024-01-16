@@ -8,6 +8,8 @@
 		color-scheme: light;
 		--theme-bg: 0deg 0% 96%;
 		--theme-text: 203deg 11% 15%;
+    --waline-theme-color: #1d4ed8;
+    --waline-active-color: #1e40af;
 	}
 
 	@media (prefers-color-scheme: dark) {

@@ -76,6 +76,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
         meta={['nick', 'mail']}
         requiredMeta={['nick', 'mail']}
         imageUploader={false}
+        search={false}
         copyright={false}
         locale={{
           placeholder: '随便说点什么吧，不用登陆也可以直接留言'
