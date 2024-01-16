@@ -4,6 +4,7 @@ import { PostContainer } from '@/components/layout/container/PostContainer'
 import { Image } from '@/components/ui/img/Image'
 import { Heading1 ,Heading2 ,Heading3 } from '@/components/ui/heading/Heading'
 import { PostTree } from '@/components/ui/toc/PostTree'
+import { Comment } from '@/components/ui/comment/Comment'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { PostProvider } from '@/providers/post/PostProvider'
 
@@ -65,6 +66,20 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
         </article>
         <PostTree />
       </div>
+      <Comment
+        serverURL='https://waline.magren.cc'
+        path={'/' + params.slug}
+        emoji={[
+          '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/tw-emoji'
+        ]}
+        dark={'auto'}
+        meta={['nick', 'mail']}
+        requiredMeta={['nick', 'mail']}
+        imageUploader={false}
+        copyright={false}
+        locale={{
+          placeholder: '随便说点什么吧，不用登陆也可以直接留言'
+        }} />
     </PostContainer>
   )
 }
