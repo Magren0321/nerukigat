@@ -1,5 +1,6 @@
 import { format, parseISO } from 'date-fns'
 import { allPosts } from 'contentlayer/generated'
+import Link from 'next/link'
 import { PostContainer } from '@/components/layout/container/PostContainer'
 import { Image } from '@/components/ui/img/Image'
 import { Heading1 ,Heading2 ,Heading3 } from '@/components/ui/heading/Heading'
@@ -51,7 +52,8 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
   return (
     <PostContainer>
       <div className='relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid'>
-        <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium text-zinc-700">
+        <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium 
+        prose-code:whitespace-pre-wrap">
           <PostTitle {...post} />
           <PostProvider>
             <Component
@@ -65,6 +67,9 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
           </PostProvider>
         </article>
         <PostTree />
+      </div>
+      <div className='mt-4 text-sm font-mono opacity-50 hover:opacity-75'>
+        <Link href={'/posts'}>{'>'}<span className='border-solid border-b-2 border-b-[#000] ml-2 dark:border-b-[#fff]'>cd .. </span></Link>
       </div>
       <Comment
         serverURL='https://waline.magren.cc'
