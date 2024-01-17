@@ -1,5 +1,6 @@
 import { format, parseISO } from 'date-fns'
 import { allPosts } from 'contentlayer/generated'
+import Link from 'next/link'
 import { PostContainer } from '@/components/layout/container/PostContainer'
 import { Image } from '@/components/ui/img/Image'
 import { Heading1 ,Heading2 ,Heading3 } from '@/components/ui/heading/Heading'
@@ -66,6 +67,9 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
           </PostProvider>
         </article>
         <PostTree />
+      </div>
+      <div className='mt-4 text-sm font-mono opacity-50 hover:opacity-75'>
+        <Link href={'/posts'}>{'>'}<span className='border-solid border-b-2 border-b-[#000] ml-2 dark:border-b-[#fff]'>cd .. </span></Link>
       </div>
       <Comment
         serverURL='https://waline.magren.cc'

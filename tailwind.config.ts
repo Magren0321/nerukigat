@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        'sm': '580px', // => @media (min-width: 580px) { ... }
+      },
       colors:{
         bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
         textColor: "hsl(var(--theme-text) / <alpha-value>)",
