@@ -14,7 +14,7 @@ export default function About() {
         <h2>关于我</h2>
         <span>Hi，我是Magren，见字如晤，很高兴认识你。</span><br></br>
         <span>生于千禧，正值弱冠之年，已成为资深社畜，社恐 & ISTP-A，现在在<del>北京</del>南京某厂做前端开发，辛苦搬砖中。</span><br></br>
-        <span>生活简单无趣，尚未脱离低级趣味，但是有着一个可爱的女朋友🧚‍♀️，两只猫猫🐱（一只叫Crystal，一只叫Cookie，分别是银渐层和蓝白），<del>还有一只臭臭的狗🐶，</del>狗狗给妈妈带了，一天溜三次，一天吃八顿，它很开心。</span><br></br>
+        <span>生活简单无趣，尚未脱离低级趣味。</span><br></br>
         <span>在学习并且使用React, Vue, NextJs, TS, Node.js, Sass…</span><br></br>
         <span>同时喜欢折腾点别的，偶尔学习Electron, Swift, Android, React Native, Go...</span><br></br>
         <span>总是在自己折腾没用的 & 不有趣的玩具。</span>
