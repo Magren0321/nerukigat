@@ -7,7 +7,7 @@ export const NormalContainer = ( { children } : {children: React.ReactNode} ) =>
   return (
     <div
       className={clsx(
-        'mx-auto mt-14 max-w-2xl px-2 lg:mt-[80px] lg:px-0 mb-[80px]'
+        'mx-auto mt-14 max-w-2xl px-4 lg:mt-[80px] lg:px-0 mb-[80px] relative z-10'
       )}
     >
       <AnimateContainer>
