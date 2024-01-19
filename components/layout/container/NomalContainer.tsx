@@ -1,16 +1,18 @@
 import { clsx } from 'clsx'
 import React from 'react'
+import { AnimateContainer } from './AnimatieContainer'
+
 
 export const NormalContainer = ( { children } : {children: React.ReactNode} ) => {
-
   return (
     <div
       className={clsx(
-        'mx-auto mt-14 max-w-3xl px-2 lg:mt-[80px] lg:px-0 2xl:max-w-4xl mb-[80px]'
+        'mx-auto mt-14 max-w-2xl px-2 lg:mt-[80px] lg:px-0 mb-[80px]'
       )}
     >
-      {children}
-
+      <AnimateContainer>
+        {children}
+      </AnimateContainer>
     </div>
   )
 }
