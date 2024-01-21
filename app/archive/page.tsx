@@ -39,11 +39,11 @@ export default function Archive() {
                   dateMap[year].map((post, idx) => (
                     <div key={idx} className='mb-5'>
                       <div className='flex items-center justify-between text-gray-800/90 dark:text-gray-200/90'>
-                        <div className='font-mediu'>
+                        <div className='font-medium relative'>
                           <time dateTime={post.date} className='mr-3'>
                             {format(parseISO(post.date), 'MM/dd')}
                           </time>
-                          <Link href={post.url} >
+                          <Link href={post.url}>
                             <span>{post.title}</span>
                           </Link>
                         </div>
