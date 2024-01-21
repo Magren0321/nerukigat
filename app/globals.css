@@ -104,4 +104,16 @@
     background-color: #9f9f9f;
     -webkit-border-radius: 4px;
   }
+
+  .timeline-link{
+    transition: all 500ms ease;
+    background-image: linear-gradient(rgb(51,65,85),rgb(51,65,85));
+    background-size: 0% 1.5px;
+    background-repeat: no-repeat;
+    background-position: left 1.1em;
+    &:hover {
+      background-size: 100% 1.5px;
+      transition: all 250ms ease;
+    }
+  }
 }

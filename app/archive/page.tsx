@@ -17,7 +17,6 @@ export default function Archive() {
     dateMap[year].push(post);
   })
 
-
   const TimeHead = () =>{
     return (
       <header>
@@ -43,7 +42,7 @@ export default function Archive() {
                           <time dateTime={post.date} className='mr-3'>
                             {format(parseISO(post.date), 'MM/dd')}
                           </time>
-                          <Link href={post.url}>
+                          <Link href={post.url} className='relative timeline-link'>
                             <span>{post.title}</span>
                           </Link>
                         </div>
