@@ -27,5 +27,5 @@ export const Comment = (props: WalineOptions) => {
     walineInstanceRef.current?.update(props);
   }, [props]);
 
-  return <div className='mt-5 lg:mr-[200px]' ref={containerRef} />;
+  return <div className='mt-5' ref={containerRef} />;
 };

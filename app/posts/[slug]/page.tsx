@@ -65,27 +65,27 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
               }}
             />
           </PostProvider>
+          <div className='mt-4 text-sm font-mono opacity-50 prose-a:no-underline hover:opacity-75'>
+            <Link href={'/posts'}>{'>'}<span className='border-solid border-b-2 border-b-[#000] ml-2 dark:border-b-[#fff]'>cd .. </span></Link>
+          </div>
+          <Comment
+            serverURL='https://waline.magren.cc'
+            path={'/' + params.slug}
+            emoji={[
+              '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/tw-emoji'
+            ]}
+            dark={'auto'}
+            meta={['nick', 'mail']}
+            requiredMeta={['nick', 'mail']}
+            imageUploader={false}
+            search={false}
+            copyright={false}
+            locale={{
+              placeholder: '随便说点什么吧，不用登陆也可以直接留言'
+            }} />
         </article>
         <PostTree />
       </div>
-      <div className='mt-4 text-sm font-mono opacity-50 hover:opacity-75'>
-        <Link href={'/posts'}>{'>'}<span className='border-solid border-b-2 border-b-[#000] ml-2 dark:border-b-[#fff]'>cd .. </span></Link>
-      </div>
-      <Comment
-        serverURL='https://waline.magren.cc'
-        path={'/' + params.slug}
-        emoji={[
-          '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/tw-emoji'
-        ]}
-        dark={'auto'}
-        meta={['nick', 'mail']}
-        requiredMeta={['nick', 'mail']}
-        imageUploader={false}
-        search={false}
-        copyright={false}
-        locale={{
-          placeholder: '随便说点什么吧，不用登陆也可以直接留言'
-        }} />
     </PostContainer>
   )
 }

@@ -11,7 +11,7 @@ export const PostTree = () => {
     { rootMargin: `0% 0% -70% 0%` }
   )
   return (
-    <div className="sticky h-fit top-16 hidden lg:block pl-8 text-sm ">
+    <div className="sticky h-fit top-28 hidden lg:block pl-8 text-sm ">
       {headings.map((heading) => (
         <PostItem
           key={heading.id}
