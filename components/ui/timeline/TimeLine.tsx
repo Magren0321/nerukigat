@@ -27,7 +27,7 @@ export const TimeLine = ( { dateMap } : { dateMap : Record<string, Post[]> }) =>
                         {
                           post.tags.map((tag, idx) => (
                             <span key={idx}>
-                              {tag}
+                              <Link href={`/archive?tag=${tag}`}>{tag}</Link> 
                               {idx < post.tags.length - 1 ? ', ' : ''}
                             </span>
                           ))

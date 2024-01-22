@@ -33,9 +33,9 @@ const PostTitle =  ({ title , date , tags } : {
       <span> • </span>
       <span>
         {tags.map((tag) => (
-          <span key={tag} className="inline-block px-1 font-medium uppercase">
+          <Link key={tag} className="inline-block px-1 font-medium uppercase" href={`/archive?tag=${tag}`}>
             #{tag}
-          </span>
+          </Link>
         ))}
       </span>
     </div>
