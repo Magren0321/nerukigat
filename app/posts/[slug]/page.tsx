@@ -33,9 +33,9 @@ const PostTitle =  ({ title , date , tags } : {
       <span> • </span>
       <span>
         {tags.map((tag) => (
-          <span key={tag} className="inline-block px-1 font-medium uppercase">
+          <Link key={tag} className="inline-block px-1 font-medium uppercase" href={`/archive?tag=${tag}`}>
             #{tag}
-          </span>
+          </Link>
         ))}
       </span>
     </div>
@@ -52,20 +52,22 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
   return (
     <PostContainer>
       <div className='relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid'>
-        <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium 
-        prose-code:whitespace-pre-wrap">
-          <PostTitle {...post} />
-          <PostProvider>
-            <Component
-              components={{
-                img: Image,
-                h1: Heading1,
-                h2: Heading2,
-                h3: Heading3,
-              }}
-            />
-          </PostProvider>
-          <div className='mt-4 text-sm font-mono opacity-50 prose-a:no-underline hover:opacity-75'>
+        <div>
+          <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium 
+          prose-code:whitespace-pre-wrap">
+            <PostTitle {...post} />
+            <PostProvider>
+              <Component
+                components={{
+                  img: Image,
+                  h1: Heading1,
+                  h2: Heading2,
+                  h3: Heading3,
+                }}
+              />
+            </PostProvider>
+          </article>
+          <div className='mt-4 text-sm font-mono opacity-50  hover:opacity-75'>
             <Link href={'/posts'}>{'>'}<span className='border-solid border-b-2 border-b-[#000] ml-2 dark:border-b-[#fff]'>cd .. </span></Link>
           </div>
           <Comment
@@ -83,7 +85,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
             locale={{
               placeholder: '随便说点什么吧，不用登陆也可以直接留言'
             }} />
-        </article>
+          </div>
         <PostTree />
       </div>
     </PostContainer>
