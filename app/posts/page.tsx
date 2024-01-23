@@ -33,30 +33,28 @@ const PostCard = (post: Post) => {
         <div className='break-all leading-loose font-medium  text-gray-800/90 dark:text-gray-200/90 mb-5'>
           {post.description}
         </div>
-        <div className='flex justify-between items-center font-bold'>
-          <div className='flex mb-5 items-center text-xs text-gray-600 dark:text-gray-200'>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 mr-1">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-            <time dateTime={post.date} className='mr-3'>
-              {format(parseISO(post.date), 'LLLL d, yyyy')}
-            </time>
-            <div>
-              # 
-              {post.tags.map((tag, idx) => (
-                <span key={idx}>
-                  {tag}
-                  {idx < post.tags.length - 1 ? ', ' : ''}
-                </span>
-              ))}
-            </div>
+        <div className='flex mb-5 items-center text-xs text-gray-600 dark:text-gray-200 font-bold'>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 mr-1">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <time dateTime={post.date} className='mr-3'>
+            {format(parseISO(post.date), 'LLLL d, yyyy')}
+          </time>
+          <div>
+            # 
+            {post.tags.map((tag, idx) => (
+              <span key={idx}>
+                {tag}
+                {idx < post.tags.length - 1 ? ', ' : ''}
+              </span>
+            ))}
           </div>
-          <div className='flex items-center  text-blue-600 text-xs'>
-            阅读全文
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="ml-1 w-4 h-4">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-            </svg>
-          </div>
+        </div>
+        <div className='flex items-center font-bold  text-blue-600 text-xs justify-end'>
+          阅读全文
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="ml-1 w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+          </svg>
         </div>
       </div>
     </Link>
@@ -87,7 +85,7 @@ export default function Posts() {
     const { clientHeight, offsetTop } = e.currentTarget
     if (maskHeight === clientHeight && maskY === offsetTop) return
     setMaskHeight(clientHeight + 20)
-    setMaskY(offsetTop - 15)
+    setMaskY(offsetTop - 10)
   }
 
   const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
