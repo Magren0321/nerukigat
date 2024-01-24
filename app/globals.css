@@ -9,7 +9,6 @@
 		--theme-bg: 0deg 0% 96%;
 		--theme-text: 203deg 11% 15%;
 
-
     /* Waline */
     --waline-font-size: 16px;
     /* Common color */
@@ -115,5 +114,9 @@
       background-size: 100% 1.5px;
       transition: all 250ms ease;
     }
+  }
+
+  .filter-bg{
+    @apply shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md  bg-gradient-to-b from-zinc-50/70 to-white/90 dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10;
   }
 }
