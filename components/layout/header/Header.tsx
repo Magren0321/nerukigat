@@ -1,8 +1,12 @@
 'use client'
 
 import { NavigationBar } from "./NavigationBar"
+import { Dialog } from "@/components/ui/dialog/Dialog"
+import { Navigation } from "@/components/layout/header/TabNavigation"
 import Image from "next/image"
+import { AnimatePresence , motion } from "framer-motion"
 import { useEffect, useState } from "react"
+
 import clsx from "clsx"
 
 export const Header = () =>{
@@ -10,6 +14,7 @@ export const Header = () =>{
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
+    setIsShow(window.scrollY > 80);
     const handleScroll = () => {
       setIsShow(window.scrollY > 80);
     };
@@ -21,20 +26,31 @@ export const Header = () =>{
 
 
   return (
-    <div className={clsx(
-      'py-2 sticky top-0 z-[999] px-5 transition-all duration-5000',
-      isShow ? 'filter-bg' : '',
-    )}>
-      <div className="flex justify-center items-center max-w-4xl mx-auto">
-        <Image src={'/avatar.png'} width={40} height={40} alt='avatar' className="rounded-full"/>
-        <div className="flex-1 ml-[-40px] hidden lg:block">
-          <NavigationBar className={ !isShow ? 'filter-bg' : '' } />
+    <div className="sticky top-0 z-[999]">
+      <div className={clsx(
+        'py-2 w-full  px-5 transition-all duration-5000',
+        isShow ? 'filter-bg' : '',
+      )}>
+        <div className="flex justify-center items-center max-w-4xl mx-auto">
+          <Image src={'/avatar.png'} width={40} height={40} alt='avatar' className="rounded-full mr-auto"/>
+          <div className="flex-1 ml-[-40px] hidden lg:block">
+            <NavigationBar className={ !isShow ? 'filter-bg' : '' } />
+          </div>
         </div>
-        <div className="lg:hidden ml-auto h-[40px] w-[40px] rounded-full flex justify-center items-center bg-white border border-zinc-200 dark:bg-zinc-800">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[20px] h-[20px]">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
-          </svg>
-        </div>
+      </div>
+      <div className="lg:hidden ml-auto fixed top-5 right-5">
+        <Dialog>
+          <AnimatePresence mode="wait">
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -50, opacity: 0 }}
+              transition={{ duration: 0.5  }}
+            >
+              <Navigation/>
+            </motion.div>
+          </AnimatePresence>
+        </Dialog>
       </div>
     </div>
   )
