@@ -1,6 +1,7 @@
-import { ReactNode, useEffect, useState } from "react";
-import { motion, useCycle } from "framer-motion";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { MenuToggle } from "./MenuToggle";
+import { DialogProvider , DialogContext} from "@/providers/dialog/DialogProvider";
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -21,13 +22,18 @@ const sidebar = {
   }
 };
 
-export const Dialog = ( { children } : { children: ReactNode }) => {
-  const [isOpen, toggleOpen] = useCycle(false, true);
+const DialogContent = ( { children } : { children: ReactNode }) =>{
   const [clientHeight, setClientHeight] = useState(0);
+
+  const {
+    isOpen,
+    updateIsOpen
+  } = useContext(DialogContext);
 
   useEffect(() => {
     setClientHeight(document.body.clientHeight);
   },[])
+
   return (
     <motion.nav
       initial={false}
@@ -37,7 +43,18 @@ export const Dialog = ( { children } : { children: ReactNode }) => {
       <motion.div className="fixed bg-white dark:bg-zinc-800  top-0 left-0 bottom-0 right-0" custom={clientHeight} variants={sidebar} >
         { isOpen && children }
       </motion.div>
-      <MenuToggle toggle={() => toggleOpen()} />
+      <MenuToggle toggle={() => updateIsOpen()} />
     </motion.nav>
+  )
+
+}
+
+export const Dialog = ( { children } : { children: ReactNode }) => {
+  return (
+    <DialogProvider>
+      <DialogContent>
+        {children}
+      </DialogContent>
+    </DialogProvider>
   );
 };

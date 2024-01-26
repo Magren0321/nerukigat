@@ -1,5 +1,5 @@
 import * as React from "react"
-
+import { DialogContext } from "@/providers/dialog/DialogProvider";
 import Link from 'next/link'
 
 
@@ -22,18 +22,24 @@ const navigationItems = [
   },
 ]
 
-export const Navigation = () => (
-  <div className="mt-[calc(1.25rem-5px)] ml-5">
+export const Navigation = () => {
+  const {
+    updateIsOpen
+  } = React.useContext(DialogContext);
+  
+  return (
+    <div className="mt-[calc(1.25rem-5px)] ml-5">
     <div className="font-bold text-xl">站内导航</div>
     <ul className="flex flex-col mt-10">
       {
         navigationItems.map(({ href, text }) => (
-          <Link href={href} key={href}>
+          <Link href={href} key={href} onClick={updateIsOpen}>
             {text}
           </Link>
         ))
       }
     </ul>
   </div>
-);
+  )
+}
 
