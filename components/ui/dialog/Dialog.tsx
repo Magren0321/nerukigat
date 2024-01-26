@@ -1,10 +1,10 @@
-import * as React from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { motion, useCycle } from "framer-motion";
 import { MenuToggle } from "./MenuToggle";
 
 const sidebar = {
   open: (height = 1000) => ({
-    clipPath: `circle(${height + 100}px at calc(100% - 1.25rem - 20px) calc(1.25rem + 10px))`,
+    clipPath: `circle(${height*2}px at calc(100% - 1.25rem - 20px) calc(1.25rem + 10px))`,
     transition: {
       type: "spring",
       stiffness: 40,
@@ -21,14 +21,13 @@ const sidebar = {
   }
 };
 
-export const Dialog = ( { children } : { children: React.ReactNode }) => {
+export const Dialog = ( { children } : { children: ReactNode }) => {
   const [isOpen, toggleOpen] = useCycle(false, true);
-  const [clientHeight, setClientHeight] = React.useState(0);
+  const [clientHeight, setClientHeight] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setClientHeight(document.body.clientHeight);
   },[])
-
   return (
     <motion.nav
       initial={false}
@@ -39,7 +38,6 @@ export const Dialog = ( { children } : { children: React.ReactNode }) => {
         { isOpen && children }
       </motion.div>
       <MenuToggle toggle={() => toggleOpen()} />
-      
     </motion.nav>
   );
 };
