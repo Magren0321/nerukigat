@@ -40,7 +40,7 @@ const DialogContent = ( { children } : { children: ReactNode }) =>{
       animate={isOpen ? "open" : "closed"}
       className="flex justify-center items-center h-full z-10"
     >
-      <motion.div className="fixed bg-white dark:bg-zinc-800  top-0 left-0 bottom-0 right-0" custom={clientHeight} variants={sidebar} >
+      <motion.div className="fixed bg-white dark:bg-zinc-800 top-0 left-0 bottom-0 right-0" custom={clientHeight} variants={sidebar} >
         { isOpen && children }
       </motion.div>
       <MenuToggle toggle={() => updateIsOpen()} />
