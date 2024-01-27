@@ -28,12 +28,12 @@ export const Navigation = () => {
   } = React.useContext(DialogContext);
   
   return (
-    <div className="mt-[calc(1.25rem-5px)] ml-5">
+    <div className="mt-[calc(1.25rem-3px)] mx-5 dark:text-zinc-200">
     <div className="font-bold text-xl">站内导航</div>
     <ul className="flex flex-col mt-10">
       {
         navigationItems.map(({ href, text }) => (
-          <Link href={href} key={href} onClick={updateIsOpen}>
+          <Link href={href} key={href} onClick={updateIsOpen} className="mb-7 font-semibold text-lg border-dashed border-b-2 pb-2 ">
             {text}
           </Link>
         ))

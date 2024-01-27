@@ -3,7 +3,6 @@ import { SVGMotionProps, motion } from "framer-motion";
 
 const Path = (props: React.JSX.IntrinsicAttributes & SVGMotionProps<SVGPathElement> & React.RefAttributes<SVGPathElement>) => (
   <motion.path
-    fill="transparent"
     strokeWidth="3"
     stroke="hsl(0, 0%, 18%)"
     strokeLinecap="round"
@@ -12,7 +11,7 @@ const Path = (props: React.JSX.IntrinsicAttributes & SVGMotionProps<SVGPathEleme
 );
 
 export const MenuToggle = ({ toggle }: { toggle: () => void }) => (
-  <button onClick={toggle} className="z-10 mr-[10px] ">
+  <button onClick={toggle} className="z-10 mr-[10px]">
     <svg width="20" height="20" viewBox="0 0 20 20">
       <Path
         variants={{
