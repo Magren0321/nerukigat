@@ -11,6 +11,7 @@ export const DialogProvider = ({ children }: { children: React.ReactNode}) => {
 
   const updateIsOpen = () => {
     setIsOpen(!isOpen);
+    document.body.style.overflow = isOpen ? "auto" : "hidden";
   };
 
   return (
