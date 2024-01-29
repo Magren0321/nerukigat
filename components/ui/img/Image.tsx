@@ -11,7 +11,7 @@ import { Spinner } from '@/components/ui/spinner'
 export const Image = (props: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
   const [isReady, setIsReady] = useState(false)
   return (
-    <span className='relative'>
+    <span className='relative block'>
       <PhotoProvider>
         <PhotoView src={props.src}>
             <NextImage

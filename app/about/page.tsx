@@ -4,7 +4,7 @@ import { PostContainer } from "@/components/layout/container/PostContainer"
 export default function About() {
   return (
     <PostContainer>
-      <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium text-zinc-700">
+      <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium ">
         <h2>
           👋 About Me
         </h2>
