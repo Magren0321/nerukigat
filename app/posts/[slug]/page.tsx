@@ -53,7 +53,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
     <PostContainer>
       <div className='relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid'>
         <div>
-          <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium 
+          <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans  text-zinc-900 dark:text-zinc-200
           prose-code:whitespace-pre-wrap">
             <PostTitle {...post} />
             <PostProvider>
