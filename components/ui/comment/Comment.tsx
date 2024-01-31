@@ -17,6 +17,18 @@ export const Comment = (props: WalineOptions) => {
   useEffect(() => {
     walineInstanceRef.current = init({
       ...props,
+      emoji:[
+        '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/tw-emoji'
+      ],
+      dark:'auto',
+      meta:['nick', 'mail'],
+      requiredMeta:['nick', 'mail'],
+      imageUploader:false,
+      search:false,
+      copyright:false,
+      locale:{
+        placeholder: '随便说点什么吧，不用登陆也可以直接留言'
+      },
       el: containerRef.current,
     });
 
