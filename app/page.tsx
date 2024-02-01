@@ -1,9 +1,12 @@
 
+import { PostContainer } from "@/components/layout/container/PostContainer"
 
 export default function Home() {
   return (
     <main>
-      test
+      <PostContainer>
+        test
+      </PostContainer>
     </main>
   )
 }

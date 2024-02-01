@@ -92,7 +92,7 @@ const Nav = ({
       {...props}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-10"
         style={{ background }}
         aria-hidden="true"
       />
