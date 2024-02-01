@@ -53,7 +53,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
     <PostContainer>
       <div className='relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid'>
         <div>
-          <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans font-medium 
+          <article className="prose dark:prose-invert max-w-full text-sm/7 font-sans  text-zinc-900 dark:text-zinc-200
           prose-code:whitespace-pre-wrap">
             <PostTitle {...post} />
             <PostProvider>
@@ -70,21 +70,9 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
           <div className='mt-4 text-sm font-mono opacity-50  hover:opacity-75'>
             <Link href={'/posts'}>{'>'}<span className='border-solid border-b-2 border-b-[#000] ml-2 dark:border-b-[#fff]'>cd .. </span></Link>
           </div>
-          <Comment
-            serverURL='https://waline.magren.cc'
+          <Comment 
             path={'/' + params.slug}
-            emoji={[
-              '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/tw-emoji'
-            ]}
-            dark={'auto'}
-            meta={['nick', 'mail']}
-            requiredMeta={['nick', 'mail']}
-            imageUploader={false}
-            search={false}
-            copyright={false}
-            locale={{
-              placeholder: '随便说点什么吧，不用登陆也可以直接留言'
-            }} />
+            serverURL={'https://waline.magren.cc'}/>
           </div>
         <PostTree />
       </div>
