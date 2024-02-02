@@ -8,7 +8,7 @@ export function Avatar(){
     <motion.div
       transition={{ duration: 0.5 }}
       whileHover={{ rotate: 360 }}
-      className='lg:h-[300px] lg:w-[300px] h-[100px] w-[100px] '
+      className='lg:h-[300px] lg:w-[300px] h-[150px] w-[150px] '
     >
       <Image
         height={300}

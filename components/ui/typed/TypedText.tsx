@@ -6,8 +6,10 @@ import { useEffect } from 'react'
 export function TypedText(){
   useEffect(() => {
     const poetry = [
-      '一个前端开发工程师',
+      '我是一个前端开发工程师',
       '总是在做没用也不好玩的东西',
+      '也是游戏玩家',
+      '想成为一个有趣的人'
     ]
     const typed = new Typed('.typed', {
       strings: poetry,
