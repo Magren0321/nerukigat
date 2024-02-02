@@ -48,6 +48,7 @@ export default function About() {
           <li>Github: <a target="_blank" href="https://github.com/Magren0321" >Magren0321</a></li>
           <li>Twitter: <a target="_blank"  href="https://twitter.com/Magren_lin">Magren</a></li>
           <li>Telegram: <a target="_blank"  href="https://t.me/Magren_lin" >Magren</a></li>
+          <li>Bilibili: <a target="_blank" href="https://space.bilibili.com/12031307">Magren</a></li>
           <li>E-mail: <a  target="_blank" href="mailto:zhuhenglin21@gmail.com" >zhuhenglin21@gmail.com</a></li>
         </ul>
         <div>

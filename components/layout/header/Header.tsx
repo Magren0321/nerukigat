@@ -33,7 +33,7 @@ export const Header = () =>{
         isShow ? 'filter-bg' : '',
       )}>
         <div className="flex justify-center items-center max-w-4xl mx-auto">
-          <Link href='/' className="mr-auto">
+          <Link href='/' className="mr-auto z-0 lg:z-[5]">
             <Image src={'/avatar.png'} width={40} height={40} alt='avatar' className="rounded-full"/>
           </Link>
           <div className="flex-1 ml-[-40px] hidden lg:block">
