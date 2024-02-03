@@ -26,7 +26,7 @@ const FriendCard = (data : {
 
 const AddFriendRead = () => {
   return (
-    <div className="mt-5 prose dark:prose-invert text-textColor mb-20 max-w-full">
+    <div className="mt-5 prose dark:prose-invert text-textColor mb-12 max-w-full">
       <h1 className="font-bold text-lg mb-5">友链申请</h1>
       <div className="mb-5 text-sm">
         <span>如果你想和我交换友链，可以在下方留言或者<a href="mailto:zhuhenglin21@gmail.com">发送邮件</a>给我，我将会在审核后添加你的博客到友链，留言格式如下：</span>

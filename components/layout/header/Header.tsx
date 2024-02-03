@@ -4,6 +4,7 @@ import { NavigationBar } from "./NavigationBar"
 import { Dialog } from "@/components/ui/dialog/Dialog"
 import { Navigation } from "@/components/layout/header/TabNavigation"
 import Image from "next/image"
+import Link from "next/link"
 import { AnimatePresence , motion } from "framer-motion"
 import { useEffect, useState } from "react"
 
@@ -32,7 +33,9 @@ export const Header = () =>{
         isShow ? 'filter-bg' : '',
       )}>
         <div className="flex justify-center items-center max-w-4xl mx-auto">
-          <Image src={'/avatar.png'} width={40} height={40} alt='avatar' className="rounded-full mr-auto"/>
+          <Link href='/' className="mr-auto z-0 lg:z-[5]">
+            <Image src={'/avatar.png'} width={40} height={40} alt='avatar' className="rounded-full"/>
+          </Link>
           <div className="flex-1 ml-[-40px] hidden lg:block">
             <NavigationBar className={ !isShow ? 'filter-bg' : '' } />
           </div>

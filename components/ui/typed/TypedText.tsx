@@ -1,16 +1,21 @@
+'use client'
+
 import Typed from 'typed.js';
 import { useEffect } from 'react'
 
-export default function TypedText(){
+export function TypedText(){
   useEffect(() => {
-    const poetry = ['']
+    const poetry = [
+      '我是一个前端开发工程师',
+      '总是在做没用也不好玩的东西',
+      '也是游戏玩家',
+      '想成为一个有趣的人'
+    ]
     const typed = new Typed('.typed', {
       strings: poetry,
-      typeSpeed: 60,
+      typeSpeed: 40,
       backSpeed: 60,
       startDelay: 600,
-      backDelay: 10000,
-      shuffle: true,
       loop: true,
     })
     return () => typed.destroy()
