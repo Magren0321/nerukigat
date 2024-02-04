@@ -7,7 +7,7 @@ const socialLinks: Array<{
 	link: string;
 }> = [
 	{
-		name: "icon-[mdi--github] text-black", 
+		name: "icon-[mdi--github] text-black dark:text-white", 
 		friendlyName: "Github",
 		link: "https://github.com/Magren0321",
 	},
@@ -40,7 +40,7 @@ const socialLinks: Array<{
 
 export const SocialList = () => {
   return(
-    <div className="flex space-x-4 mt-10">
+    <div className="flex space-x-4 mt-14">
       {socialLinks.map((social) => {
         return (
           <Link
