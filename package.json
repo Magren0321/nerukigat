@@ -21,6 +21,8 @@
     "typed.js": "^2.1.0"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.179",
+    "@iconify/tailwind": "^0.1.4",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20",
     "@types/react": "^18",

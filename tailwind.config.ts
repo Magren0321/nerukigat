@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
+import { addDynamicIconSelectors } from '@iconify/tailwind';
 
 const config: Config = {
   content: [
@@ -24,7 +25,8 @@ const config: Config = {
     },
   },
   plugins: [
-    typography
+    typography,
+    addDynamicIconSelectors(),
   ],
 }
 export default config
