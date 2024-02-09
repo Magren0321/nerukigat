@@ -7,12 +7,12 @@ const socialLinks: Array<{
 	link: string;
 }> = [
 	{
-		name: "icon-[mdi--github] text-black dark:text-white", 
+		name: "icon-[fa-brands--github-square]", 
 		friendlyName: "Github",
 		link: "https://github.com/Magren0321",
 	},
   {
-    name: "icon-[ant-design--twitter-circle-filled] text-[#00acee]",
+    name: "icon-[fa6-brands--square-x-twitter]",
     friendlyName: "Twitter",
     link: "https://twitter.com/Magren_lin",
   },
