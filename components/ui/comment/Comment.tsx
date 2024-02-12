@@ -22,7 +22,6 @@ export const Comment = (props: WalineOptions) => {
       ],
       dark:'auto',
       meta:['nick', 'mail'],
-      requiredMeta:['nick', 'mail'],
       imageUploader:false,
       search:false,
       copyright:false,
