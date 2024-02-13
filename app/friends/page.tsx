@@ -12,7 +12,7 @@ const FriendCard = (data : {
   desc: string
 }) => {
   return (
-    <Link className="rounded-lg flex px-3 py-4 bg-zinc-200 dark:bg-zinc-600 mb-3 break-inside-avoid" href={data.link}>
+    <Link className="rounded-lg flex px-3 py-4 bg-zinc-200/45  dark:bg-zinc-600 mb-3 break-inside-avoid" href={data.link}>
       <img className="rounded-lg h-14 w-14" src={data.avatar} alt={data.name} />
       <div className="ml-3 h-fit flex flex-col justify-between ">
         <div className="font-bold">{data.name}</div>
