@@ -19,7 +19,7 @@ const friendData: FriendItem[] = [
   },{
     name : '静かな森',
     link: 'https://innei.in/',
-    avatar: 'https://avatars.githubusercontent.com/u/41265413?v=4',
+    avatar: 'https://github.com/Innei/static/blob/master/avatar.png?raw=true',
     desc: '致虚极，守静笃。'
   },{
     name: '折影轻梦',
