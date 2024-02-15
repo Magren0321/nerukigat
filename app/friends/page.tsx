@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+'use client'
+
 import { NormalContainer } from "@/components/layout/container/NomalContainer"
 import Link from "next/link"
+import { useState , useRef, useEffect } from "react"
+import clsx from "clsx"
 import { Comment } from "@/components/ui/comment/Comment"
 import friendData from "./config"
 
@@ -11,9 +15,26 @@ const FriendCard = (data : {
   avatar: string,
   desc: string
 }) => {
+  const [isReady, setIsReady] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    if (imgRef.current && imgRef.current.complete) {
+      setIsReady(true)
+    }
+  },[])
+  
   return (
-    <Link className="rounded-lg flex px-3 py-4 bg-zinc-200/45  dark:bg-zinc-600 mb-3 break-inside-avoid" href={data.link}>
-      <img className="rounded-lg h-14 w-14" src={data.avatar} alt={data.name} />
+    <Link className="rounded-lg relative flex px-3 py-4 bg-zinc-200/45  dark:bg-zinc-600 mb-3 break-inside-avoid" href={data.link}>
+      <img className={clsx('rounded-lg h-14 w-14 opacity-0 transition-opacity duration-500', isReady && 'opacity-100')} 
+        src={data.avatar} 
+        ref={imgRef}
+        alt={data.name}
+        onLoad={() => setIsReady(true)}
+        onError={() => setIsReady(false)} />
+      {
+        !isReady && <div className="w-14 h-14 absolute left-3 top-4 bg-zinc-300 dark:bg-zinc-8  00 animate-pulse rounded-lg"></div>
+      }
       <div className="ml-3 h-fit flex flex-col justify-between ">
         <div className="font-bold">{data.name}</div>
         <div className="mt-3 break-all text-wrap">
