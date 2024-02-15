@@ -31,6 +31,11 @@ const friendData: FriendItem[] = [
     link: 'https://blog.meta-code.top/',
     avatar: 'https://avatars.githubusercontent.com/u/81922999?v=4',
     desc: '星河滚烫，无问西东'
+  },{
+    name: 'Lakphy',
+    link: 'https://lakphy.me/',
+    avatar: 'https://lakphy.me/avatar.webp',
+    desc: 'Lakphy的个人博客'
   }
 ];
 
