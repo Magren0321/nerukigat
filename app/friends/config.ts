@@ -36,6 +36,11 @@ const friendData: FriendItem[] = [
     link: 'https://lakphy.me/',
     avatar: 'https://lakphy.me/avatar.webp',
     desc: 'Lakphy的个人博客'
+  },{
+    name: '🌹Dominic·KK🌹',
+    link: 'https://blog.dominickk.top/',
+    avatar: 'http://dominickk.oss-cn-hangzhou.aliyuncs.com/typora/2023/11/dominic.jpg',
+    desc: '写文档使我快乐🍺'
   }
 ];
 
