@@ -41,6 +41,11 @@ const friendData: FriendItem[] = [
     link: 'https://blog.dominickk.top/',
     avatar: 'https://dominickk.oss-cn-hangzhou.aliyuncs.com/typora/2023/11/dominic.jpg',
     desc: '写文档使我快乐🍺'
+  },{
+    name: 'cosの博客',
+    link: 'https://ysx.cosine.ren/',
+    avatar: 'https://ysx.cosine.ren/img/avatar.jpg',
+    desc: 'WA的一声就哭了'
   }
 ];
 
