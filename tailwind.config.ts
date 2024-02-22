@@ -1,6 +1,6 @@
-import type { Config } from 'tailwindcss'
-import typography from '@tailwindcss/typography'
 import { addDynamicIconSelectors } from '@iconify/tailwind';
+import typography from '@tailwindcss/typography';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -11,11 +11,11 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        'sm': '580px', // => @media (min-width: 580px) { ... }
+        sm: '580px', // => @media (min-width: 580px) { ... }
       },
-      colors:{
-        bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
-        textColor: "hsl(var(--theme-text) / <alpha-value>)",
+      colors: {
+        bgColor: 'hsl(var(--theme-bg) / <alpha-value>)',
+        textColor: 'hsl(var(--theme-text) / <alpha-value>)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -24,9 +24,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    typography,
-    addDynamicIconSelectors(),
-  ],
-}
-export default config
+  plugins: [typography, addDynamicIconSelectors()],
+};
+export default config;

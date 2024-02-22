@@ -1,105 +1,120 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
+'use client';
 
-import { NormalContainer } from "@/components/layout/container/NomalContainer"
-import Link from "next/link"
-import { useState , useRef, useEffect } from "react"
-import clsx from "clsx"
-import { Comment } from "@/components/ui/comment/Comment"
-import friendData from "./config"
+import { NormalContainer } from '@/components/layout/container/NomalContainer';
+import { Comment } from '@/components/ui/comment/Comment';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import friendData from './config';
 
-
-const FriendCard = (data : {
-  name: string,
-  link: string,
-  avatar: string,
-  desc: string
+const FriendCard = (data: {
+  name: string;
+  link: string;
+  avatar: string;
+  desc: string;
 }) => {
-  const [isReady, setIsReady] = useState(false)
-  const imgRef = useRef<HTMLImageElement>(null)
+  const [isReady, setIsReady] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     if (imgRef.current && imgRef.current.complete) {
-      setIsReady(true)
+      setIsReady(true);
     }
-  },[])
-  
+  }, []);
+
   return (
-    <Link className="rounded-lg relative flex px-3 py-4 bg-zinc-200/45  dark:bg-zinc-600 mb-3 break-inside-avoid" href={data.link}>
-      <img className={clsx('rounded-lg h-14 w-14 opacity-0 transition-opacity duration-500', isReady && 'opacity-100')} 
-        src={data.avatar} 
+    <Link
+      className="relative mb-3 flex break-inside-avoid rounded-lg bg-zinc-200/45  px-3 py-4 dark:bg-zinc-600"
+      href={data.link}
+    >
+      <img
+        className={clsx(
+          'h-14 w-14 rounded-lg opacity-0 transition-opacity duration-500',
+          isReady && 'opacity-100'
+        )}
+        src={data.avatar}
         ref={imgRef}
         alt={data.name}
         onLoad={() => setIsReady(true)}
-        onError={() => setIsReady(false)} />
-      {
-        !isReady && <div className="w-14 h-14 absolute left-3 top-4 bg-zinc-300 dark:bg-zinc-8  00 animate-pulse rounded-lg"></div>
-      }
-      <div className="ml-3 h-fit flex flex-col justify-between ">
+        onError={() => setIsReady(false)}
+      />
+      {!isReady && (
+        <div className="dark:bg-zinc-8 00 absolute left-3 top-4 h-14 w-14  animate-pulse rounded-lg bg-zinc-300"></div>
+      )}
+      <div className="ml-3 flex h-fit flex-col justify-between ">
         <div className="font-bold">{data.name}</div>
-        <div className="mt-3 break-all text-wrap">
-          {data.desc}
-        </div>
+        <div className="mt-3 text-wrap break-all">{data.desc}</div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
 const AddFriendRead = () => {
   return (
-    <div className="mt-5 prose dark:prose-invert text-textColor mb-12 max-w-full">
-      <h1 className="font-bold text-lg mb-5">友链申请</h1>
+    <div className="prose mb-12 mt-5 max-w-full text-textColor dark:prose-invert">
+      <h1 className="mb-5 text-lg font-bold">友链申请</h1>
       <div className="mb-5 text-sm">
-        <span>如果你想和我交换友链，可以在下方留言或者<a href="mailto:zhuhenglin21@gmail.com">发送邮件</a>给我，我将会在审核后添加你的博客到友链，留言格式如下：</span>
+        <span>
+          如果你想和我交换友链，可以在下方留言或者
+          <a href="mailto:zhuhenglin21@gmail.com">发送邮件</a>
+          给我，我将会在审核后添加你的博客到友链，留言格式如下：
+        </span>
         <ul className="font-bold">
           <li>name: 博客名字</li>
           <li>link: 博客地址</li>
           <li>desc: 站点的描述</li>
           <li>avatar: 头像/图片的永久链接</li>
         </ul>
-        <span className="font-bold">你申请友链无需将我的博客添加至你博客友链，但如果你想添加我的博客至友链可以参考以下信息：</span>
+        <span className="font-bold">
+          你申请友链无需将我的博客添加至你博客友链，但如果你想添加我的博客至友链可以参考以下信息：
+        </span>
         <ul>
           <li>name: Magren&#39;s Blog</li>
-          <li>link: <a href='https://magren.cc'>https://magren.cc</a></li>
+          <li>
+            link: <a href="https://magren.cc">https://magren.cc</a>
+          </li>
           <li>desc: 不为繁华易匠心</li>
-          <li>avatar: <a href="/avatar.png">头像地址</a></li>
+          <li>
+            avatar: <a href="/avatar.png">头像地址</a>
+          </li>
         </ul>
-        <span className="font-bold">出于对彼此的尊重，我希望你的博客至少：</span>
+        <span className="font-bold">
+          出于对彼此的尊重，我希望你的博客至少：
+        </span>
         <ul className="font-bold">
-          <li>不存在过多的广告，不包含政治敏感以及违法内容，不过于煽动，符合大多数人的道德标准</li>
+          <li>
+            不存在过多的广告，不包含政治敏感以及违法内容，不过于煽动，符合大多数人的道德标准
+          </li>
           <li>保证大部分内容原创，以及转载注明出处</li>
           <li>Love & Peace</li>
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default function Friends(){
+export default function Friends() {
   return (
     <NormalContainer>
-      <h1 className="font-bold text-xl mb-10">天下快意之事莫若友,快友之事莫若谈</h1>
-      {
-        friendData.length === 0 ? (
-          <div className="text-center font-bold  border-dashed border-b-2 py-20">
-            暂无友链，快来跟我申请吧
-          </div>
-        ) : (
-          <div className="columns-1 lg:columns-2 border-dashed border-b-2 pb-10">
-            {friendData.map((item, index) => {
-              return (
-                <FriendCard key={index} {...item} />
-              )
-            })}
-          </div>
-        )
-      }
+      <h1 className="mb-10 text-xl font-bold">
+        天下快意之事莫若友,快友之事莫若谈
+      </h1>
+      {friendData.length === 0 ? (
+        <div className="border-b-2 border-dashed  py-20 text-center font-bold">
+          暂无友链，快来跟我申请吧
+        </div>
+      ) : (
+        <div className="columns-1 border-b-2 border-dashed pb-10 lg:columns-2">
+          {friendData.map((item, index) => {
+            return <FriendCard key={index} {...item} />;
+          })}
+        </div>
+      )}
       <footer>
         <AddFriendRead />
-        <Comment 
-          path={'/friends'}
-          serverURL={'https://waline.magren.cc'}/>
+        <Comment path={'/friends'} serverURL={'https://waline.magren.cc'} />
       </footer>
     </NormalContainer>
-  )
+  );
 }

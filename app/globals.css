@@ -4,10 +4,10 @@
 @import '@waline/client/style';
 
 @layer base {
-	:root {
-		color-scheme: light;
-		--theme-bg: 0deg 0% 96%;
-		--theme-text: 203deg 11% 15%;
+  :root {
+    color-scheme: light;
+    --theme-bg: 0deg 0% 96%;
+    --theme-text: 203deg 11% 15%;
 
     /* Waline */
     --waline-font-size: 16px;
@@ -39,45 +39,48 @@
     --waline-avatar-radius: 50%;
     --waline-box-shadow: none;
 
-    .wl-sort, .wl-like, .wl-meta{
+    .wl-sort,
+    .wl-like,
+    .wl-meta {
       @apply hidden;
     }
-    .wl-panel{
+    .wl-panel {
       @apply border-0  bg-transparent font-medium;
     }
-    .wl-header{
+    .wl-header {
       @apply border-0;
-      input{
+      input {
         @apply bg-transparent;
-        &:focus{
+        &:focus {
           @apply bg-transparent;
         }
       }
     }
-    .wl-header-item{
-      @apply rounded-lg bg-gray-200/50 dark:bg-zinc-700/50 border-none;
-      &:first-child{
-        @apply mr-0 mb-5 sm:mr-5 sm:mb-0;
+    .wl-header-item {
+      @apply rounded-lg border-none bg-gray-200/50 dark:bg-zinc-700/50;
+      &:first-child {
+        @apply mb-5 mr-0 sm:mb-0 sm:mr-5;
       }
     }
-    .wl-editor{
-      @apply rounded-lg bg-gray-200/50 dark:bg-zinc-700/50  mt-5 p-5 box-border;
-      &:focus{
+    .wl-editor {
+      @apply mt-5 box-border rounded-lg  bg-gray-200/50 p-5 dark:bg-zinc-700/50;
+      &:focus {
         @apply bg-none;
       }
     }
-	}
+  }
 
-	html, body {
-		@apply relative mx-auto h-full bg-bgColor text-textColor antialiased scroll-smooth;
-	}
+  html,
+  body {
+    @apply relative mx-auto h-full scroll-smooth bg-bgColor text-textColor antialiased;
+  }
   ::-webkit-scrollbar-thumb:horizontal {
     width: 5px;
     background-color: transparent;
     -webkit-border-radius: 6px;
   }
   ::-webkit-scrollbar-track-piece {
-    background-color: transparent; 
+    background-color: transparent;
     -webkit-border-radius: 0;
   }
   ::-webkit-scrollbar {
@@ -96,9 +99,9 @@
     -webkit-border-radius: 4px;
   }
 
-  .timeline-link{
+  .timeline-link {
     transition: all 500ms ease;
-    background-image: linear-gradient(rgb(51,65,85),rgb(51,65,85));
+    background-image: linear-gradient(rgb(51, 65, 85), rgb(51, 65, 85));
     background-size: 0% 1.5px;
     background-repeat: no-repeat;
     background-position: left 1.1em;
@@ -108,8 +111,8 @@
     }
   }
 
-  .filter-bg{
-    @apply shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md  bg-gradient-to-b from-zinc-50/70 to-white/90 dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10;
+  .filter-bg {
+    @apply bg-gradient-to-b from-zinc-50/70 to-white/90 shadow-lg shadow-zinc-800/5  ring-1 ring-zinc-900/5 backdrop-blur-md dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -118,8 +121,8 @@
       --theme-bg: 210deg 6% 12%;
       --theme-text: 220deg 3% 95%;
     }
-    .timeline-link{
-      background-image: linear-gradient(rgb(203 213 225),rgb(203 213 225));
+    .timeline-link {
+      background-image: linear-gradient(rgb(203 213 225), rgb(203 213 225));
     }
   }
 }

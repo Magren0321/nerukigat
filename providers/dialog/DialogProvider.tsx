@@ -1,4 +1,3 @@
-
 import React, { createContext, useState } from 'react';
 
 export const DialogContext = createContext({
@@ -6,12 +5,12 @@ export const DialogContext = createContext({
   updateIsOpen: () => {},
 });
 
-export const DialogProvider = ({ children }: { children: React.ReactNode}) => {
-  const [isOpen,setIsOpen] = useState(false);
+export const DialogProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const updateIsOpen = () => {
     setIsOpen(!isOpen);
-    document.body.style.overflow = isOpen ? "auto" : "hidden";
+    document.body.style.overflow = isOpen ? 'auto' : 'hidden';
   };
 
   return (

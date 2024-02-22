@@ -1,29 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-export const useScroll = (
-  ids: string[],
-  options: IntersectionObserverInit
-) => {
-  const [activeId, setActiveId] = React.useState<string>()
-  const observer = React.useRef<IntersectionObserver | null>(null)
+export const useScroll = (ids: string[], options: IntersectionObserverInit) => {
+  const [activeId, setActiveId] = React.useState<string>();
+  const observer = React.useRef<IntersectionObserver | null>(null);
 
   React.useEffect(() => {
-    const elements = ids.map((id) => document.getElementById(id))
-    observer.current?.disconnect()
+    const elements = ids.map((id) => document.getElementById(id));
+    observer.current?.disconnect();
     observer.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry?.isIntersecting) {
-          setActiveId(entry.target.id)
+          setActiveId(entry.target.id);
         }
-      })
-    }, options)
+      });
+    }, options);
     elements.forEach((el) => {
       if (el) {
-        observer.current?.observe(el)
+        observer.current?.observe(el);
       }
-    })
-    return () => observer.current?.disconnect()
-  }, [ids, options])
+    });
+    return () => observer.current?.disconnect();
+  }, [ids, options]);
 
-  return activeId
-}
+  return activeId;
+};

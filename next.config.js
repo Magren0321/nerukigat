@@ -1,8 +1,8 @@
-const { withContentlayer } = require('next-contentlayer')
+const { withContentlayer } = require('next-contentlayer');
 
 /** @type {import('next').NextConfig} */
-const nextConfig = { 
-  reactStrictMode: true, 
+const nextConfig = {
+  reactStrictMode: true,
   swcMinify: true,
   async rewrites() {
     return [
@@ -18,8 +18,8 @@ const nextConfig = {
         source: '/feed',
         destination: '/feed.xml',
       },
-    ]
+    ];
   },
-}
+};
 
-module.exports = withContentlayer(nextConfig)
+module.exports = withContentlayer(nextConfig);

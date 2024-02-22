@@ -1,42 +1,42 @@
-'use client'
+'use client';
 
-import clsx from 'clsx'
-import Link from 'next/link'
-import { usePathname} from 'next/navigation'
-import { motion , useMotionValue , useMotionTemplate} from 'framer-motion'
-import React from 'react'
+import clsx from 'clsx';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 
 const navigationItems = [
   {
     href: '/',
-    text: '首页'
+    text: '首页',
   },
   {
     href: '/posts',
-    text: '博客'
+    text: '博客',
   },
   {
     href: '/archive',
-    text: '归档'
+    text: '归档',
   },
   {
     href: '/friends',
-    text: '友链'
+    text: '友链',
   },
   {
     href: '/about',
-    text: '关于'
+    text: '关于',
   },
-]
+];
 
 function NavItem({
   href,
   children,
 }: {
-  href: string
-  children: React.ReactNode
+  href: string;
+  children: React.ReactNode;
 }) {
-  const isActive = usePathname() === href
+  const isActive = usePathname() === href;
 
   return (
     <li>
@@ -58,41 +58,38 @@ function NavItem({
         )}
       </Link>
     </li>
-  )
+  );
 }
 
-const Nav = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) =>{
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const radius = useMotionValue(0)
+const Nav = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const radius = useMotionValue(0);
   const handleMouseMove = React.useCallback(
     ({ clientX, clientY, currentTarget }: React.MouseEvent) => {
-      const bounds = currentTarget.getBoundingClientRect()
-      mouseX.set(clientX - bounds.left)
-      mouseY.set(clientY - bounds.top)
-      radius.set(Math.sqrt(bounds.width ** 2 + bounds.height ** 2) / 2.5)
+      const bounds = currentTarget.getBoundingClientRect();
+      mouseX.set(clientX - bounds.left);
+      mouseY.set(clientY - bounds.top);
+      radius.set(Math.sqrt(bounds.width ** 2 + bounds.height ** 2) / 2.5);
     },
     [mouseX, mouseY, radius]
-  )
+  );
 
-  const background = useMotionTemplate`radial-gradient(${radius}px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 65%)`
+  const background = useMotionTemplate`radial-gradient(${radius}px circle at ${mouseX}px ${mouseY}px, var(--spotlight-color) 0%, transparent 65%)`;
 
   return (
     <nav
       onMouseMove={handleMouseMove}
       className={clsx(
         'group relative transition-all duration-500',
-        'rounded-full w-fit mx-auto',
+        'mx-auto w-fit rounded-full',
         '[--spotlight-color:rgb(96_165_250_/_0.2)] dark:[--spotlight-color:rgb(96_165_250_/_0.09)]',
         className
       )}
       {...props}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-10"
+        className="pointer-events-none absolute -inset-px z-10 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{ background }}
         aria-hidden="true"
       />
@@ -105,12 +102,11 @@ const Nav = ({
         ))}
       </ul>
     </nav>
-  )
-}
+  );
+};
 
-export const NavigationBar = ({ className }: React.HTMLAttributes<HTMLDivElement>) =>{
-  return (
-    <Nav className={className}/>
-  )
-}
-
+export const NavigationBar = ({
+  className,
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  return <Nav className={className} />;
+};

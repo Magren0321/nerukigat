@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-export function Avatar(){
+export function Avatar() {
   return (
     <motion.div
       transition={{ duration: 0.5 }}
       whileHover={{ rotate: 360 }}
-      className='lg:w-[300px]  w-[220px] '
+      className="w-[220px]  lg:w-[300px] "
     >
       <Image
         height={300}
         width={300}
         src={'/avatar.png'}
         alt="Site Owner Avatar"
-        className='aspect-square rounded-full border border-slate-200 dark:border-neutral-800 w-full'
+        className="aspect-square w-full rounded-full border border-slate-200 dark:border-neutral-800"
       />
     </motion.div>
-  )
+  );
 }
