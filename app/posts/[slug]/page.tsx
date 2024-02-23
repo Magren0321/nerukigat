@@ -64,7 +64,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <div className="w-full">
           <article
-            className="prose w-full font-sans text-sm/7 text-zinc-900  dark:prose-invert prose-code:whitespace-pre-wrap prose-pre:w-full
+            className="prose w-full max-w-full font-sans text-sm/7 text-zinc-900  dark:prose-invert prose-code:whitespace-pre-wrap prose-pre:w-full
           dark:text-zinc-200"
           >
             <PostTitle {...post} />
