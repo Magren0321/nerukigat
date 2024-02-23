@@ -55,6 +55,12 @@ const friendData: FriendItem[] = [
     avatar: 'https://ysx.cosine.ren/img/avatar.jpg',
     desc: 'WA的一声就哭了',
   },
+  {
+    name: 'hawcat的时光轴',
+    link: 'https://hawcat.cn',
+    avatar: 'https://cdn.hawcat.cn/webAvatar/hawcat11673517380897901',
+    desc: '坚持记录~',
+  },
 ];
 
 export default friendData;
