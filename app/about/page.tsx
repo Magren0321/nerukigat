@@ -13,7 +13,7 @@ export default function About() {
         <span>Hi，我是Magren，见字如晤，很高兴认识你。</span>
         <br></br>
         <span>
-          生于千禧，正值弱冠之年，已成为资深社畜，社恐 & ISTP-A，现在在
+          生于千禧，正值弱冠之年，已成为资深社畜，社恐 & INTJ-A，现在在
           <del>北京</del>南京某厂做前端开发，辛苦搬砖中。
         </span>
         <br></br>
