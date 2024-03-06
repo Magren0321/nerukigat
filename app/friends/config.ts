@@ -61,6 +61,12 @@ const friendData: FriendItem[] = [
     avatar: 'https://cdn.hawcat.cn/webAvatar/hawcat11673517380897901',
     desc: '坚持记录~',
   },
+  {
+    name: 'btwoa',
+    link: 'https://blog.btwoa.com/',
+    avatar: 'https://ovo.btwoa.com/btwoa.jpg',
+    desc: '世界为你简单',
+  },
 ];
 
 export default friendData;
