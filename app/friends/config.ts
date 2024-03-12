@@ -67,6 +67,12 @@ const friendData: FriendItem[] = [
     avatar: 'https://ovo.btwoa.com/btwoa.jpg',
     desc: '世界为你简单',
   },
+  {
+    name: '小狐狸的被窝',
+    link: 'https://sleepyfox-github.github.io/',
+    avatar: 'https://sleepyfox-github.github.io/img/site/avatar.jpg',
+    desc: '(∪.∪ )…zzz',
+  },
 ];
 
 export default friendData;
