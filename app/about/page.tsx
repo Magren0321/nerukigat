@@ -139,7 +139,7 @@ export default function About() {
               <b>Watch</b>：Apple Watch Series 5
             </li>
             <li>
-              <b>Headphone</b>： AirPods2
+              <b>Headphone</b>： AirPods2 / Sony WH-1000XM4
             </li>
             <li>
               <b>iPad</b>： iPad Air 5
