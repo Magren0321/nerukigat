@@ -168,7 +168,7 @@ export default function About() {
               <b>VSCodeTheme</b>： Dracula
             </li>
             <li>
-              <b>VSCodeFont</b>： Fira Code
+              <b>VSCodeFont</b>：Comic Mono, Fira code, 雅痞-简, monospace
             </li>
             <li>
               <b>Note</b>： Notion
