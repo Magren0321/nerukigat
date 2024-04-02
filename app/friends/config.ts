@@ -13,12 +13,6 @@ const friendData: FriendItem[] = [
     desc: '一只鸽子的Code Space',
   },
   {
-    name: '蝉時雨',
-    link: 'https://chanshiyu.com',
-    avatar: 'https://www.chanshiyu.com/avatar.jpg',
-    desc: '蝉鸣如雨，花宵道中',
-  },
-  {
     name: '静かな森',
     link: 'https://innei.in/',
     avatar: 'https://github.com/Innei/static/blob/master/avatar.png?raw=true',
