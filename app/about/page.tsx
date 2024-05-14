@@ -152,7 +152,7 @@ export default function About() {
               ：Arc / Chrome
             </li>
             <li>
-              <b>Terminal</b>：Kitty & zsh
+              <b>Terminal</b>：iTerm2 & zsh
             </li>
             <li>
               <b>Launcher</b>：Raycast
