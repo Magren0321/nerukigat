@@ -1,21 +1,22 @@
 ---
-title: "记一次Vue render的踩坑"
+title: '记一次Vue render的踩坑'
 date: 2023/01/23
-publish: true
 slug: vue-render
-tags: 
+tags:
   - Vue
   - 前端
 description: 春节无事，记一次Vue render的踩坑
 ---
+
 # 前言
+
 在前几天做自己的玩具的时候，想要实现类似Element plus的Message组件，一样是通过方法调起组件，于是就用到了render💻，但是在销毁组件的时候遇到了一点小问题……
 
-
 ## 思路
-+ Message组件，使用transition标签控制其挂载以及销毁动画
-+ message.ts，使用createVNode创建VNode，使用render方法挂载到指定div
-+ setTimeout倒计时设置销毁该Message组件  
+
+- Message组件，使用transition标签控制其挂载以及销毁动画
+- message.ts，使用createVNode创建VNode，使用render方法挂载到指定div
+- setTimeout倒计时设置销毁该Message组件
 
 ```javascript
 import Message from './base-message.vue'
@@ -35,8 +36,8 @@ export default ( type:string, message:string ) => {
   }
   const vnode = createVNode(Message, { type, message})
   render(vnode, div) // 将虚拟dom添加到div容器中
-  
-  isShow = true 
+
+  isShow = true
 
   clearTimeout(timer)
   timer = setTimeout(() => { //移除dom节点
@@ -49,10 +50,13 @@ export default ( type:string, message:string ) => {
   }, 3000)
 }
 ```
+
 这个时候问题就来了，在第一次渲染的时候，Message组件确实展示出来了，在3s后也确实删除掉了对应的dom，但是后续都渲染不出来这个message组件🥲
 
 # 过程
+
 从render开始打断点，可以看到Vue提供的render方法，container是我们传入的要挂载的div，vnode是我们使用createVNode创建的虚拟dom，也可以看到这个时候代码走了patch方法。
+
 ```javascript
 const render: RootRenderFunction = (vnode, container, isSVG) => {
   if (vnode == null) {
@@ -67,6 +71,7 @@ const render: RootRenderFunction = (vnode, container, isSVG) => {
   container._vnode = vnode
 }
 ```
+
 稍为看了下patch代码，根据对VNode的type判断以及断点，可以看到我们的代码走到了processComponent这个方法里，并且传了相关的参数
 
 ```javascript
@@ -203,6 +208,7 @@ const patch: PatchFn = (
   }
 }
 ```
+
 在这个方法里边，n1是我们要挂载的div里边的VNode，这也是我第一次挂载跟后续挂载组件的不同之处，在第一次挂载组件的时候，n1是为null的，在后面我虽然删除了组件，但是那也是直接删除的真实dom，并没有删除掉里边的VNode，这样就导致直接走了updateComponent方法，即更新组件。在updateComponent方法里边，会根据新旧虚拟节点VNode上的属性、指令、子节点等判断是否需要更新组件，但无论怎样，离我想要的挂载新message组件都相去甚远😶‍🌫️
 
 ```javascript
@@ -247,6 +253,7 @@ const patch: PatchFn = (
 ```
 
 # 最后
+
 根据**render**方法里也可以看到，如果需要卸载掉虚拟dom，我们只需要把vnode参数传null即可，然后让虚拟dom去更新真实dom，以此来卸载掉我们的message组件，而不是直接删除真实dom。
 
 ```javascript
@@ -269,7 +276,7 @@ export default ( type:string, message:string ) => {
 
   const vnode = createVNode(Message, { type, message})
   render(vnode, div) // 将虚拟dom添加到div容器中
-  isShow = true 
+  isShow = true
   clearTimeout(timer)
   timer = setTimeout(() => { //移除dom节点
     isShow = false

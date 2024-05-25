@@ -2,14 +2,12 @@
 title: es6中的promise
 tags:
   - 前端
-publish: true
 slug: web-promise
 date: 2020/05/27
 description: es6中的promise的学习
 ---
 
 **Promise**，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。
-
 
 有了Promise对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。此外，Promise对象提供统一的接口，使得控制异步操作更加容易。
 
@@ -49,20 +47,23 @@ const promise = new Promise(function(resolve, reject) {
 接着用**then**方法指定resolved状态和rejected状态的回调函数：
 
 ```js
-promise.then(function(value) {
-  // success
-}, function(error) {
-  // failure
-});
+promise.then(
+  function (value) {
+    // success
+  },
+  function (error) {
+    // failure
+  }
+);
 ```
 
 第一个函数是状态对象变为rejected的调用，第二个是resolved的调用，第二个函数是可选的。
 
-then方法返回的是一个**新的Promise实例**（注意，***不是原来那个Promise实例***）。因此可以采用链式写法，即then方法后面再调用另一个then方法。
+then方法返回的是一个**新的Promise实例**（注意，**_不是原来那个Promise实例_**）。因此可以采用链式写法，即then方法后面再调用另一个then方法。
 
 ```js
 promise.then(function(value) {
-  
+
 }.then(function (comments) {
   console.log("resolved: ", comments);
 }, function (err){
@@ -75,14 +76,19 @@ promise.then(function(value) {
 用于指定发生错误时的回调函数。
 
 ```js
-promise.then(function(value) {
-  // success
-}, function(error) {
-  // failure
-}).catch(function(error) {
-  // 处理发生的错误
-  console.log('发生错误！', error);
-});
+promise
+  .then(
+    function (value) {
+      // success
+    },
+    function (error) {
+      // failure
+    }
+  )
+  .catch(function (error) {
+    // 处理发生的错误
+    console.log('发生错误！', error);
+  });
 ```
 
 如果异步操作抛出错误，状态就会变为rejected，就会调用catch()方法指定的回调函数，处理这个错误。另外，then()方法指定的回调函数，如果运行中抛出错误，也会被catch()方法捕获。
@@ -94,16 +100,22 @@ promise.then(function(value) {
 用于指定不管 Promise 对象最后状态如何，都会执行的操作。
 
 ```js
-promise.then(function(value) {
-  // success
-}, function(error) {
-  // failure
-}).catch(function(error) {
-  // 处理发生的错误
-  console.log('发生错误！', error);
-}).finally(function(){
-    alert("finish");
-});
+promise
+  .then(
+    function (value) {
+      // success
+    },
+    function (error) {
+      // failure
+    }
+  )
+  .catch(function (error) {
+    // 处理发生的错误
+    console.log('发生错误！', error);
+  })
+  .finally(function () {
+    alert('finish');
+  });
 ```
 
 finally方法的回调函数**不接受任何参数**,意味着无法知道最终的状态是怎样的。
@@ -113,40 +125,46 @@ finally方法的回调函数**不接受任何参数**,意味着无法知道最�
 之前学了Jquery和ajax，就顺手在网上随便找了个api测试下：
 
 ```js
-const apiUrl = "https://suggest.taobao.com/sug?code=utf-8&q=电脑&callback=cb";
-$("#bt").click(apiUrl,function(event){
-     const promise = new Promise(function(resolve,reject){
-       $.ajax({
-           url: event.data,
-           type:"get",
-           dataType:"jsonp",
-           headers: {      
-                       Accept: "application/json; charset=utf-8",
-                   },
-           success: function(data) {
-            resolve(data);   
-           },
-           error: function(XMLHttpRequest, textStatus, errorThrown) {
-               reject(XMLHttpRequest,textStatus,errorThrown)
-           },
-       })
-   })
+const apiUrl = 'https://suggest.taobao.com/sug?code=utf-8&q=电脑&callback=cb';
+$('#bt').click(apiUrl, function (event) {
+  const promise = new Promise(function (resolve, reject) {
+    $.ajax({
+      url: event.data,
+      type: 'get',
+      dataType: 'jsonp',
+      headers: {
+        Accept: 'application/json; charset=utf-8',
+      },
+      success: function (data) {
+        resolve(data);
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        reject(XMLHttpRequest, textStatus, errorThrown);
+      },
+    });
+  });
 
-   promise.then(function(data){
-       console.log(data);
-       let x = data.result;
-       for(let i = 0 ; i<data.result.length;i++){
-           console.log(x[i][0]);
-       }
-   },function(XMLHttpRequest, textStatus, errorThrown){
-       alert(XMLHttpRequest);
-       alert(textStatus);
-       alert(errorThrown);
-   }).catch(function(error){
-       console.log(error);
-   }).finally(function(){
-       alert("finish");
-   });
+  promise
+    .then(
+      function (data) {
+        console.log(data);
+        let x = data.result;
+        for (let i = 0; i < data.result.length; i++) {
+          console.log(x[i][0]);
+        }
+      },
+      function (XMLHttpRequest, textStatus, errorThrown) {
+        alert(XMLHttpRequest);
+        alert(textStatus);
+        alert(errorThrown);
+      }
+    )
+    .catch(function (error) {
+      console.log(error);
+    })
+    .finally(function () {
+      alert('finish');
+    });
 });
 ```
 

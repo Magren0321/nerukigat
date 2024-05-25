@@ -2,7 +2,6 @@
 title: Android Activity生命周期
 tags:
   - Android
-publish: true
 date: 2020/03/06
 slug: android-life-cycle
 description: Android Activity生命周期学习
@@ -11,7 +10,6 @@ description: Android Activity生命周期学习
 先上Google提供的经典图，是对Activity生命周期各个阶段之间导航转换的直观展现。  
 Activity类提供了六个核心回调：**onCreate()**、**onStart()**、**onResume()**、**onPause()**、**onStop()**和**onDestroy()**。  
 ![生命周期](/postImg/android-life-cycle/生命周期.png)
-
 
 # 说明
 
@@ -94,4 +92,3 @@ public void onConfigurationChanged(Configuration newConfig) {
 - 前台Activity——正在和用户交互的Activity，优先级最高。
 - 可见但非前台Activity——比如Activity中弹出了一个对话框，导致Activity可见但是位于后台无法和用户交互。
 - 后台Activity——已经被暂停的Activity，比如执行了onStop，优先级最低。
-

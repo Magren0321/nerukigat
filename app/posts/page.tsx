@@ -63,22 +63,29 @@ const PostCard = (post: Post) => {
             ))}
           </div>
         </div>
-        <div className="flex items-center justify-end  text-xs font-bold text-blue-600">
-          阅读全文
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="ml-1 h-4 w-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-            />
-          </svg>
+        <div className="flex items-center text-xs font-bold text-blue-600">
+          {post.top && (
+            <div className="rounded-md bg-blue-600 px-2 py-1 text-xs font-bold text-white">
+              置顶
+            </div>
+          )}
+          <div className="item-center ml-auto flex">
+            阅读全文
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="ml-1 h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </Link>
@@ -111,14 +118,44 @@ export default function Posts() {
     setMaskY(offsetTop - 10);
   };
 
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
+  let posts = allPosts
+    .slice()
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+
+  if (process.env.NODE_ENV !== 'development') {
+    posts = posts.filter((post) => !post.draft);
+  }
+
+  const { topPosts, regularPosts } = posts.reduce(
+    (acc, post) => {
+      if (post.top) {
+        acc.topPosts.push(post);
+      } else {
+        acc.regularPosts.push(post);
+      }
+      return acc;
+    },
+    { topPosts: [] as Post[], regularPosts: [] as Post[] }
   );
+
   return (
     <NormalContainer>
       <div ref={postList}>
-        {posts.map((post, idx) => (
-          <div key={idx} onMouseEnter={handleMask} onMouseLeave={handleMask}>
+        {topPosts.map((post, idx) => (
+          <div
+            key={`top-${idx}`}
+            onMouseEnter={handleMask}
+            onMouseLeave={handleMask}
+          >
+            <PostCard {...post} />
+          </div>
+        ))}
+        {regularPosts.map((post, idx) => (
+          <div
+            key={`regular-${idx}`}
+            onMouseEnter={handleMask}
+            onMouseLeave={handleMask}
+          >
             <PostCard {...post} />
           </div>
         ))}

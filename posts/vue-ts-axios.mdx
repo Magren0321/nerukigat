@@ -5,7 +5,6 @@ tags:
   - 前端
   - Vue
   - Typescript
-publish: true
 slug: vue-ts-axios
 date: 2020/08/12
 ---
@@ -16,7 +15,6 @@ date: 2020/08/12
 
 自己写的华广地图给自家eo发了一份玩，结果给征收了，上线成了星空的产品，并且要求再进行完善 😟
 想了下干脆给每个地点的marker添加一个点击事件，点击后可以看到该地点的详细介绍，不过每个地方都要图片，放在本地太大了，可能会造成卡顿，遂决定放在服务器上，于是重新看了一遍axios同时自己学着网上的一些教程做了一个封装，并解决了跨域的问题。
-
 
 # 封装axios
 
@@ -166,19 +164,19 @@ export default class Home extends Vue{
 
 ```js
 module.exports = {
-    devServer: {
-        proxy: {
-            '/api': {
-                target: 'https://www.wanandroid.com',// 你要请求的后端接口ip+port
-                changeOrigin: true,// 允许跨域，在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-                ws: true,// 开启webSocket
-                pathRewrite: {
-                    '^/api': '',// 替换成target中的地址
-                }
-            }
-        }
-    }
-}
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://www.wanandroid.com', // 你要请求的后端接口ip+port
+        changeOrigin: true, // 允许跨域，在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+        ws: true, // 开启webSocket
+        pathRewrite: {
+          '^/api': '', // 替换成target中的地址
+        },
+      },
+    },
+  },
+};
 ```
 
 ### 配置baseURL
@@ -205,14 +203,14 @@ const service = axios.create({
 
 既然搞明白的差不多了，就上手吧，
 
-> ***学校的图片呢？***
+> **_学校的图片呢？_**
 
-> ***啊？没有啊***
+> **_啊？没有啊_**
 
-> ***摄影那一边呢？*** 😧
+> **_摄影那一边呢？_** 😧
 
-> ***他们……也只有一部分……*** 😧
+> **_他们……也只有一部分……_** 😧
 
-> ***啊……这……*** 😩
+> **_啊……这……_** 😩
 
 **综上所述，项目目前搁浅中** 💢

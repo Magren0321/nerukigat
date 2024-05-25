@@ -2,7 +2,6 @@
 title: 前端基础里一些杂七杂八的知识点
 tags:
   - 前端
-publish: true
 slug: web-knowledge
 description: 前端基础里一些杂七杂八的知识点，输出出来，加深印象
 date: 2020/05/02
@@ -28,10 +27,10 @@ z-index: 改变元素的层面，代表该元素的Z轴，默认是0。
 当元素使用float属性定义元素往哪个方向浮动的时候，需要后面的元素不再继续浮动在后面的时候，可用：
 
 ```css
-.nav::after{
-    content:"";
-    display:block;
-    clear:both;
+.nav::after {
+  content: '';
+  display: block;
+  clear: both;
 }
 ```
 
@@ -41,9 +40,9 @@ z-index: 改变元素的层面，代表该元素的Z轴，默认是0。
 
 ```css
 .product-buyer-name {
-overflow: hidden; /*隐藏超出单元格的部分。*/
-text-overflow: ellipsis; /*文字超出部分用省略号*/
-white-space: nowrap;  /*保证无论单元格（TD）中文本内容有多少，都不会自动换行，此时多余的内容会在水平方向撑破单元格*/
+  overflow: hidden; /*隐藏超出单元格的部分。*/
+  text-overflow: ellipsis; /*文字超出部分用省略号*/
+  white-space: nowrap; /*保证无论单元格（TD）中文本内容有多少，都不会自动换行，此时多余的内容会在水平方向撑破单元格*/
 }
 ```
 
@@ -65,9 +64,11 @@ white-space: nowrap;  /*保证无论单元格（TD）中文本内容有多少，
 1. 拷贝项目下面生成的font-face
 
 ```css
-@font-face {font-family: 'iconfont';
-    src: url('iconfont.eot');
-    src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+@font-face {
+  font-family: 'iconfont';
+  src: url('iconfont.eot');
+  src:
+    url('iconfont.eot?#iefix') format('embedded-opentype'),
     url('iconfont.woff') format('woff'),
     url('iconfont.ttf') format('truetype'),
     url('iconfont.svg#iconfont') format('svg');
@@ -77,12 +78,14 @@ white-space: nowrap;  /*保证无论单元格（TD）中文本内容有多少，
 1. 定义使用的iconfont使用样式
 
 ```css
-.iconfont{
-    font-family:"iconfont" !important;
-    font-size:16px;font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
 ```
 
 1. 挑选相应图标并获取字体编码，应用于页面
@@ -105,12 +108,12 @@ let:声明的变量只在 let 命令所在的代码块内有效。
 - const：不允许
 
 ```js
-console.log(a);//正常运行，控制台输出 undefined
+console.log(a); //正常运行，控制台输出 undefined
 var a = 1;
-console.log(b);//报错，Uncaught ReferenceError: b is not defined
+console.log(b); //报错，Uncaught ReferenceError: b is not defined
 let b = 1;
 
-console.log(c);//报错，Uncaught ReferenceError: c is not defined
+console.log(c); //报错，Uncaught ReferenceError: c is not defined
 const c = 1;
 ```
 
@@ -129,8 +132,8 @@ const c = 1;
 ```js
 var num = 123;
 if (true) {
-	num = 'abc';//报错
-	let num;
+  num = 'abc'; //报错
+  let num;
 }
 ```
 
@@ -148,10 +151,10 @@ var 允许重复定义所带来的后果：
 
 ```js
 var i = 10;
-for(var i = 0;i < 5;i++){
+for (var i = 0; i < 5; i++) {
   console.log(i);
 }
-console.log(i);// 输出 5
+console.log(i); // 输出 5
 ```
 
 **var命令没有块级作用域**,for循环里的i会替代外层的i。

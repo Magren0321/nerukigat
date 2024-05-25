@@ -3,7 +3,6 @@ title: Android自定义view的定义
 tags:
   - Android
 date: 2020/04/14
-publish: true
 slug: android-custom-view
 description: 自定义 View 就是通过继承 View 或者 View 的子类，并在新的类里面实现相应的处理逻辑（重写相应的方法），以达到自己想要的效果。
 ---
@@ -92,7 +91,7 @@ onMeasure()计算View的期望尺寸的方法：
 protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     int widthsize  MeasureSpec.getSize(widthMeasureSpec);      //取出宽度的确切数值
     int widthmode  MeasureSpec.getMode(widthMeasureSpec);      //取出宽度的测量模式
-    
+
     int heightsize  MeasureSpec.getSize(heightMeasureSpec);    //取出高度的确切数值
     int heightmode  MeasureSpec.getMode(heightMeasureSpec);    //取出高度的测量模式
 }
@@ -118,4 +117,3 @@ widthMeasureSpec 和 heightMeasureSpec 这两个 int 类型的参数其实不是
 ## 提供接口
 
 写一些控制View或者监听View某些状态。
-

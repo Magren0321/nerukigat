@@ -6,7 +6,6 @@ tags:
   - mongodb
 slug: node-express
 date: 2020/10/19
-publish: true
 description: node.js+express写接口
 ---
 
@@ -25,28 +24,24 @@ description: node.js+express写接口
 
 import mongoose from 'mongoose';
 
-
-mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true,  useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/test', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
-db.once('open' ,() => {
-  console.log(
-    '连接数据库成功'
-  );
-})
-
-db.on('error', function(error) {
-    console.error(
-     'Error in MongoDb connection: ' + error
-    );
-    mongoose.disconnect();
+db.once('open', () => {
+  console.log('连接数据库成功');
 });
 
-db.on('close', function() {
-    console.log(
-        '数据库断开，重新连接数据库'
-    );
+db.on('error', function (error) {
+  console.error('Error in MongoDb connection: ' + error);
+  mongoose.disconnect();
+});
+
+db.on('close', function () {
+  console.log('数据库断开，重新连接数据库');
 });
 
 export default db;
@@ -61,11 +56,11 @@ import mongoose from 'mongoose';
 
 //创建schema
 const StudentSchema = new mongoose.Schema({
-    name: String,
-    age: Number
-})
+  name: String,
+  age: Number,
+});
 
-const studentSchema = mongoose.model("StudentSchema",StudentSchema);
+const studentSchema = mongoose.model('StudentSchema', StudentSchema);
 
 export default studentSchema;
 ```
@@ -82,7 +77,7 @@ export default studentSchema;
 import bodyParser from 'body-parser';
 
 //使用body-parser中间件
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 ```
 
@@ -94,63 +89,68 @@ import studentInfo from './studentInfo';
 
 const router = express.Router();
 
-router.get("/test",(req,res)=>{
-    res.json({msg:"接收成功"});
-    //示例：http://localhost:3000/test
-})
+router.get('/test', (req, res) => {
+  res.json({ msg: '接收成功' });
+  //示例：http://localhost:3000/test
+});
 
 //添加一条数据
-router.post('/add',(req,res) => {
-    const Student = {};
-    if(req.body.name){
-        Student.name = req.body.name;
-    }
-    if(req.body.age){
-        Student.age = req.body.age;
-    }
-    new studentInfo(Student).save().then(user => {
+router.post('/add', (req, res) => {
+  const Student = {};
+  if (req.body.name) {
+    Student.name = req.body.name;
+  }
+  if (req.body.age) {
+    Student.age = req.body.age;
+  }
+  new studentInfo(Student).save().then((user) => {
     res.json(user);
   });
-})
+});
 
 //根据id删除一条数据
-router.post('/delete',(req,res) => {
-    studentInfo.remove({_id:req.body.id}).then((result)=>{
-        res.json(result)
-    })
-})
+router.post('/delete', (req, res) => {
+  studentInfo.remove({ _id: req.body.id }).then((result) => {
+    res.json(result);
+  });
+});
 
 //获取一条数据
-router.get('/:id',(req,res) => {
-    studentInfo.findOne({_id:req.params.id}).then(user => {
-        if(!user) {
-            return res.status(400).json("没有任何数据存在")
-        }
-        return res.json(user)
-    }).catch(err => {
-        return res.status(404).json(err)
-    })
-})
-
-//更新一条数据
-router.post('/:id',(req,res) => {
-    const Student = {};
-    if(req.body.name){
-        Student.name = req.body.name;
-    }
-    if(req.body.age){
-        Student.age = req.body.age;
-    }
-    studentInfo.updateOne({ _id: req.params.id }, { $set: Student }).then(user => {
+router.get('/:id', (req, res) => {
+  studentInfo
+    .findOne({ _id: req.params.id })
+    .then((user) => {
       if (!user) {
-        return res.status(400).json("数据不存在");
+        return res.status(400).json('没有任何数据存在');
       }
-     res.json(user);
+      return res.json(user);
     })
-    .catch(err => {
+    .catch((err) => {
       return res.status(404).json(err);
     });
-})
+});
+
+//更新一条数据
+router.post('/:id', (req, res) => {
+  const Student = {};
+  if (req.body.name) {
+    Student.name = req.body.name;
+  }
+  if (req.body.age) {
+    Student.age = req.body.age;
+  }
+  studentInfo
+    .updateOne({ _id: req.params.id }, { $set: Student })
+    .then((user) => {
+      if (!user) {
+        return res.status(400).json('数据不存在');
+      }
+      res.json(user);
+    })
+    .catch((err) => {
+      return res.status(404).json(err);
+    });
+});
 
 module.exports = router;
 ```

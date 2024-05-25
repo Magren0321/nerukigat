@@ -4,6 +4,7 @@ import { Heading1, Heading2, Heading3 } from '@/components/ui/heading/Heading';
 import { Image } from '@/components/ui/img/Image';
 import { PostTree } from '@/components/ui/toc/PostTree';
 import { PostProvider } from '@/providers/post/PostProvider';
+import clsx from 'clsx';
 import { allPosts } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
 import { useMDXComponent } from 'next-contentlayer/hooks';
@@ -64,8 +65,12 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
       <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
         <div className="w-full">
           <article
-            className="prose w-full max-w-full font-sans text-sm/7 text-zinc-900  dark:prose-invert prose-code:whitespace-pre-wrap prose-pre:w-full
-          dark:text-zinc-200"
+            className={clsx(
+              'prose w-full max-w-full font-sans text-sm/7 text-zinc-900',
+              'dark:prose-invert dark:text-zinc-200',
+              'prose-code:whitespace-pre-wrap prose-pre:w-full',
+              'prose-th:px-2 prose-td:px-2'
+            )}
           >
             <PostTitle {...post} />
             <PostProvider>

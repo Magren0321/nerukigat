@@ -2,7 +2,6 @@
 title: 说说Android的内存泄露和溢出
 tags:
   - Android
-publish: true
 slug: android-memory
 date: 2020/03/01
 description: 虽然在大学以来学习了一年多的安卓，已经可以完成一部分的需求，但是在Android这方面的底层知识和一些概念我应该不算非常了解，借着这个长假的机会打算好好熟悉下。
@@ -18,19 +17,19 @@ description: 虽然在大学以来学习了一年多的安卓，已经可以完�
 具体例子：
 
 ```java
-public class LeakAct extends Activity {  
+public class LeakAct extends Activity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {    
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_leak);
         test();
-    } 
-    
-    public void test() {    
-        new Thread(new Runnable() {      
+    }
+
+    public void test() {
+        new Thread(new Runnable() {
             @Override
-            public void run() {        
-                while (true) {          
+            public void run() {
+                while (true) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -43,13 +42,11 @@ public class LeakAct extends Activity {
 }
 ```
 
-test是一个非静态内部类，当我们finish的时候，该实例不会真正销毁，GC机制也不会进行该实例的垃圾回收，因为***匿名内部类和非静态内部类持有外部类的强引用， ***也就是说test持有外部activity的强引用，而thread内部while(true)是死循环，线程不会停止，对外部activity的强引用也不会消失。这样就造成了内存泄漏。
+test是一个非静态内部类，当我们finish的时候，该实例不会真正销毁，GC机制也不会进行该实例的垃圾回收，因为**_匿名内部类和非静态内部类持有外部类的强引用， _**也就是说test持有外部activity的强引用，而thread内部while(true)是死循环，线程不会停止，对外部activity的强引用也不会消失。这样就造成了内存泄漏。
 
 **解决方案**
 
-> 1.将内部类变成静态内部类;
-> 2.如果有强引用Activity中的属性，则将该属性的引用方式改为弱引用;
-> 3.在业务允许的情况下，当Activity执行onDestory时，结束这些耗时任务;
+> 1.将内部类变成静态内部类; 2.如果有强引用Activity中的属性，则将该属性的引用方式改为弱引用; 3.在业务允许的情况下，当Activity执行onDestory时，结束这些耗时任务;
 
 # Android内存溢出
 

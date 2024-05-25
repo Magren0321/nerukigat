@@ -7,8 +7,7 @@ tags:
   - 后端
 slug: node-mongodb
 date: 2020/09/16
-publish: true
-description: 最近开学事情逐渐多了起来，星空、康课还有学校的课程……一切都开始逐渐步入正轨，唯独我的学习之路还在跑偏。  
+description: 最近开学事情逐渐多了起来，星空、康课还有学校的课程……一切都开始逐渐步入正轨，唯独我的学习之路还在跑偏。
 ---
 
 最近开学事情逐渐多了起来，星空、康课还有学校的课程……一切都开始逐渐步入正轨，唯独我的学习之路还在跑偏。  
@@ -16,7 +15,6 @@ description: 最近开学事情逐渐多了起来，星空、康课还有学校�
 也难怪有万事开头难这种说法了。  
 但是一旦行动起来，忙起来的时候就会感到充实。只要动起来，无论结果怎样，都总比没有尝试过的好。  
 **但行好事，莫问前程**
-
 
 我也纠结过是学习用node.js还是Java去操作后端数据库。
 有的人说学node.js，前端工程师都要会这个；也有的人说学java，去学ssm，学spring全家桶；还有的人说node.js没有前途；
@@ -167,23 +165,17 @@ mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true });
 
 const db = mongoose.connection;
 
-db.once('open' ,() => {
-  console.log(
-    '连接数据库成功'
-  );
-})
-
-db.on('error', function(error) {
-    console.error(
-     'Error in MongoDb connection: ' + error
-    );
-    mongoose.disconnect();
+db.once('open', () => {
+  console.log('连接数据库成功');
 });
 
-db.on('close', function() {
-    console.log(
-        '数据库断开，重新连接数据库'
-    );
+db.on('error', function (error) {
+  console.error('Error in MongoDb connection: ' + error);
+  mongoose.disconnect();
+});
+
+db.on('close', function () {
+  console.log('数据库断开，重新连接数据库');
 });
 
 export default db;
@@ -206,24 +198,23 @@ import db from './mongodb/db';
 // 创建schema
 // schema是MongoDB里的一个集合，也可以说是库中的一张表
 let testSchema = new mongoose.Schema({
-   name: String,
-   age: Number
-})
+  name: String,
+  age: Number,
+});
 
 // 通过connection和schema创建model
 let testModel = connection.model('test1', testSchema);
 
-
 // 通过实例化model创建文档
 let test = new testModel({
-    name: 'Magren',
-    age: 20
-})
+  name: 'Magren',
+  age: 20,
+});
 
 // 将文档插入到数据库，save方法返回一个Promise对象。
 test.save().then((doc) => {
-    console.log(doc)
-})
+  console.log(doc);
+});
 ```
 
 添加成功后MongoDB数据库里会多了test1这么一个表，同时表中会多了一条name为Magren，age为20的数据。
@@ -236,17 +227,17 @@ import mongoose from 'mongoose';
 import db from './mongodb/db';
 
 let testSchema = new mongoose.Schema({
-   name: String,
-   age: Number
-})
+  name: String,
+  age: Number,
+});
 
 let testModel = connection.model('test1', testSchema);
 
 //查询条件，查询name为Magren的记录，格式为键值对
 //查询条件为空的时候即查询该表中的全部数据
-testModel.find({name: 'Magren'}).then(doc => {
-    console.log(doc);
-})
+testModel.find({ name: 'Magren' }).then((doc) => {
+  console.log(doc);
+});
 ```
 
 为了复用代码，降低耦合度，一般将Schema以及Model模块的代码单独出来。
@@ -259,17 +250,17 @@ import mongoose from 'mongoose';
 import db from './mongodb/db';
 
 let testSchema = new mongoose.Schema({
-   name: String,
-   age: Number
-})
+  name: String,
+  age: Number,
+});
 
 let testModel = connection.model('test1', testSchema);
 
 //第一个参数是查询条件，找到name为Magren这条数据
 //第二个参数是要修改的值
-testModel.updateMany({name: 'Magren'},{age: 18}).then((result)=>{
-    console.log(result)
-})
+testModel.updateMany({ name: 'Magren' }, { age: 18 }).then((result) => {
+  console.log(result);
+});
 ```
 
 ## 删除数据
@@ -280,16 +271,16 @@ import mongoose from 'mongoose';
 import db from './mongodb/db';
 
 let testSchema = new mongoose.Schema({
-   name: String,
-   age: Number
-})
+  name: String,
+  age: Number,
+});
 
 let testModel = connection.model('test1', testSchema);
 
 //删除name为Magren的数据
-testModel.removeMany({name: 'Magren'}).then((result)=>{
-    console.log(result)
-})
+testModel.removeMany({ name: 'Magren' }).then((result) => {
+  console.log(result);
+});
 ```
 
 # 最后
@@ -297,4 +288,3 @@ testModel.removeMany({name: 'Magren'}).then((result)=>{
 现在只是学习了基本的node.js对MongoDB数据库的操作，改天尝试做一个小项目，部署到服务器上，感觉又会踩很多坑……
 但如果没有实践也只是纸上谈兵，加紧自己学习的脚步吧。
 毕竟都已经大三了啊。✊
-

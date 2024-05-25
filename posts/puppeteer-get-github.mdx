@@ -1,108 +1,128 @@
 ---
-title: "Puppeteer爬取Github指北"
+title: 'Puppeteer爬取Github指北'
 date: 2021/07/07
-publish: true
 tags:
   - 前端
   - node.js
 slug: puppeteer-get-github
 description: 使用puppeteer爬取Github中的数据
 ---
+
 # 介绍
+
 > puppeteer 是一个Chrome官方出品的headless Chrome node库。它提供了一系列的API, 可以在无UI的情况下调用Chrome的功能, 适用于爬虫、自动化处理等各种场景。
 
 # 使用
-## 安装
-> npm install puppeteer-chromium-resolver --save
-## 生成/关闭浏览器
-```js
- const browser = await (puppeteer.launch({
-        args: ['--no-sandbox', 
-        '--disable-setuid-sandbox'],
-        //如果是访问https页面 此属性会忽略https错误
-        ignoreHTTPSErrors: true,
-        headless: true, //改为true则是无头模式，不显示浏览器，在无界面的环境中运行 Chrome
-  }));
 
-  //关闭
-  browser.close();
+## 安装
+
+> npm install puppeteer-chromium-resolver --save
+
+## 生成/关闭浏览器
+
+```js
+const browser = await puppeteer.launch({
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  //如果是访问https页面 此属性会忽略https错误
+  ignoreHTTPSErrors: true,
+  headless: true, //改为true则是无头模式，不显示浏览器，在无界面的环境中运行 Chrome
+});
+
+//关闭
+browser.close();
 ```
+
 ## 生成新的tab并且跳转
+
 ```js
 const page = await browser.newPage();
-await page.goto('https://github.com/'+name+'?tab=repositories'); //跳转到github某个用户的仓库页
+await page.goto('https://github.com/' + name + '?tab=repositories'); //跳转到github某个用户的仓库页
 ```
+
 ## 在控制台中执行函数（ evaluate() ）
+
 ```js
 //获取当页的所有项目url，同时有下一页仓库的url的话也获取
- const rep =  await page.evaluate(()=>{
-        const url = document.querySelectorAll('.wb-break-all > a');
-        const next = document.querySelector('.BtnGroup > a');
-        let urlList = undefined;
-        let nextUrl = undefined;
-        if(url != null){
-            urlList = Array.prototype.map.call(url,(item)=>{
-                return item.href;
-            })
-        }
-        if(next!=null&&next.outerText==='Next'){
-            nextUrl = next.href;
-        }
-        return {
-            urlList:urlList,
-            nextUrl:nextUrl
-        }
-  });
+const rep = await page.evaluate(() => {
+  const url = document.querySelectorAll('.wb-break-all > a');
+  const next = document.querySelector('.BtnGroup > a');
+  let urlList = undefined;
+  let nextUrl = undefined;
+  if (url != null) {
+    urlList = Array.prototype.map.call(url, (item) => {
+      return item.href;
+    });
+  }
+  if (next != null && next.outerText === 'Next') {
+    nextUrl = next.href;
+  }
+  return {
+    urlList: urlList,
+    nextUrl: nextUrl,
+  };
+});
 ```
+
 ## 获取页面元素
+
 ```js
-const el = await page.$(selector)
+const el = await page.$(selector);
 ```
+
 ## 点击元素
+
 ```js
-await el.click()
+await el.click();
 ```
+
 ## 输入内容
+
 ```js
-await el.type(text)
+await el.type(text);
 ```
+
 # 爬取Github中的数据
+
 使用了express，因个人需要爬取了指定用户的follower数，以及commit过的日期以及当天commit的次数，还有爬取每一个公开的项目的url、项目名、commit数以及star数，拼接后返回json。
 
 项目地址：[getGithub](https://github.com/Magren0321/getGithub)
 
 调用例子：
+
 > http://localhost:4000/getAllContributions/Magren0321
 
 返回数据示例：
 ![](/postImg/puppeteer-get-github/test.png)
 
 # 踩到的坑
+
 在爬取每一年的contributions数的时候，获取其元素的属性失败，因为其**data-date**以及**data-count**等属性是github自己定义的属性，无法直接获取，这里必须得使用**getAttribute**()方法。
 
 同时Attribute中还有setAttribute()和removeAttribute()，分别是设置和移除节点原型中不存在的属性。
 
 ```js
 //获取日期以及当天的提交数
-async function getDateList(yearData,page){
-    await page.goto(yearData);
-    const dateList = await page.evaluate(()=>{
-        const date = document.querySelectorAll('.ContributionCalendar-day');
-        const datelist = [];
-        for(let item of date){
-            if(item.getAttribute('data-count')!=0&&item.getAttribute('data-count')!=null){
-                datelist.push({
-                    data_date: item.getAttribute('data-date'),
-                    data_count: item.getAttribute('data-count')
-                })
-            }
-        }
-      
-        return datelist;
-    })
-    return dateList;
-}
+async function getDateList(yearData, page) {
+  await page.goto(yearData);
+  const dateList = await page.evaluate(() => {
+    const date = document.querySelectorAll('.ContributionCalendar-day');
+    const datelist = [];
+    for (let item of date) {
+      if (
+        item.getAttribute('data-count') != 0 &&
+        item.getAttribute('data-count') != null
+      ) {
+        datelist.push({
+          data_date: item.getAttribute('data-date'),
+          data_count: item.getAttribute('data-count'),
+        });
+      }
+    }
 
+    return datelist;
+  });
+  return dateList;
+}
 ```
 
 Github api还有一些奇奇怪怪的地方就不总结了……  

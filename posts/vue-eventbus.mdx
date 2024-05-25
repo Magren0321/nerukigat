@@ -3,7 +3,6 @@ title: Vue下的EventBus
 tags:
   - 前端
   - Vue
-publish: true
 slug: vue-eventbus
 date: 2020/10/12
 description: Vue下的EventBus
@@ -12,7 +11,6 @@ description: Vue下的EventBus
 EventBus是用于Vue中组件通信的一种方式，常见的父子组件沟通方式有emit和props。  
 但假如跨组件传参沟通，或者是兄弟姐妹组件之间的传参沟通，使用**EventBus**或者**Vuex**就可以避免很多重复的props和emit。  
 Vuex适合的场景是中大型的项目，管理全站共用的状态。EventBus比较适用于小型的项目，不是太复杂的事件。
-
 
 # 使用
 
@@ -49,11 +47,11 @@ import bus from '../common/bus';
 在需要监听的组件中的created中使用bus监听
 
 ```js
-created() {  
-    bus.$on('getSomething', target => {  
-        console.log(target);  
-    });  
-} 
+created() {
+    bus.$on('getSomething', target => {
+        console.log(target);
+    });
+}
 ```
 
 ## 发送事件
@@ -74,8 +72,8 @@ EventBus的监听不会自动关闭，接着会导致的一个情况就是监听
 
 ```js
 // 移除事件的监听
-bus.$off('getSomething')
+bus.$off('getSomething');
 
 // 移除所有事件的监听
-bus.$off()
+bus.$off();
 ```
