@@ -1,4 +1,5 @@
 import { PostContainer } from '@/components/layout/container/PostContainer';
+import { Comment } from '@/components/ui/comment/Comment';
 
 export default function About() {
   return (
@@ -188,6 +189,7 @@ export default function About() {
           </blockquote>
         </div>
       </article>
+      <Comment path={'/about-me'} serverURL={'https://waline.magren.cc'} />
     </PostContainer>
   );
 }
