@@ -76,7 +76,7 @@ export default function About() {
           <li>
             {' '}
             <b>准后端开发工程师</b>（2020-至今），技术栈
-            NodeJs，Go，Express，MongoDB，PostgreSQL...
+            NodeJS，NestJS,Go，Express，MongoDB，PostgreSQL...
           </li>
           <li>
             {' '}

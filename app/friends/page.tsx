@@ -40,7 +40,7 @@ const FriendCard = (data: {
         onError={() => setIsReady(false)}
       />
       {!isReady && (
-        <div className="dark:bg-zinc-8 00 absolute left-3 top-4 h-14 w-14  animate-pulse rounded-lg bg-zinc-300"></div>
+        <div className="dark:bg-zinc-800 absolute left-3 top-4 h-14 w-14  animate-pulse rounded-lg bg-zinc-300"></div>
       )}
       <div className="ml-3 flex h-fit flex-col justify-between ">
         <div className="font-bold">{data.name}</div>
