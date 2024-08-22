@@ -58,7 +58,7 @@ const friendData: FriendItem[] = [
   {
     name: 'btwoa',
     link: 'https://blog.btwoa.com/',
-    avatar: 'https://ovo.btwoa.com/btwoa.jpg',
+    avatar: 'https://assets.btwoa.com/gif/avatar.gif',
     desc: '世界为你简单',
   },
   {
@@ -67,6 +67,12 @@ const friendData: FriendItem[] = [
     avatar: 'https://sleepyfox-github.github.io/img/site/avatar.jpg',
     desc: '(∪.∪ )…zzz',
   },
+  {
+    name:'Maxtune’s Blog',
+    link:'https://mxte.cc/',
+    avatar:'https://mxte.cc/favicon.svg',
+    desc:'学智能科学与技术的前端开发者'
+  }
 ];
 
 export default friendData;
