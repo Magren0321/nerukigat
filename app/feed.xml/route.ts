@@ -29,7 +29,7 @@ export async function GET() {
       title: post.title,
       guid: post.slug,
       url: `https://magren.cc/posts/${post.slug}`,
-      description: post.description || '',
+      description: `${post.description || ''} <br/> <a href="https://magren.cc/posts/${post.slug}">Continue to read</a>`,
       date: new Date(post.date),
     });
   });
