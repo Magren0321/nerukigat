@@ -4,6 +4,9 @@ const { withContentlayer } = require('next-contentlayer');
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  images: {
+    domains: ['cors.immmmm.com'],
+  },
   async rewrites() {
     return [
       {

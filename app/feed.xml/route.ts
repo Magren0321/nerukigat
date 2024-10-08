@@ -17,7 +17,7 @@ export async function GET() {
     description: '不为繁华易匠心',
     site_url: 'https://magren.cc',
     feed_url: 'https://magren.cc/feed.xml',
-    language: 'en', // 网站语言代码
+    language: 'en',
     image_url: 'https://magren.cc/avatar.png',
   });
   const data = allPosts.sort((a, b) =>
