@@ -11,7 +11,7 @@ export default function Home() {
         <main className={clsx(
           'flex flex-col items-center justify-between rounded-lg lg:flex-row px-[10px] py-[30px]  lg:p-[110px]  transition-all duration-300  ',
           'bg-white dark:bg-zinc-700 border-solid border-[1px]',
-          'hover:shadow-[0_0_200px_1px_rgb(37,99,235,0.3)]  hover:border-[rgb(37,99,235,0.7)] hover:scale-[1.01] hover:rotate-[1deg] ',
+          'hover:shadow-[0_0_200px_1px_rgb(0,0,0,0.2)] dark:hover:shadow-[0_0_200px_1px_rgb(255,255,255,0.2)] hover:scale-[1.01] ',
         )}>
           <div className="mb-32 w-full max-w-xl text-xl font-bold lg:mb-0 lg:mt-0 lg:text-3xl ">
             <div className="mb-5 pl-1">Hi👋🏻, I&#39;m Magren 🦊</div>
