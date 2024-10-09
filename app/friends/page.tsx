@@ -1,10 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
-
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
 import { Comment } from '@/components/ui/comment/Comment';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
 import { PlaceholderImage } from '@/components/ui/img/PlaceholderImage';
 import friendData from './config';
 
@@ -14,15 +11,6 @@ const FriendCard = (data: {
   avatar: string;
   desc: string;
 }) => {
-  const [isReady, setIsReady] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (imgRef.current && imgRef.current.complete) {
-      setIsReady(true);
-    }
-  }, []);
-
   return (
     <Link
       className="relative mb-3 flex break-inside-avoid rounded-lg bg-zinc-200/45  px-3 py-4 dark:bg-zinc-600"
