@@ -3,9 +3,9 @@
 
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
 import { Comment } from '@/components/ui/comment/Comment';
-import clsx from 'clsx';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { PlaceholderImage } from '@/components/ui/img/PlaceholderImage';
 import friendData from './config';
 
 const FriendCard = (data: {
@@ -28,20 +28,7 @@ const FriendCard = (data: {
       className="relative mb-3 flex break-inside-avoid rounded-lg bg-zinc-200/45  px-3 py-4 dark:bg-zinc-600"
       href={data.link}
     >
-      <img
-        className={clsx(
-          'h-14 w-14 rounded-lg opacity-0 transition-opacity duration-500',
-          isReady && 'opacity-100'
-        )}
-        src={data.avatar}
-        ref={imgRef}
-        alt={data.name}
-        onLoad={() => setIsReady(true)}
-        onError={() => setIsReady(false)}
-      />
-      {!isReady && (
-        <div className="dark:bg-zinc-800 absolute left-3 top-4 h-14 w-14  animate-pulse rounded-lg bg-zinc-300"></div>
-      )}
+      <PlaceholderImage link={data.avatar} alt={data.name} className="h-14 w-14" />
       <div className="ml-3 flex h-fit flex-col justify-between ">
         <div className="font-bold">{data.name}</div>
         <div className="mt-3 text-wrap break-all">{data.desc}</div>
