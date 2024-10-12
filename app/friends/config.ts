@@ -72,6 +72,11 @@ const friendData: FriendItem[] = [
     link:'https://mxte.cc/',
     avatar:'https://mxte.cc/favicon.svg',
     desc:'学智能科学与技术的前端开发者'
+  },{
+    name: 'Afe1’s Blog',
+    link: 'https://afe1-blog.vercel.app',
+    avatar: 'https://afe1-blog.vercel.app/_next/image?url=%2Favatar.png&w=48&q=75',
+    desc: 'afe1的个人博客',
   }
 ];
 
