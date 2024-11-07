@@ -58,7 +58,7 @@ const friendData: FriendItem[] = [
   {
     name: 'btwoa',
     link: 'https://blog.btwoa.com/',
-    avatar: 'https://assets.btwoa.com/gif/avatar.gif',
+    avatar: 'https://assets.btwoa.com/gif/author.gif',
     desc: '世界为你简单',
   },
   {
