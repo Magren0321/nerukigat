@@ -77,6 +77,11 @@ const friendData: FriendItem[] = [
     link: 'https://afe1-blog.vercel.app',
     avatar: 'https://afe1-blog.vercel.app/_next/image?url=%2Favatar.png&w=48&q=75',
     desc: 'afe1的个人博客',
+  },{
+    name: 'Wcowin\'s Web',
+    link: 'https://wcowin.work/',
+    avatar: 'https://s2.loli.net/2024/02/01/gaE47y5fKM6kosV.png',
+    desc: '循此苦旅，以达星辰',
   }
 ];
 
