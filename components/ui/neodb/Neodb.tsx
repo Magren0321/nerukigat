@@ -39,7 +39,7 @@ export const Neodb = async ({ dbUrl }: {dbUrl : string}) => {
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
-        src={`https://cors.immmmm.com/${dbFetch.cover_image_url}`}
+        src={`${dbFetch.cover_image_url}`}
         alt={dbFetch.title}
         className='h-36 mt-0 mb-0 w-auto rounded'
       />
