@@ -66,10 +66,11 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
         <div className="w-full">
           <article
             className={clsx(
-              'prose w-full max-w-full font-sans text-sm/7 text-zinc-900',
+              'prose w-full max-w-full font-sans  text-zinc-900',
               'dark:prose-invert dark:text-zinc-200',
               'prose-code:whitespace-pre-wrap prose-pre:w-full',
-              'prose-th:px-2 prose-td:px-2'
+              'prose-th:px-2 prose-td:px-2',
+              'text-sm/7 lg:text-base/8'
             )}
           >
             <PostTitle {...post} />

@@ -50,7 +50,7 @@ export const Heading = ({
       case 1:
         return (
           <h1
-            className="text-xl font-bold"
+            className="text-2xl font-bold"
             id={getId(children?.toString() || '')}
           >
             {children}
@@ -59,7 +59,7 @@ export const Heading = ({
       case 2:
         return (
           <h2
-            className="text-lg font-bold"
+            className="text-xl font-bold"
             id={getId(children?.toString() || '')}
           >
             {children}
@@ -68,7 +68,7 @@ export const Heading = ({
       case 3:
         return (
           <h3
-            className="text-base font-bold"
+            className="text-lg font-bold"
             id={getId(children?.toString() || '')}
           >
             {children}

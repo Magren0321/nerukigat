@@ -43,17 +43,17 @@ export const Neodb = async ({ dbUrl }: {dbUrl : string}) => {
         alt={dbFetch.title}
         className='h-36 mt-0 mb-0 w-auto rounded'
       />
-      <div className="h-36 ml-4">
+      <div className="h-36 ml-4 text-sm/7">
         <div className='w-fit'>
           <a href={dbUrl} target="_blank" rel="noreferrer" className='timeline-link no-underline'>「{dbFetch.title}」</a>
         </div>
         <div className="w-fit ml-2">
          {itemRating} 
         </div>
-        <div className="overflow-hidden text-ellipsis line-clamp-3 ">{dbFetch.brief}</div>
+        <div className="overflow-hidden text-ellipsis line-clamp-3">{dbFetch.brief}</div>
       </div>
       <div className={clsx(
-        `absolute right-0 top-0 text-center italic px-3  rounded-tr-lg rounded-bl-lg `,
+        `absolute right-0 top-0 text-center italic px-3  rounded-tr-lg rounded-bl-lg text-sm/7`,
         `text-white bg-blue-500 dark:bg-blue-700`,
       )}>{dbFetch.category}</div>
     </div>
