@@ -21,9 +21,22 @@ export const Neodb = async ({ dbUrl }: {dbUrl : string}) => {
   const response = await fetch(`${dbApiUrl}${dbType}`);
 
   let dbFetch = null;
+  let imgUrl = null;
 
   if (response.ok) {  
     dbFetch = await response.json();
+    if (dbFetch.cover_image_url) {
+      const imgResponse = await fetch(dbFetch.cover_image_url);
+      if (imgResponse.ok) {
+        const arrayBuffer = await imgResponse.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const base64 = buffer.toString('base64');
+        imgUrl = `data:image/jpeg;base64,${base64}`;
+      } else {
+        console.error('Failed to fetch image:', imgResponse.statusText);
+      }
+    }
+    
   } else {
     return <p className="text-center"><small>远程获取内容失败，请检查 API 有效性。</small></p>;
   }
@@ -39,7 +52,7 @@ export const Neodb = async ({ dbUrl }: {dbUrl : string}) => {
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
-        src={`${dbFetch.cover_image_url}`}
+        src={`${imgUrl}`}
         alt={dbFetch.title}
         className='h-36 mt-0 mb-0 w-auto rounded'
       />
