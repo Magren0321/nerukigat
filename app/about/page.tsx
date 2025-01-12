@@ -124,8 +124,8 @@ export default function About() {
           <h2>Uses</h2>
           <ul>
             <li>
-              <b>Laptop</b>
-              ：MacBook Pro 14-inch (2021)
+              <b>Computer</b>
+              ：MacBook Pro 14-inch (2021) / Mac mini M4
             </li>
             <li>
               <b>Phone</b>：iPhone 14 Plus / iPhone 8
