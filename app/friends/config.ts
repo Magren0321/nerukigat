@@ -82,6 +82,11 @@ const friendData: FriendItem[] = [
     link: 'https://wcowin.work/',
     avatar: 'https://s2.loli.net/2024/02/01/gaE47y5fKM6kosV.png',
     desc: '循此苦旅，以达星辰',
+  },{
+    name: 'BemoDB',
+    link: 'https://mengbooo.github.io/BemoDB',
+    avatar: 'https://avatars.githubusercontent.com/u/143786942?v=4',
+    desc: 'Bolaxious的文档库🥰',
   }
 ];
 
