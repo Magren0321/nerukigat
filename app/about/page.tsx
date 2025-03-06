@@ -128,19 +128,19 @@ export default function About() {
               ：MacBook Pro 14-inch (2021) / Mac mini M4
             </li>
             <li>
-              <b>Phone</b>：iPhone 14 Plus / iPhone 8
+              <b>Phone</b>：iPhone 16
             </li>
             <li>
-              <b>Keyboard</b>：HHKB Hybird Type-s / Ciy68 / Filco Minila Air
+              <b>Keyboard</b>：HHKB Hybird Type-s / Magic Keyboard
             </li>
             <li>
               <b>Mouse</b>：MX Master 3s for Mac
             </li>
             <li>
-              <b>Watch</b>：Apple Watch Series 5
+              <b>Watch</b>：Apple Watch Series 10
             </li>
             <li>
-              <b>Headphone</b>： AirPods2 / Sony WH-1000XM4
+              <b>Headphone</b>： AirPods4 / Sony WH-1000XM4
             </li>
             <li>
               <b>iPad</b>： iPad Air 5
