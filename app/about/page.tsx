@@ -11,7 +11,17 @@ export default function About() {
           而我选择了人迹更少的一条，从此决定了我一生的道路。
         </blockquote>
         <h2>关于我</h2>
-        <span>Hi，我是Magren，见字如晤，很高兴认识你。</span>
+        <span>Hi，我是<b>Magren</b>，网上的朋友更多的叫我<b>虫二</b>，见字如晤，很高兴认识你。</span>
+        <br></br>
+        <span>我已经忘记了为什么取 Magren 这个 ID，但我已经习惯了它，我的各个平台基本都是这个ID，曾想赋予它独特的意义，然而我连它怎么读都不清楚，遂放弃</span>
+        <br></br>
+        <span>而虫二则是出自風月无边这个成语</span>
+        <br></br>
+        <span>如果你是我现实中认识且知道我本名的朋友，请直接叫我名字就好😭</span>
+        <br></br><br></br>
+        <span>
+          是一个只会听粤语但不会讲的广东人
+        </span>
         <br></br>
         <span>
           生于千禧，正值弱冠之年，已成为资深社畜，社恐 & INTJ-A，现在在
@@ -27,11 +37,15 @@ export default function About() {
           Go...
         </span>
         <br></br>
-        <span>总是在自己折腾没用的 & 不有趣的玩具。</span>
-        <h2>兴趣爱好</h2>
+        <span>总是在自己折腾没用的 & 不有趣的玩具并自娱自乐。</span>
+        <br></br><br></br>        
+        <span>
+          这里持续用于记录我的生活、工作和思考
+        </span>
+        <h2>喜欢什么</h2>
         <ul>
           <li>
-            偶尔看看书，可以点这里查看{' '}
+            📖 偶尔看看书，可以点这里查看{' '}
             <a
               target="_blank"
               href="https://concrete-lightning-e25.notion.site/bad22ab2bf6f4d6c9bf22ee1f911028d?v=7ead59cbdefc48809733e13dbde17e57&pvs=4"
@@ -40,7 +54,7 @@ export default function About() {
             </a>
           </li>
           <li>
-            偶尔打打游戏，<del>任天堂就是世界主宰！</del>{' '}
+            🎮 偶尔打打游戏，端游还有主机游戏玩的比较多，<del>任天堂就是世界主宰！</del>{' '}
             基本上任天堂第一方游戏都很喜欢，PC上Steam里面也有玩一些，最近刚买怪猎，如果缺腿部挂件的话可以加个好友
             <ul>
               <li>
@@ -55,16 +69,25 @@ export default function About() {
               <li>
                 <b>Nintendo FC</b>: SW-1418-2466-9500
               </li>
+              <li>
+                <b>瓦罗兰特</b>：Magren#72886
+              </li>
             </ul>
           </li>
           <li>
-            偶尔也看看电影，这里可以看到我都看了什么
+            🎬 偶尔也看看电影，这里可以看到我都看了什么
             <a
               target="_blank"
               href="https://concrete-lightning-e25.notion.site/9400eef421fc4c428c68d8e69454023c?pvs=4"
             >
               我的影单
             </a>
+          </li>
+          <li>
+            🎹 偶尔弹琴：constantly struggle with practicing regularly
+          </li>
+          <li>
+            ☕️ 偶尔喝喝咖啡，工作日时候常点美式，家里有一套简单的咖啡工具，周末自己在家用咖啡机做意式
           </li>
         </ul>
         <h2>现状</h2>
@@ -150,7 +173,7 @@ export default function About() {
             </li>
             <li>
               <b>Browser</b>
-              ：Arc / Chrome
+              ：Chrome
             </li>
             <li>
               <b>Terminal</b>：iTerm2 & zsh
@@ -163,13 +186,13 @@ export default function About() {
             </li>
             <li>
               <b>Editor</b>：VSCode( You can find my vscode setting in{' '}
-              <a href="https://github.com/Magren0321/vscode-settings">here</a> )
+              <a href="https://github.com/Magren0321/vscode-settings">here</a> ) & Cursor
             </li>
             <li>
-              <b>VSCodeTheme</b>： Dracula
+              <b>CodeTheme</b>： Dracula
             </li>
             <li>
-              <b>VSCodeFont</b>：Comic Mono, Fira code, 雅痞-简, monospace
+              <b>CodeFont</b>：Comic Mono, Fira code, 雅痞-简, monospace
             </li>
             <li>
               <b>Note</b>： Notion
