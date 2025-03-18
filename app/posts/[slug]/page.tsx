@@ -1,3 +1,4 @@
+import { use } from "react";
 import { PostContainer } from '@/components/layout/container/PostContainer';
 import { Comment } from '@/components/ui/comment/Comment';
 import { Heading1, Heading2, Heading3 } from '@/components/ui/heading/Heading';
@@ -7,13 +8,14 @@ import { PostProvider } from '@/providers/post/PostProvider';
 import clsx from 'clsx';
 import { allPosts } from 'contentlayer/generated';
 import { format, parseISO } from 'date-fns';
-import { useMDXComponent } from 'next-contentlayer/hooks';
+import { useMDXComponent } from 'next-contentlayer2/hooks';
 import Link from 'next/link';
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
 
-export const generateMetadata = ({ params }: { params: { slug: string } }) => {
+export const generateMetadata = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params;
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
   if (!post) throw new Error(`Post not found for slug: ${params.slug}`);
   return {
@@ -54,7 +56,8 @@ const PostTitle = ({
   );
 };
 
-const PostLayout = ({ params }: { params: { slug: string } }) => {
+const PostLayout = (props: { params: Promise<{ slug: string }> }) => {
+  const params = use(props.params);
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
   if (!post) throw new Error(`Post not found for slug: ${params.slug}`);
 

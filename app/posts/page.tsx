@@ -17,7 +17,7 @@ const PostCardMask = ({
   return (
     <div className="hidden lg:block">
       <motion.div
-        className="absolute left-[-20px] top-0 z-[-1] w-[calc(100%+40px)] rounded-lg bg-zinc-200 dark:bg-zinc-700 "
+        {...{className: "absolute left-[-20px] top-0 z-[-1] w-[calc(100%+40px)] rounded-lg bg-zinc-200 dark:bg-zinc-700"} as any}
         animate={{ y: maskY, height: maskHeight }}
         transition={{ type: 'spring', duration: 0.5 }}
       />

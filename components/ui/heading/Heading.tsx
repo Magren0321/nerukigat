@@ -1,7 +1,6 @@
 'use client';
 
-import { HeadingMapContext } from '@/providers/post/PostProvider';
-import { useContext, type DetailedHTMLProps, type HTMLAttributes } from 'react';
+import { useId, type DetailedHTMLProps, type HTMLAttributes } from 'react';
 
 export const Heading1 = (
   props: DetailedHTMLProps<
@@ -37,12 +36,23 @@ export const Heading = ({
   children: React.ReactNode;
   level?: number;
 }) => {
-  const idMap = useContext(HeadingMapContext);
+  // Use React's useId for generating a stable, unique ID prefix
+  const uniqueId = useId();
+  
+  const getStaticId = (text: string) => {
+    if (!text) return '';
+    // Create a slug from the text
+    return text.toString()
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')   
+      .replace(/\-\-+/g, '-');  
+  };
 
   const getId = (text: string) => {
-    const count = idMap.get(text) || 0;
-    idMap.set(text, count + 1);
-    return count ? `${text}-${count}` : text;
+    const baseId = getStaticId(text);
+    return baseId || uniqueId;
   };
 
   {

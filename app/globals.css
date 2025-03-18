@@ -1,7 +1,7 @@
+@import '@waline/client/style';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '@waline/client/style';
 
 @layer base {
   :root {
