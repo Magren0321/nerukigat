@@ -1,5 +1,6 @@
 import { PostContainer } from '@/components/layout/container/PostContainer';
 import { Comment } from '@/components/ui/comment/Comment';
+import Link from 'next/link';
 
 export default function About() {
   return (
@@ -10,7 +11,7 @@ export default function About() {
           一片树林分出两条路 ——
           而我选择了人迹更少的一条，从此决定了我一生的道路。
         </blockquote>
-        <h2>关于我</h2>
+        <h2>🎩 关于我</h2>
         <span>Hi，我是<b>Magren</b>，网上的朋友更多的叫我<b>虫二</b>，见字如晤，很高兴认识你。</span>
         <br></br>
         <span>我已经忘记了为什么取 Magren 这个 ID，但我已经习惯了它，我的各个平台基本都是这个ID，曾想赋予它独特的意义，然而我连它怎么读都不清楚，遂放弃</span>
@@ -24,25 +25,23 @@ export default function About() {
         </span>
         <br></br>
         <span>
-          生于千禧，正值弱冠之年，已成为资深社畜，社恐 & INTJ-A，现在在
-          <del>北京</del>南京某厂做前端开发，辛苦搬砖中。
+          生于千禧（2000年），本科毕业后就出来打工，已成为资深社畜，社恐 & INTJ-A，现在在 <del>北京</del> 南京某厂做前端开发，辛苦搬砖中。
         </span>
         <br></br>
         <span>生活简单无趣，尚未脱离低级趣味。</span>
-        <br></br>
-        <span>在学习并且使用React, Vue, NextJs, TS, Node.js, Sass…</span>
+        <br></br><br></br>
+        <span>工作日常在学习并且使用React, Vue, NextJs, TS, Node.js, Electron, TailwindCSS, Sass…</span>
         <br></br>
         <span>
-          同时喜欢折腾点别的，偶尔学习Electron, Swift, Android, React Native,
-          Go...
+          同时喜欢折腾点别的，偶尔学习Swift, Android, React Native, Go...
         </span>
         <br></br>
         <span>总是在自己折腾没用的 & 不有趣的玩具并自娱自乐。</span>
         <br></br><br></br>        
         <span>
-          这里持续用于记录我的生活、工作和思考
+          <Link href="/posts">这里</Link> 持续用于记录我的生活、工作和思考
         </span>
-        <h2>喜欢什么</h2>
+        <h2>🎮 喜欢什么</h2>
         <ul>
           <li>
             📖 偶尔看看书，可以点这里查看{' '}
@@ -89,8 +88,11 @@ export default function About() {
           <li>
             ☕️ 偶尔喝喝咖啡，工作日时候常点美式，家里有一套简单的咖啡工具，周末自己在家用咖啡机做意式
           </li>
+          <li>
+            🏃 偶尔吃顿好吃的然后漫无目的地瞎逛
+          </li>
         </ul>
-        <h2>现状</h2>
+        <h2>👨‍💻 现状</h2>
         <ul>
           <li>
             {' '}
@@ -109,8 +111,15 @@ export default function About() {
             {' '}
             <b>准准准准准UI设计师（N/A）</b>{' '}
           </li>
+          <li>
+            {' '}
+            <b>准准准准准准产品经理（N/A）</b>{' '}
+          </li>
         </ul>
         <h2>🛸 Find me</h2>
+        <i>
+          <b>交个朋友吧，反正不要钱</b>
+        </i>
         <ul>
           <li>
             Github:{' '}
@@ -142,9 +151,12 @@ export default function About() {
               zhuhenglin21@gmail.com
             </a>
           </li>
+          <li>
+            微信:{' '}不方便透露哦（除非我们在现实世界碰过面，否则是基本不可能交换微信号的）
+          </li>
         </ul>
         <div>
-          <h2>Uses</h2>
+          <h2>💻 Uses</h2>
           <ul>
             <li>
               <b>Computer</b>
@@ -157,7 +169,7 @@ export default function About() {
               <b>Keyboard</b>：HHKB Hybird Type-s / Magic Keyboard
             </li>
             <li>
-              <b>Mouse</b>：MX Master 3s for Mac
+              <b>Mouse</b>：MX Master 3s for Mac / Magic Trackpad
             </li>
             <li>
               <b>Watch</b>：Apple Watch Series 10
