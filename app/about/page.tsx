@@ -30,10 +30,10 @@ export default function About() {
         <br></br>
         <span>生活简单无趣，尚未脱离低级趣味。</span>
         <br></br><br></br>
-        <span>工作日常在学习并且使用React, Vue, NextJs, TS, Node.js, Electron, TailwindCSS, Sass…</span>
+        <span>工作日常在学习并且使用 React、Vue、Next.js、TypeScript、Node.js、Electron、TailwindCSS、Sass…</span>
         <br></br>
         <span>
-          同时喜欢折腾点别的，偶尔学习Swift, Android, React Native, Go...
+          同时喜欢折腾点别的，偶尔学习 Swift、Android、React Native、Go...
         </span>
         <br></br>
         <span>总是在自己折腾没用的 & 不有趣的玩具并自娱自乐。</span>
@@ -54,7 +54,7 @@ export default function About() {
           </li>
           <li>
             🎮 偶尔打打游戏，端游还有主机游戏玩的比较多，<del>任天堂就是世界主宰！</del>{' '}
-            基本上任天堂第一方游戏都很喜欢，PC上Steam里面也有玩一些，最近刚买怪猎，如果缺腿部挂件的话可以加个好友
+            基本上任天堂第一方游戏都很喜欢，PC 上 Steam 里面也有玩一些，最近刚买怪猎，如果缺腿部挂件的话可以加个好友
             <ul>
               <li>
                 <b>Steam</b>：{' '}
@@ -89,7 +89,7 @@ export default function About() {
             ☕️ 偶尔喝喝咖啡，工作日时候常点美式，家里有一套简单的咖啡工具，周末自己在家用咖啡机做意式
           </li>
           <li>
-            📷 偶尔拿着一台富士xm5到处瞎拍扫街出废片
+            📷 偶尔拿着一台富士 X-M5 到处瞎拍扫街出废片
           </li>
           <li>
             🏃 偶尔吃顿好吃的然后漫无目的地瞎逛
@@ -99,12 +99,12 @@ export default function About() {
         <ul>
           <li>
             {' '}
-            <b>前端开发工程师</b>（2020-至今），技术栈 Vue.js，React，NextJs...
+            <b>前端开发工程师</b>（2020-至今），技术栈 Vue.js、React、Next.js...
           </li>
           <li>
             {' '}
             <b>准后端开发工程师</b>（2020-至今），技术栈
-            NodeJS，NestJS,Go，Express，MongoDB，PostgreSQL...
+            Node.js、NestJS、Go、Express、MongoDB、PostgreSQL...
           </li>
           <li>
             {' '}
@@ -169,7 +169,7 @@ export default function About() {
               <b>Phone</b>：iPhone 16
             </li>
             <li>
-              <b>Keyboard</b>：HHKB Hybird Type-s / Magic Keyboard
+              <b>Keyboard</b>：MADE 68 pro / Magic Keyboard
             </li>
             <li>
               <b>Mouse</b>：MX Master 3s for Mac / Magic Trackpad
@@ -191,7 +191,7 @@ export default function About() {
               ：Chrome
             </li>
             <li>
-              <b>Terminal</b>：iTerm2 & zsh
+              <b>Terminal</b>：Hyper & zsh
             </li>
             <li>
               <b>Launcher</b>：Raycast
@@ -207,7 +207,7 @@ export default function About() {
               <b>CodeTheme</b>： Dracula
             </li>
             <li>
-              <b>CodeFont</b>：Comic Mono, Fira code, 雅痞-简, monospace
+              <b>CodeFont</b>：Comic Mono、Fira Code、雅痞-简、monospace
             </li>
             <li>
               <b>Note</b>： Notion
