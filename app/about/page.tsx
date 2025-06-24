@@ -44,6 +44,15 @@ export default function About() {
         <h2>🎮 喜欢什么</h2>
         <ul>
           <li>
+            📷 偶尔拿着一台富士 X-M5 到处瞎拍扫街出废片，可以点这里查看一些{' '}
+            <a
+              target="_blank"
+              href="https://afilmory.magren.cc/"
+            >
+             我的摄影作品
+            </a>
+          </li>
+          <li>
             📖 偶尔看看书，可以点这里查看{' '}
             <a
               target="_blank"
@@ -87,9 +96,6 @@ export default function About() {
           </li>
           <li>
             ☕️ 偶尔喝喝咖啡，工作日时候常点美式，家里有一套简单的咖啡工具，周末自己在家用咖啡机做意式
-          </li>
-          <li>
-            📷 偶尔拿着一台富士 X-M5 到处瞎拍扫街出废片
           </li>
           <li>
             🏃 偶尔吃顿好吃的然后漫无目的地瞎逛
