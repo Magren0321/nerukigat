@@ -26,6 +26,11 @@ const socialLinks: Array<{
     link: 'https://space.bilibili.com/12031307',
   },
   {
+    name: 'icon-[ic--baseline-photo-camera] text-[#000000]',
+    friendlyName: 'Gallery',
+    link: 'https://afilmory.magren.cc/',
+  },
+  {
     name: 'icon-[ic--baseline-email] text-[#f5cc00]',
     friendlyName: 'email',
     link: 'mailto:zhuhenglin21@gmail.com',
@@ -39,7 +44,7 @@ const socialLinks: Array<{
 
 export const SocialList = () => {
   return (
-    <div className="mt-14 flex space-x-4">
+    <div className="mt-14 flex flex-wrap max-w-[320px]">
       {socialLinks.map((social) => {
         return (
           <Link
@@ -47,7 +52,7 @@ export const SocialList = () => {
             href={social.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-3xl"
+            className="text-3xl mr-[10px]"
           >
             <span className={social.name}></span>
           </Link>
