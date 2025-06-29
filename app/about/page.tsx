@@ -25,7 +25,7 @@ export default function About() {
         </span>
         <br></br>
         <span>
-          生于千禧（2000年），本科毕业后就出来打工，已成为资深社畜，社恐 & INTJ，现在在 <del>北京</del> 南京某厂做前端开发，辛苦搬砖中。
+          生于千禧（2000年），本科毕业后就出来打工，已成为资深社畜，社恐 & INTJ，现在 <del>北京</del> <del>南京</del> 又回北京了，在某厂做前端开发，辛苦搬砖中。
         </span>
         <br></br>
         <span>生活简单无趣，尚未脱离低级趣味。</span>
@@ -44,7 +44,7 @@ export default function About() {
         <h2>🎮 喜欢什么</h2>
         <ul>
           <li>
-            📷 偶尔拿着一台富士 X-M5 到处瞎拍扫街出废片，可以点这里查看一些{' '}
+            📷 偶尔拿着一台富士 X-T5 到处瞎拍扫街出废片，可以点这里查看一些{' '}
             <a
               target="_blank"
               href="https://afilmory.magren.cc/"
@@ -197,7 +197,7 @@ export default function About() {
               ：Chrome
             </li>
             <li>
-              <b>Terminal</b>：Hyper & zsh
+              <b>Terminal</b>：Ghostty & zsh
             </li>
             <li>
               <b>Launcher</b>：Raycast
