@@ -213,7 +213,7 @@ export default function About() {
               <b>CodeTheme</b>： Dracula
             </li>
             <li>
-              <b>CodeFont</b>：Comic Mono、Fira Code、雅痞-简、monospace
+              <b>CodeFont</b>：ComicShannsMono Nerd Font, monospace, 雅痞-简
             </li>
             <li>
               <b>Note</b>： Notion
