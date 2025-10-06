@@ -1,0 +1,118 @@
+---
+title: 大数据量表格的来回折腾
+date: 2025/10/06
+tags:
+  - 前端
+  - React
+slug: large-table-optimization
+description: 
+---
+
+# 前言🛸
+
+年中换了工作，之前很多时候干C端的活，一下子突然去干B端了，还是花了点时间适应；
+
+这次业务需求大概是一个表格有30+列，然后数据量大概几K，然后都是自定义组件😭
+
+这个优化来回折腾了几个方案，顺势记录一下，博客也好久没写跟技术沾边的东西了
+
+# 技术选型 🔧
+## Ag Grid
+
+本意是想直接使用 Antd 自带的 Table 的，结果发现根本用不了，数据量大的情况下快速滑动滚动哪怕开着虚拟列表也卡的要死，不得已看了看 Github 上比较热门的
+Table 库，然后选择了 Ag Grid
+
++ 自定义程度高，行虚拟化 / 列虚拟化 / Row buffer / 虚拟滚动的加载方式 等
++ 性能上同数据下比 Antd Table 本身的虚拟滚动顺畅很多
++ 比 Antd Table 容易用一点，Antd Table 使用 Virtual Table 还需要配置 scroll y，这次场景里面还有放大 Table 全屏的功能，如果用 Antd Table还需要
+外层包裹 div，通过 Observe 去监听高度变化设置回去，太麻烦了
+
+## [Lenis](https://github.com/darkroomengineering/lenis)
+
+Lenis简单来说就是一个控制滚动的库，我后面用它来代理 Ag Grid Table 的滚动，本身体积小，还可以控制滚动的平滑度之类的，很好用
+
+# 开始折腾 🚀
+
+## 模拟 Input / Select 
+
+这个其实 Ag Grid 自带的 Input Select 已经实现好了，就是只有当点击聚焦的时候才会把 Input / Select 组件去渲染出来，其他时候都是单纯的文本，
+偏偏我这里面的组件全都是自定义的，就不得不自己去实现下了，就是模拟Input / Select 组件的样式，当点击的时候去进行渲染切换，设置好 autoFocus 避免
+用户需要点击两次的情况；
+
+## Table 的优化
+
+### 渲染方式的选择 & Row Buffer 的设置
+
+Ag grid 虚拟列表提供两种滚动过程中的渲染方式，可以通过 debounceVerticalScrollbar 去进行控制；
+
++ debounceVerticalScrollbar 为 true 的时候，滚动的时候会进行节流，不会每次都渲染，而是会在滚动结束的时候渲染；
++ debounceVerticalScrollbar 为 false 的时候，滚动的时候会每次都渲染，不会进行节流；
+
+Ag Grid 本身的 Row Buffer 默认是 10 行，当时为了不滚动一点就没数据展示了，所以我直接配置到了50；
+
+然后不出意外的产品业务不满意😭，虽然保留了滚动的流畅，但是快速滚动或者滚动多的话会白屏，然后停止滚动加载的时候也需要一点时间加载出来，并且还会有卡顿，
+卡顿其实是因为在计算 & 渲染；
+
+虽然 Ag grid 本身也可以设置 Cell Loading，设置 deferRender，但是这种方案白屏就是不可避免的，如果快速来回滚动，这个 Cell Loading 又是一笔性能的开销，反而更卡了
+
+### 滚动限制 & 渲染方式更改
+
+在以上的实践上转换思路，为了避免白屏的问题，需要实时的渲染，所以 debounceVerticalScrollbar 就得设置成 false，把延迟计算关了，但是这样快速滚动会
+导致虚拟列表一直在计算以及渲染，造成很明显的卡顿，所以为了体验，牺牲掉滚动的速度；
+
+大体思路：Table 实时渲染更新，限制滚动的最大速度（比如之前划快了，一帧是滚300px，直接限制成最大只能30px），这样滑动的过程中每一帧的计算以及渲染量都不会特别大，虽然滑动慢了，
+但是可以保证页面的流畅（再不济旁边又不是没有滚动条给他们拉🤪
+
+控制 Table 的滚动速度就是采用了上面说的 Lenis，在 Table Ready 后的回调里面把 Ag Grid Table 的滚动代理给 Lenis，设置每一帧滚动时候的偏移量的最大值，
+注意实例化的时候数组的长度应该也作为依赖项，数组动态变化长度的时候应该重新代理下，不然滚动会有问题
+
+```Typescript
+useEffect(() => {
+  if(!containerRef.current) return;
+  const viewPort = containerRef.current.querySelector('.ag-viewport-wrapper');
+
+  if(lenisRef.current) {
+    lenisRef.current.destroy();
+    lenisRef.current = null;
+  }
+
+  const lenis = new Lenis({
+    wrapper: viewPort,
+    smoothWheel: true,
+    virtualScroll: (e)=>{
+      if(Math.abs(e.delta) > 30) {
+        e.delta = e.delta > 0 ? 30 : -30;
+      }
+      return true;
+    }
+  });
+
+  lenisRef.current = lenis;
+
+  const raf = (time: number) =>{
+    lenis.raf(time);
+    rafIdRef.current = requestAnimationFrame(raf);
+  }
+  rafIdRef.current = requestAnimationFrame(raf);
+
+  return () => {
+    if(rafIdRef.current) {
+      cancelAnimationFrame(rafIdRef.current);
+    }
+    if(lenisRef.current) {
+      lenisRef.current.destroy();
+      lenisRef.current = null;
+    }
+  };
+}, [gridApi,dataSource.length]);
+```
+
+这样限制后，最大的偏移量只能是 30px， 按照我实际的行高，一行大概是 40px，所以每一帧的渲染量不会特别大，并且还可以保证页面的流畅，然后
+Ag grid 的 Row Buffer 也不用设置这么高了，反正已经限制了最大的滚动速度，Row Buffer 完全可以设置成 2，甚至1；
+
+# 最后
+
+其实本质上都是减少 Dom 的渲染，就看实现的方式，也有想过使用 Canvas 的 Table 去实现，但是好像没有看到好的 Canvas Table 能够很好满足自定义
+Component 的需求，所以还是算了；
+
+因为这个表格有动态的插入/删除行，所以这个表格才没有做成分页😭，如果是分页就没那么多事了
