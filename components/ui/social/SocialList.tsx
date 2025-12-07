@@ -28,7 +28,7 @@ const socialLinks: Array<{
   {
     name: 'icon-[ic--baseline-photo-camera] text-[#000000]',
     friendlyName: 'Gallery',
-    link: 'https://afilmory.magren.cc/',
+    link: 'https://magren.afilmory.art/',
   },
   {
     name: 'icon-[ic--baseline-email] text-[#f5cc00]',

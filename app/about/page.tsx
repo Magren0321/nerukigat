@@ -47,7 +47,7 @@ export default function About() {
             📷 偶尔拿着一台<del> 富士 X-T5 </del>尼康 Zf 到处瞎拍扫街出废片，可以点这里查看一些{' '}
             <a
               target="_blank"
-              href="https://afilmory.magren.cc/"
+              href="https://magren.afilmory.art/"
             >
              我的摄影作品
             </a>
