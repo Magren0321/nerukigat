@@ -1,4 +1,4 @@
-import { allPosts, Post } from 'contentlayer/generated';
+import { allPosts, Post } from 'contentlayer2/generated';
 import { compareDesc, format, parseISO } from 'date-fns';
 
 export const getPostTimeLine = (tag = '') => {

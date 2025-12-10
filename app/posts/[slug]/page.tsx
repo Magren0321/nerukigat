@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/img/Image';
 import { PostTree } from '@/components/ui/toc/PostTree';
 import { PostProvider } from '@/providers/post/PostProvider';
 import clsx from 'clsx';
-import { allPosts } from 'contentlayer/generated';
+import { allPosts } from 'contentlayer2/generated';
 import { format, parseISO } from 'date-fns';
 import { useMDXComponent } from 'next-contentlayer2/hooks';
 import Link from 'next/link';
