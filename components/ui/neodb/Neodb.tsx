@@ -18,7 +18,13 @@ export const Neodb = async ({ dbUrl }: {dbUrl : string}) => {
     dbApiUrl = "https://neodb.social/api/catalog/fetch?url=";
   }
 
-  const response = await fetch(`${dbApiUrl}${dbType}`);
+  const response = await fetch(`${dbApiUrl}${dbType}`, {
+    next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(10000), // 10秒超时
+  }).catch((err) => {
+    console.error('Fetch error:', err);
+    return { ok: false } as Response;
+  });
 
   let dbFetch = null;
   let imgUrl = null;
@@ -26,19 +32,27 @@ export const Neodb = async ({ dbUrl }: {dbUrl : string}) => {
   if (response.ok) {  
     dbFetch = await response.json();
     if (dbFetch.cover_image_url) {
-      const imgResponse = await fetch(dbFetch.cover_image_url);
-      if (imgResponse.ok) {
-        const arrayBuffer = await imgResponse.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-        const base64 = buffer.toString('base64');
-        imgUrl = `data:image/jpeg;base64,${base64}`;
-      } else {
-        console.error('Failed to fetch image:', imgResponse.statusText);
+      try {
+        const imgResponse = await fetch(dbFetch.cover_image_url, {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (imgResponse.ok) {
+          const arrayBuffer = await imgResponse.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
+          const base64 = buffer.toString('base64');
+          imgUrl = `data:image/jpeg;base64,${base64}`;
+        } else {
+          console.error('Failed to fetch image:', imgResponse.statusText);
+        }
+      } catch (err) {
+        console.error('Image fetch error:', err);
+        // 如果图片获取失败，使用原始URL
+        imgUrl = dbFetch.cover_image_url;
       }
     }
     
   } else {
-    return <p className="text-center"><small>远程获取内容失败，请检查 API 有效性。</small></p>;
+    return <p className="text-center"><small>远程获取内容失败，请检查 API 有效性或网络连接。</small></p>;
   }
 
   const itemRating = dbFetch?.rating ? dbFetch?.rating + '⭐️' : '暂无评分';

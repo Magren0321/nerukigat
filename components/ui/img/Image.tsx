@@ -18,7 +18,7 @@ export const Image = (
   return (
     <span className="relative block">
       <PhotoProvider>
-        <PhotoView src={props.src}>
+        <PhotoView src={typeof props.src === 'string' ? props.src : undefined}>
           <NextImage
             {...(props as ImageProps)}
             priority
