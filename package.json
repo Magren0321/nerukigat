@@ -6,7 +6,7 @@
     "dev": "contentlayer2 dev & next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
@@ -14,27 +14,29 @@
     "contentlayer2": "^0.5.4",
     "date-fns": "^3.0.6",
     "framer-motion": "^12.5.0",
-    "next": "15.2.3",
+    "next": "16.0.8",
     "next-contentlayer2": "^0.5.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-photo-view": "^1.2.4",
     "remark-gfm": "^4.0.0",
     "rss": "^1.2.2",
     "typed.js": "^2.1.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.1",
     "@iconify/json": "^2.2.179",
     "@iconify/tailwind": "^0.1.4",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20",
-    "@types/react": "19.0.11",
-    "@types/react-dom": "19.0.4",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "@types/rss": "^0.0.30",
     "@waline/client": "3.0.0-alpha.10",
     "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "15.2.3",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "16.0.8",
     "eslint-config-prettier": "^9.1.0",
     "postcss": "^8",
     "prettier-plugin-organize-imports": "^3.2.4",
@@ -44,8 +46,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "19.0.11",
-      "@types/react-dom": "19.0.4"
+      "@types/react": "19.2.7",
+      "@types/react-dom": "19.2.3"
     }
   }
 }

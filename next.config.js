@@ -3,9 +3,15 @@ const { withContentlayer } = require('next-contentlayer2');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  turbopack: {},
+  serverExternalPackages: ['mdx-bundler', 'esbuild'],
   images: {
-    domains: ['cors.immmmm.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cors.immmmm.com',
+      },
+    ],
   },
   async rewrites() {
     return [
