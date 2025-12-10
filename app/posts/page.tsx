@@ -1,7 +1,7 @@
 'use client';
 
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
-import { Post, allPosts } from 'contentlayer/generated';
+import { Post, allPosts } from 'contentlayer2/generated';
 import { compareDesc, format, parseISO } from 'date-fns';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
