@@ -30,7 +30,7 @@ export const Navigation = () => {
 
   return (
     <div className="mx-5 mt-[calc(1.25rem-3px)] dark:text-zinc-200">
-      <div className="text-xl font-bold">站内导航</div>
+      <div className="text-xl font-bold">导航</div>
       <ul className="mt-10 flex flex-col">
         {navigationItems.map(({ href, text }) => (
           <Link

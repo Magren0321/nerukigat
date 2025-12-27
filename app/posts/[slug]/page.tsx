@@ -36,7 +36,7 @@ const PostTitle = ({
 }) => {
   return (
     <div className="mb-8 text-center">
-      <h1 className="text-3xl font-bold">{title}</h1>
+      <h1 className="text-2xl font-bold">{title}</h1>
       <div className="text-xs text-gray-600 dark:text-zinc-100">
         <time dateTime={date}>{format(parseISO(date), 'LLLL d, yyyy')}</time>
         <span> • </span>

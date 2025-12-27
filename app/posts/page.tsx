@@ -41,7 +41,7 @@ const PostCard = (post: Post) => {
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="currentColor"
+            stroke="currentColor" 
             className="mr-1 h-3 w-3"
           >
             <path
