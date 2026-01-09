@@ -26,13 +26,21 @@ export const Header = () => {
 
   return (
     <div className="sticky top-0 z-[999]">
-      <div
-        className={clsx(
-          'duration-5000 w-full  px-5 py-2 transition-all',
-          isShow ? 'filter-bg' : ''
-        )}
-      >
-        <div className="mx-auto flex max-w-4xl items-center justify-center">
+      <div className="relative w-full px-5 py-2">
+        {/* 背景层，使用动画 */}
+        <AnimatePresence>
+          {isShow && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="absolute inset-0 filter-bg"
+            />
+          )}
+        </AnimatePresence>
+
+        <div className="relative mx-auto flex max-w-4xl items-center justify-center">
           <Link href="/" className="z-0 mr-auto lg:z-[5]">
             <Image
               src={'/avatar.png'}
@@ -43,7 +51,10 @@ export const Header = () => {
             />
           </Link>
           <div className="ml-[-40px] hidden flex-1 lg:block">
-            <NavigationBar className={!isShow ? 'filter-bg' : ''} />
+            <NavigationBar
+              className={!isShow ? 'filter-bg' : ''}
+              hasBackground={isShow}
+            />
           </div>
         </div>
       </div>

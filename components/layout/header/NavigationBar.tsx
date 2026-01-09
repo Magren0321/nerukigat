@@ -32,9 +32,11 @@ const navigationItems = [
 function NavItem({
   href,
   children,
+  hasBackground,
 }: {
   href: string;
   children: React.ReactNode;
+  hasBackground: boolean;
 }) {
   const isActive = usePathname() === href;
 
@@ -50,7 +52,7 @@ function NavItem({
         )}
       >
         {children}
-        {isActive && (
+        {isActive && !hasBackground && (
           <motion.span
             className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-lime-700/0 via-blue-700/70 to-blue-700/0 dark:from-lime-400/0 dark:via-blue-400/40 dark:to-blue-400/0"
             layoutId="active-nav-item"
@@ -61,7 +63,11 @@ function NavItem({
   );
 }
 
-const Nav = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+const Nav = ({
+  className,
+  hasBackground,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { hasBackground: boolean }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const radius = useMotionValue(0);
@@ -96,7 +102,7 @@ const Nav = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
 
       <ul className="flex bg-transparent px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200 ">
         {navigationItems.map(({ href, text }) => (
-          <NavItem key={href} href={href}>
+          <NavItem key={href} href={href} hasBackground={hasBackground}>
             {text}
           </NavItem>
         ))}
@@ -107,6 +113,7 @@ const Nav = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
 
 export const NavigationBar = ({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  return <Nav className={className} />;
+  hasBackground = false,
+}: React.HTMLAttributes<HTMLDivElement> & { hasBackground?: boolean }) => {
+  return <Nav className={className} hasBackground={hasBackground} />;
 };
