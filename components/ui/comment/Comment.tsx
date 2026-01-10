@@ -21,7 +21,7 @@ export const Comment = (props: WalineOptions) => {
       meta: ['nick', 'mail'],
       imageUploader: false,
       search: false,
-      copyright: false,
+      noCopyright: true,
       locale: {
         placeholder: '随便说点什么吧，不用登陆也可以直接留言',
       },
