@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 // 全局状态来追踪导航开始
 let navigationStartCallbacks: Set<() => void> = new Set();
@@ -14,7 +14,6 @@ export const useProgress = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const previousPathname = useRef(pathname);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
   const hasStartedRef = useRef(false);
@@ -87,7 +86,7 @@ export const useProgress = () => {
         timersRef.current = [];
       };
     }
-  }, [pathname, searchParams, isLoading]);
+  }, [pathname, isLoading]);
 
   // 监听所有 Link 点击事件
   useEffect(() => {
