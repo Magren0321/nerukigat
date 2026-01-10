@@ -100,14 +100,24 @@
   }
 
   .timeline-link {
-    transition: all 500ms ease;
-    background-image: linear-gradient(rgb(51, 65, 85), rgb(51, 65, 85));
-    background-size: 0% 1.5px;
-    background-repeat: no-repeat;
-    background-position: left 1.1em;
-    &:hover {
-      background-size: 100% 1.5px;
-      transition: all 250ms ease;
+    position: relative;
+    display: inline-block;
+    transition: color 250ms ease;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: rgb(37, 99, 235); /* blue-600 */
+      transition: width 250ms ease;
+    }
+    /* 只在支持 hover 的设备上显示下划线动画 */
+    @media (hover: hover) and (pointer: fine) {
+      &:hover::after {
+        width: 100%;
+      }
     }
   }
 
@@ -121,8 +131,8 @@
       --theme-bg: 210deg 6% 12%;
       --theme-text: 220deg 3% 95%;
     }
-    .timeline-link {
-      background-image: linear-gradient(rgb(203 213 225), rgb(203 213 225));
+    .timeline-link::after {
+      background: rgb(96, 165, 250); /* blue-400 */
     }
   }
 }

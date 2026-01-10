@@ -1,10 +1,13 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { Suspense } from 'react';
 import { useProgress } from './useProgress';
+import { useSearchParams } from 'next/navigation';
 
-export const ProgressBar = () => {
-  const { isLoading, progress } = useProgress();
+function ProgressBarContent() {
+  const searchParams = useSearchParams();
+  const { isLoading, progress } = useProgress(searchParams.toString());
 
   return (
     <AnimatePresence>
@@ -28,6 +31,14 @@ export const ProgressBar = () => {
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+export const ProgressBar = () => {
+  return (
+    <Suspense fallback={null}>
+      <ProgressBarContent />
+    </Suspense>
   );
 };
 

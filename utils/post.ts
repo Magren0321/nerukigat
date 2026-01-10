@@ -8,9 +8,21 @@ export const getPostTimeLine = (tag = '') => {
 
   const dateMap = {} as Record<string, Post[]>;
 
+  // 解析多个 tag（逗号分割）
+  const tags = tag
+    ? tag
+        .split(',')
+        .map((t) => t.trim())
+        .filter((t) => t.length > 0)
+    : [];
+
   posts.forEach((post) => {
-    if (tag && !post.tags.includes(tag)) {
-      return;
+    // 如果指定了 tags，文章必须包含所有指定的 tags
+    if (tags.length > 0) {
+      const hasAllTags = tags.every((t) => post.tags.includes(t));
+      if (!hasAllTags) {
+        return;
+      }
     }
     const year = format(parseISO(post.date), 'yyyy');
     if (!dateMap[year]) {

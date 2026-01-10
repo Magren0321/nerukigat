@@ -4,17 +4,17 @@ import { NormalContainer } from '@/components/layout/container/NomalContainer';
 import { TimeLine } from '@/components/ui/timeline/TimeLine';
 import { getPostTimeLine } from '@/utils';
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 
 function LoadingState() {
   return (
     <NormalContainer>
       <div className="flex flex-col items-center justify-center min-h-[50vh]">
         <div className="relative w-16 h-16">
-          <div className="absolute top-0 left-0 w-full h-full border-2 border-gray-200 rounded-full"></div>
-          <div className="absolute top-0 left-0 w-full h-full border-2 border-t-black rounded-full animate-spin"></div>
+          <div className="absolute top-0 left-0 w-full h-full border-2 border-gray-200 rounded-full dark:border-zinc-700"></div>
+          <div className="absolute top-0 left-0 w-full h-full border-2 border-t-black rounded-full animate-spin dark:border-t-white"></div>
         </div>
-        <p className="mt-4 text-xl font-medium text-gray-600">Loading...</p>
+        <p className="mt-4 text-xl font-medium text-gray-600 dark:text-zinc-400">Loading...</p>
       </div>
     </NormalContainer>
   );
@@ -32,22 +32,38 @@ function ArchiveContent() {
   const searchParams = useSearchParams();
   const tag = searchParams.get('tag') || '';
   
+  // 解析多个 tag（逗号分割）
+  const tags = useMemo(() => {
+    return tag
+      ? tag
+          .split(',')
+          .map((t) => t.trim())
+          .filter((t) => t.length > 0)
+      : [];
+  }, [tag]);
+  
   const { value, length } = getPostTimeLine(tag);
 
-  const TimeHead = () => {
-    return (
-      <header>
-        <h1 className="text-3xl font-bold">{tag || '归档'}</h1>
-        <h2 className="mt-10 text-xl font-bold">
-          目前共有{length}篇文章，继续努力
-        </h2>
-      </header>
-    );
-  };
+  const displayTitle = useMemo(() => {
+    if (tags.length === 0) {
+      return '归档';
+    }
+    if (tags.length === 1) {
+      return tags[0];
+    }
+    return tags.join(', ');
+  }, [tags]);
 
   return (
     <NormalContainer>
-      <TimeHead />
+      <div className="mb-8">
+        <h1 className="mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+          {displayTitle}
+        </h1>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          共 {length} 篇文章
+        </p>
+      </div>
       <TimeLine dateMap={value} />
     </NormalContainer>
   );
