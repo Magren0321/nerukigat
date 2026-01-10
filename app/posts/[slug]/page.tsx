@@ -5,6 +5,7 @@ import { Heading1, Heading2, Heading3 } from '@/components/ui/heading/Heading';
 import { Image } from '@/components/ui/img/Image';
 import { PostTree } from '@/components/ui/toc/PostTree';
 import { PostProvider } from '@/providers/post/PostProvider';
+import { PhotoProvider } from '@/components/ui/img/PreviewImage';
 import clsx from 'clsx';
 import { allPosts } from 'contentlayer2/generated';
 import { format, parseISO } from 'date-fns';
@@ -77,16 +78,18 @@ const PostLayout = (props: { params: Promise<{ slug: string }> }) => {
             )}
           >
             <PostTitle {...post} />
-            <PostProvider>
-              <Component
-                components={{
-                  img: Image,
-                  h1: Heading1,
-                  h2: Heading2,
-                  h3: Heading3,
-                }}
-              />
-            </PostProvider>
+            <PhotoProvider>
+              <PostProvider>
+                <Component
+                  components={{
+                    img: Image,
+                    h1: Heading1,
+                    h2: Heading2,
+                    h3: Heading3,
+                  }}
+                />
+              </PostProvider>
+            </PhotoProvider>
           </article>
           <div className="mt-4 font-mono text-sm opacity-50  hover:opacity-75">
             <Link href={'/posts'}>

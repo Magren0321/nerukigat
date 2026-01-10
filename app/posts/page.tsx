@@ -7,6 +7,35 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { compareDesc, format, parseISO } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
+import { startNavigation } from '@/components/ui/progress/useProgress';
+
+// 检测是否支持真正的 hover（而非触摸）
+const useSupportsHover = () => {
+  const [supportsHover, setSupportsHover] = useState(false);
+
+  useEffect(() => {
+    // 检测是否支持真正的 hover（不是触摸设备的伪 hover）
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    setSupportsHover(mediaQuery.matches);
+
+    // 监听变化（例如设备方向改变）
+    const handleChange = (e: MediaQueryListEvent) => {
+      setSupportsHover(e.matches);
+    };
+
+    // 使用 addEventListener 替代 addListener（更好的兼容性）
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } else {
+      // 降级方案（旧浏览器）
+      mediaQuery.addListener(handleChange);
+      return () => mediaQuery.removeListener(handleChange);
+    }
+  }, []);
+
+  return supportsHover;
+};
 
 const POSTS_PER_PAGE = 10;
 
@@ -16,7 +45,9 @@ interface PostCardProps {
 
 const PostCard = ({ post }: PostCardProps) => {
   const router = useRouter();
+  const supportsHover = useSupportsHover();
   const [isHovered, setIsHovered] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const { words, readingTime } = useMemo(() => {
     if (!post.body?.code) {
       return { words: 0, readingTime: 1 };
@@ -25,27 +56,57 @@ const PostCard = ({ post }: PostCardProps) => {
   }, [post.body?.code]);
 
   const handleCardClick = () => {
+    setIsNavigating(true);
+    startNavigation();
     router.push(post.url);
   };
 
   const handleTagClick = (tag: string, e: React.MouseEvent) => {
     e.stopPropagation();
+    startNavigation();
     router.push(`/archive?tag=${encodeURIComponent(tag)}`);
+  };
+
+  // 只在支持 hover 的设备上处理鼠标事件
+  const handleMouseEnter = () => {
+    if (supportsHover) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (supportsHover) {
+      setIsHovered(false);
+    }
   };
 
   return (
     <article
       onClick={handleCardClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group relative mb-6 cursor-pointer overflow-hidden rounded-xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:border-blue-500 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800/50 dark:hover:border-blue-400"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`group relative mb-6 cursor-pointer overflow-hidden rounded-xl border border-zinc-200 bg-white p-6 transition-all duration-300 dark:border-zinc-700 dark:bg-zinc-800/50 ${
+        supportsHover
+          ? 'hover:border-blue-500 hover:shadow-lg dark:hover:border-blue-400'
+          : ''
+      } ${isNavigating ? 'pointer-events-none opacity-70' : ''}`}
     >
       {/* 左侧蓝色竖线 */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
+      <div
+        className={`absolute left-0 top-0 bottom-0 w-1 bg-blue-500 opacity-0 transition-opacity ${
+          supportsHover ? 'group-hover:opacity-100' : ''
+        }`}
+      />
 
       <div className="relative">
         {/* 标题 */}
-        <h2 className="mb-3 text-xl font-bold text-zinc-900 transition-colors group-hover:text-blue-600 dark:text-zinc-100 dark:group-hover:text-blue-400">
+        <h2
+          className={`mb-3 text-xl font-bold text-zinc-900 transition-colors dark:text-zinc-100 ${
+            supportsHover
+              ? 'group-hover:text-blue-600 dark:group-hover:text-blue-400'
+              : ''
+          }`}
+        >
           {post.title}
         </h2>
 
@@ -128,36 +189,67 @@ const PostCard = ({ post }: PostCardProps) => {
             <button
               key={tag}
               onClick={(e) => handleTagClick(tag, e)}
-              className="inline-flex items-center rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-200 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600"
+              className={`inline-flex items-center rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-700 transition-colors dark:bg-zinc-700 dark:text-zinc-300 ${
+                supportsHover
+                  ? 'hover:bg-zinc-200 dark:hover:bg-zinc-600'
+                  : 'active:bg-zinc-200 dark:active:bg-zinc-600'
+              }`}
             >
               #{tag}
             </button>
           ))}
         </div>
 
-        {/* 右侧箭头 */}
+        {/* 右侧箭头或加载指示器 */}
         <motion.div
           className="absolute right-6 top-4"
           animate={{
-            opacity: isHovered ? 1 : 0,
-            x: isHovered ? 0 : -10,
+            opacity: isHovered || isNavigating ? 1 : 0,
+            x: isHovered || isNavigating ? 0 : -10,
           }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="h-5 w-5 text-blue-500"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-            />
-          </svg>
+          {isNavigating ? (
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+              className="h-5 w-5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="h-5 w-5 text-blue-500"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+                />
+              </svg>
+            </motion.div>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-5 w-5 text-blue-500"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+              />
+            </svg>
+          )}
         </motion.div>
       </div>
     </article>
@@ -176,6 +268,8 @@ const Pagination = ({
   totalPages,
   onPageChange,
 }: PaginationProps) => {
+  const supportsHover = useSupportsHover();
+
   if (totalPages <= 1) return null;
 
   const pages = [];
@@ -191,12 +285,16 @@ const Pagination = ({
     pages.push(i);
   }
 
+  const hoverClasses = supportsHover
+    ? 'hover:bg-zinc-100 dark:hover:bg-zinc-700'
+    : 'active:bg-zinc-100 dark:active:bg-zinc-700';
+
   return (
     <div className="mt-8 flex items-center justify-center gap-2">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700"
+        className={`rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50 dark:text-zinc-300 ${hoverClasses}`}
       >
         上一页
       </button>
@@ -205,7 +303,7 @@ const Pagination = ({
         <>
           <button
             onClick={() => onPageChange(1)}
-            className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700"
+            className={`rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors dark:text-zinc-300 ${hoverClasses}`}
           >
             1
           </button>
@@ -220,7 +318,7 @@ const Pagination = ({
           className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
             page === currentPage
               ? 'bg-blue-500 text-white'
-              : 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700'
+              : `text-zinc-700 dark:text-zinc-300 ${hoverClasses}`
           }`}
         >
           {page}
@@ -234,7 +332,7 @@ const Pagination = ({
           )}
           <button
             onClick={() => onPageChange(totalPages)}
-            className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700"
+            className={`rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors dark:text-zinc-300 ${hoverClasses}`}
           >
             {totalPages}
           </button>
@@ -244,7 +342,7 @@ const Pagination = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700"
+        className={`rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors disabled:cursor-not-allowed disabled:opacity-50 dark:text-zinc-300 ${hoverClasses}`}
       >
         下一页
       </button>

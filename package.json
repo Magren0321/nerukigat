@@ -33,7 +33,7 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/rss": "^0.0.30",
-    "@waline/client": "3.0.0-alpha.10",
+    "@waline/client": "3.8.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^9.39.1",
     "eslint-config-next": "16.0.8",

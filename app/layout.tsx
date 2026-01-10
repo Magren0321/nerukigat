@@ -1,5 +1,6 @@
 import { Header } from '@/components/layout/header/Header';
 import { ScrollToTop } from '@/components/ScrollToTop';
+import { ProgressBar } from '@/components/ui/progress/ProgressBar';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Analytics mode={'production'} />
+        <ProgressBar />
         <ScrollToTop />
         <div>
           <Header />
