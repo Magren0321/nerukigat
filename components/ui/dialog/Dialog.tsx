@@ -3,37 +3,32 @@ import {
   DialogProvider,
 } from '@/providers/dialog/DialogProvider';
 import { motion } from 'framer-motion';
-import { ReactNode, useContext, useEffect, useState } from 'react';
+import { ReactNode, useContext } from 'react';
 import { MenuToggle } from './MenuToggle';
 
 const sidebar = {
-  open: (height = 1000) => ({
-    clipPath: `circle(${height * 2}px at calc(100% - 1.25rem - 20px) calc(1.25rem + 10px))`,
+  open: {
+    y: 0,
+    opacity: 1,
     transition: {
       type: 'spring',
-      stiffness: 40,
-      restDelta: 2,
+      stiffness: 300,
+      damping: 30,
     },
-  }),
+  },
   closed: {
-    clipPath:
-      'circle(20px at calc(100% - 1.25rem - 20px) calc(1.25rem + 10px))',
+    y: '-100%',
+    opacity: 0,
     transition: {
       type: 'spring',
-      stiffness: 400,
-      damping: 40,
+      stiffness: 300,
+      damping: 30,
     },
   },
 };
 
 const DialogContent = ({ children }: { children: ReactNode }) => {
-  const [clientHeight, setClientHeight] = useState(0);
-
   const { isOpen, updateIsOpen } = useContext(DialogContext);
-
-  useEffect(() => {
-    setClientHeight(document.body.clientHeight);
-  }, []);
 
   return (
     <motion.nav
@@ -42,8 +37,7 @@ const DialogContent = ({ children }: { children: ReactNode }) => {
       className="z-10 flex h-full items-center justify-center"
     >
       <motion.div
-        className="fixed bottom-0 left-0 right-0 top-0 bg-white dark:bg-zinc-800"
-        custom={clientHeight}
+        className="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-zinc-800"
         variants={sidebar}
       >
         {isOpen && children}

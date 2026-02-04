@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
-import { Comment } from '@/components/ui/comment/Comment';
 import Link from 'next/link';
 import { PlaceholderImage } from '@/components/ui/img/PlaceholderImage';
 import friendData from './config';

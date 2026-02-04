@@ -5,9 +5,8 @@ import { calculateReadingStats } from '@/utils/post';
 import { Post, allPosts } from 'contentlayer2/generated';
 import { AnimatePresence, motion } from 'framer-motion';
 import { compareDesc, format, parseISO } from 'date-fns';
-import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { startNavigation } from '@/components/ui/progress/useProgress';
+import Link from 'next/link';
 
 // 检测是否支持真正的 hover（而非触摸）
 const useSupportsHover = () => {
@@ -44,28 +43,14 @@ interface PostCardProps {
 }
 
 const PostCard = ({ post }: PostCardProps) => {
-  const router = useRouter();
   const supportsHover = useSupportsHover();
   const [isHovered, setIsHovered] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
   const { words, readingTime } = useMemo(() => {
     if (!post.body?.code) {
       return { words: 0, readingTime: 1 };
     }
     return calculateReadingStats(post.body.code);
   }, [post.body?.code]);
-
-  const handleCardClick = () => {
-    setIsNavigating(true);
-    startNavigation();
-    router.push(post.url);
-  };
-
-  const handleTagClick = (tag: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    startNavigation();
-    router.push(`/archive?tag=${encodeURIComponent(tag)}`);
-  };
 
   // 只在支持 hover 的设备上处理鼠标事件
   const handleMouseEnter = () => {
@@ -82,43 +67,37 @@ const PostCard = ({ post }: PostCardProps) => {
 
   return (
     <article
-      onClick={handleCardClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`group relative mb-6 cursor-pointer overflow-hidden rounded-xl border border-zinc-200 bg-white p-6 transition-all duration-300 dark:border-zinc-700 dark:bg-zinc-800/50 ${
-        supportsHover
-          ? 'hover:border-blue-500 hover:shadow-lg dark:hover:border-blue-400'
-          : ''
-      } ${isNavigating ? 'pointer-events-none opacity-70' : ''}`}
+      className="group relative border-b border-zinc-200/60 py-5 transition-colors dark:border-zinc-800/60 last:border-b-0"
     >
-      {/* 左侧蓝色竖线 */}
-      <div
-        className={`absolute left-0 top-0 bottom-0 w-1 bg-blue-500 opacity-0 transition-opacity ${
-          supportsHover ? 'group-hover:opacity-100' : ''
-        }`}
-      />
-
       <div className="relative">
-        {/* 标题 */}
-        <h2
-          className={`mb-3 text-xl font-bold text-zinc-900 transition-colors dark:text-zinc-100 ${
-            supportsHover
-              ? 'group-hover:text-blue-600 dark:group-hover:text-blue-400'
-              : ''
-          }`}
+        {/* 主要内容区域 - 可点击 */}
+        <Link
+          href={post.url}
+          className="block"
         >
-          {post.title}
-        </h2>
+          {/* 标题 */}
+          <h2
+            className={`mb-2 text-lg font-medium text-zinc-900 transition-colors dark:text-zinc-100 ${
+              supportsHover
+                ? 'group-hover:text-blue-600 dark:group-hover:text-blue-400'
+                : ''
+            }`}
+          >
+            {post.title}
+          </h2>
 
-        {/* 描述 */}
-        {post.description && (
-          <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-            {post.description}
-          </p>
-        )}
+          {/* 描述 */}
+          {post.description && (
+            <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              {post.description}
+            </p>
+          )}
+        </Link>
 
         {/* 元数据 */}
-        <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
+        <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-zinc-400 dark:text-zinc-500">
           {/* 置顶标签 */}
           {post.top && (
             <div className="flex items-center gap-1">
@@ -128,7 +107,7 @@ const PostCard = ({ post }: PostCardProps) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="h-3.5 w-3.5"
+                className="h-3 w-3"
               >
                 <path
                   strokeLinecap="round"
@@ -141,116 +120,37 @@ const PostCard = ({ post }: PostCardProps) => {
           )}
 
           {/* 日期 */}
-          <div className="flex items-center gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-3.5 w-3.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-              />
-            </svg>
-            <time dateTime={post.date}>
-              {format(parseISO(post.date), 'yyyy-MM-dd')}
-            </time>
-          </div>
+          <time dateTime={post.date} className="flex items-center gap-1">
+            {format(parseISO(post.date), 'yyyy-MM-dd')}
+          </time>
 
           {/* 阅读信息 */}
-          <div className="flex items-center gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-3.5 w-3.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-            <span>
-              {words} 字 | {readingTime} 分钟
-            </span>
-          </div>
+          <span className="flex items-center gap-1">
+            {words} 字 · {readingTime} 分钟
+          </span>
         </div>
 
         {/* 标签 */}
-        <div className="flex flex-wrap items-center gap-2">
-          {post.tags.map((tag) => (
-            <button
-              key={tag}
-              onClick={(e) => handleTagClick(tag, e)}
-              className={`inline-flex items-center rounded-md bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-700 transition-colors dark:bg-zinc-700 dark:text-zinc-300 ${
-                supportsHover
-                  ? 'hover:bg-zinc-200 dark:hover:bg-zinc-600'
-                  : 'active:bg-zinc-200 dark:active:bg-zinc-600'
-              }`}
-            >
-              #{tag}
-            </button>
-          ))}
-        </div>
-
-        {/* 右侧箭头或加载指示器 */}
-        <motion.div
-          className="absolute right-6 top-4"
-          animate={{
-            opacity: isHovered || isNavigating ? 1 : 0,
-            x: isHovered || isNavigating ? 0 : -10,
-          }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-        >
-          {isNavigating ? (
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-              className="h-5 w-5"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-5 w-5 text-blue-500"
+        {post.tags.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2">
+            {post.tags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/archive?tag=${encodeURIComponent(tag)}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                className={`text-xs text-zinc-400 transition-colors dark:text-zinc-500 ${
+                  supportsHover
+                    ? 'hover:text-zinc-600 dark:hover:text-zinc-400'
+                    : 'active:text-zinc-600 dark:active:text-zinc-400'
+                }`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-                />
-              </svg>
-            </motion.div>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-5 w-5 text-blue-500"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-              />
-            </svg>
-          )}
-        </motion.div>
+                #{tag}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );

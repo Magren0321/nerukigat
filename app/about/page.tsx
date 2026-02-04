@@ -1,5 +1,4 @@
 import { PostContainer } from '@/components/layout/container/PostContainer';
-import { Comment } from '@/components/ui/comment/Comment';
 import Link from 'next/link';
 
 export default function About() {

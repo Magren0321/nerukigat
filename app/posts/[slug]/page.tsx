@@ -1,6 +1,5 @@
 import { use } from "react";
 import { PostContainer } from '@/components/layout/container/PostContainer';
-import { Comment } from '@/components/ui/comment/Comment';
 import { Heading1, Heading2, Heading3 } from '@/components/ui/heading/Heading';
 import { Image } from '@/components/ui/img/Image';
 import { PostTree } from '@/components/ui/toc/PostTree';
