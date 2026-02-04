@@ -99,10 +99,10 @@ const PostLayout = (props: { params: Promise<{ slug: string }> }) => {
               </span>
             </Link>
           </div>
-          <Comment
+          {/* <Comment
             path={'/' + params.slug}
             serverURL={'https://waline.magren.cc'}
-          />
+          /> */}
         </div>
         <PostTree />
       </div>

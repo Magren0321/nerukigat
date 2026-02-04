@@ -19,6 +19,12 @@ const friendData: FriendItem[] = [
     desc: '致虚极，守静笃。',
   },
   {
+    name: "智子",
+    link: "https://sxzz.dev/zh",
+    avatar: "https://sxzz.dev/avatar-zh.jpg",
+    desc: "一名探索前端开发的开源爱好者。"
+  },
+  {
     name: '折影轻梦',
     link: 'https://nexmoe.com',
     avatar: 'https://cravatar.cn/avatar/c7fd185f8c967dec20c29c75a40b9e09?s=500',
@@ -45,8 +51,8 @@ const friendData: FriendItem[] = [
   },
   {
     name: 'cosの博客',
-    link: 'https://ysx.cosine.ren/',
-    avatar: 'https://ysx.cosine.ren/img/avatar.jpg',
+    link: 'https://blog.cosine.ren/',
+    avatar: 'https://blog.cosine.ren/img/avatar.webp',
     desc: 'WA的一声就哭了',
   },
   {
