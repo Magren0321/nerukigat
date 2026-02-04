@@ -4,8 +4,7 @@ import { Post } from 'contentlayer2/generated';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { startNavigation } from '@/components/ui/progress/useProgress';
+import { useEffect, useState, useTransition } from 'react';
 
 // 检测是否支持真正的 hover（而非触摸）
 const useSupportsHover = () => {
@@ -38,20 +37,18 @@ const useSupportsHover = () => {
 export const TimeLine = ({ dateMap }: { dateMap: Record<string, Post[]> }) => {
   const router = useRouter();
   const supportsHover = useSupportsHover();
+  const [isPending, startTransition] = useTransition();
   const MAX_VISIBLE_TAGS = 5; // 最多显示的标签数量
 
   const handleTagClick = (tag: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    startNavigation();
-    router.push(`/archive?tag=${encodeURIComponent(tag)}`);
+    startTransition(() => {
+      router.push(`/archive?tag=${encodeURIComponent(tag)}`);
+    });
   };
 
-  const handlePostClick = (url: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    startNavigation();
-    router.push(url);
-  };
+  // 移除 handlePostClick，直接使用 Link 组件
 
   return (
     <div className="mt-10">
@@ -78,7 +75,6 @@ export const TimeLine = ({ dateMap }: { dateMap: Record<string, Post[]> }) => {
                       </time>
                       <Link
                         href={post.url}
-                        onClick={(e) => handlePostClick(post.url, e)}
                         className={`relative min-w-0 flex-1 font-medium text-zinc-900 transition-colors dark:text-zinc-100 ${
                           supportsHover
                             ? 'hover:text-blue-600 dark:hover:text-blue-400'
