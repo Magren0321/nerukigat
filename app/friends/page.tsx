@@ -31,9 +31,9 @@ const AddFriendRead = () => {
       <h1 className="mb-5 text-lg font-bold">友链申请</h1>
       <div className="mb-5 text-sm">
         <span>
-          如果你想和我交换友链，可以在下方留言或者
+          如果你想和我交换友链，可以
           <a href="mailto:zhuhenglin21@gmail.com">发送邮件</a>
-          给我，我将会在审核后添加你的博客到友链，留言格式如下：
+          给我，我将会在审核后添加你的博客到友链，格式如下：
         </span>
         <ul className="font-bold">
           <li>name: 博客名字</li>
@@ -88,7 +88,7 @@ export default function Friends() {
       )}
       <footer>
         <AddFriendRead />
-        <Comment path={'/friends'} serverURL={'https://waline.magren.cc'} />
+        {/* <Comment path={'/friends'} serverURL={'https://waline.magren.cc'} /> */}
       </footer>
     </NormalContainer>
   );
