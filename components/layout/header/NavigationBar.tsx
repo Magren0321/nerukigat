@@ -9,23 +9,23 @@ import React from 'react';
 const navigationItems = [
   {
     href: '/',
-    text: '首页',
+    text: 'Home',
   },
   {
     href: '/posts',
-    text: '博客',
+    text: 'Blog',
   },
   {
-    href: '/archive',
-    text: '归档',
+    href: '/weekly',
+    text: 'Weekly',
   },
   {
     href: '/friends',
-    text: '友链',
+    text: 'Friends',
   },
   {
     href: '/about',
-    text: '关于',
+    text: 'About',
   },
 ];
 

@@ -5,23 +5,23 @@ import * as React from 'react';
 const navigationItems = [
   {
     href: '/',
-    text: '首页',
+    text: 'Home',
   },
   {
     href: '/posts',
-    text: '博客',
+    text: 'Blog',
   },
   {
-    href: '/archive',
-    text: '归档',
+    href: '/weekly',
+    text: 'Weekly',
   },
   {
     href: '/friends',
-    text: '友链',
+    text: 'Friends',
   },
   {
     href: '/about',
-    text: '关于',
+    text: 'About',
   },
 ];
 
@@ -30,7 +30,7 @@ export const Navigation = () => {
 
   return (
     <div className="mx-5 mt-[calc(1.25rem-3px)] dark:text-zinc-200">
-      <div className="text-xl font-bold">导航</div>
+      <div className="text-xl font-bold">Navigation</div>
       <ul className="mt-10 flex flex-col">
         {navigationItems.map(({ href, text }) => (
           <Link

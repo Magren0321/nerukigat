@@ -44,7 +44,7 @@ export const TimeLine = ({ dateMap }: { dateMap: Record<string, Post[]> }) => {
     e.preventDefault();
     e.stopPropagation();
     startTransition(() => {
-      router.push(`/archive?tag=${encodeURIComponent(tag)}`);
+      router.push(`/weekly?tag=${encodeURIComponent(tag)}`);
     });
   };
 
