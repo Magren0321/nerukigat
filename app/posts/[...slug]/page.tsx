@@ -5,6 +5,7 @@ import { Image } from '@/components/ui/img/Image';
 import { PostTree } from '@/components/ui/toc/PostTree';
 import { PostProvider } from '@/providers/post/PostProvider';
 import { PhotoProvider } from '@/components/ui/img/PreviewImage';
+import { BackButton } from '@/components/ui/button/BackButton';
 import clsx from 'clsx';
 import { allPosts } from 'contentlayer2/generated';
 import { format, parseISO } from 'date-fns';
@@ -12,12 +13,13 @@ import { useMDXComponent } from 'next-contentlayer2/hooks';
 import Link from 'next/link';
 
 export const generateStaticParams = async () =>
-  allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
+  allPosts.map((post) => ({ slug: post._raw.flattenedPath.split('/') }));
 
-export const generateMetadata = async (props: { params: Promise<{ slug: string }> }) => {
+export const generateMetadata = async (props: { params: Promise<{ slug: string[] }> }) => {
   const params = await props.params;
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
-  if (!post) throw new Error(`Post not found for slug: ${params.slug}`);
+  const slugPath = params.slug.join('/');
+  const post = allPosts.find((post) => post._raw.flattenedPath === slugPath);
+  if (!post) throw new Error(`Post not found for slug: ${slugPath}`);
   return {
     title: post.title,
     description: post.description,
@@ -45,7 +47,7 @@ const PostTitle = ({
             <Link
               key={tag}
               className="inline-block px-1 font-medium uppercase"
-              href={`/archive?tag=${tag}`}
+              href={`/weekly?tag=${tag}`}
             >
               #{tag}
             </Link>
@@ -56,10 +58,11 @@ const PostTitle = ({
   );
 };
 
-const PostLayout = (props: { params: Promise<{ slug: string }> }) => {
+const PostLayout = (props: { params: Promise<{ slug: string[] }> }) => {
   const params = use(props.params);
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
-  if (!post) throw new Error(`Post not found for slug: ${params.slug}`);
+  const slugPath = params.slug.join('/');
+  const post = allPosts.find((post) => post._raw.flattenedPath === slugPath);
+  if (!post) throw new Error(`Post not found for slug: ${slugPath}`);
 
   const Component = useMDXComponent(post.body.code);
 
@@ -90,14 +93,7 @@ const PostLayout = (props: { params: Promise<{ slug: string }> }) => {
               </PostProvider>
             </PhotoProvider>
           </article>
-          <div className="mt-4 font-mono text-sm opacity-50  hover:opacity-75">
-            <Link href={'/posts'}>
-              {'>'}
-              <span className="ml-2 border-b-2 border-solid border-b-[#000] dark:border-b-[#fff]">
-                cd ..{' '}
-              </span>
-            </Link>
-          </div>
+          <BackButton />
           {/* <Comment
             path={'/' + params.slug}
             serverURL={'https://waline.magren.cc'}

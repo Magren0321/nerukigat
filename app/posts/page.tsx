@@ -120,7 +120,7 @@ const PostCard = ({ post }: PostCardProps) => {
             {post.tags.map((tag) => (
               <Link
                 key={tag}
-                href={`/archive?tag=${encodeURIComponent(tag)}`}
+                href={`/weekly?tag=${encodeURIComponent(tag)}`}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
@@ -293,7 +293,7 @@ export default function Posts() {
     <NormalContainer>
       <div className="mb-8">
         <h1 className="mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-          文章列表
+          Blog
         </h1>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
           共 {sortedPosts.length} 篇文章
