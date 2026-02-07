@@ -20,18 +20,29 @@ export const PostItem = ({
     }
   };
   return (
-    <>
-      <a
-        onClick={() => scrollTo(id)}
-        className={`${
+    <a
+      onClick={() => scrollTo(id)}
+      className="group/item flex cursor-pointer items-center gap-2 py-1 transition-colors"
+      style={{ paddingLeft: `${level}rem` }}
+    >
+      {/* 左侧方块（dash） */}
+      <span
+        className={`h-1 w-4 flex-shrink-0 rounded transition-colors ${
           active
-            ? 'text-black dark:text-white'
-            : 'dark:text-black-200 text-gray-400'
-        } block cursor-pointer overflow-hidden text-ellipsis text-nowrap py-1 font-sans font-medium hover:text-black dark:hover:text-white`}
-        style={{ paddingLeft: `${level}rem` }}
+            ? 'bg-black dark:bg-white'
+            : 'bg-gray-400 dark:bg-gray-500'
+        }`}
+      />
+      {/* 文字内容 */}
+      <span
+        className={`overflow-hidden text-ellipsis whitespace-nowrap font-sans font-medium transition-opacity ${
+          active
+            ? 'opacity-100 text-black dark:text-white'
+            : 'opacity-0 text-gray-400 dark:text-gray-400 group-hover:opacity-100'
+        }`}
       >
         {text}
-      </a>
-    </>
+      </span>
+    </a>
   );
 };
