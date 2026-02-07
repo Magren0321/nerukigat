@@ -65,7 +65,7 @@ const PostLayout = (props: { params: Promise<{ slug: string }> }) => {
 
   return (
     <PostContainer>
-      <div className="relative flex min-h-[120px] grid-cols-[auto,200px] lg:grid">
+      <div className="relative flex min-h-[120px] lg:flex lg:flex-row">
         <div className="w-full">
           <article
             className={clsx(
