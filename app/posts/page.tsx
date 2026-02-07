@@ -44,7 +44,6 @@ interface PostCardProps {
 
 const PostCard = ({ post }: PostCardProps) => {
   const supportsHover = useSupportsHover();
-  const [isHovered, setIsHovered] = useState(false);
   const { words, readingTime } = useMemo(() => {
     if (!post.body?.code) {
       return { words: 0, readingTime: 1 };
@@ -52,23 +51,8 @@ const PostCard = ({ post }: PostCardProps) => {
     return calculateReadingStats(post.body.code);
   }, [post.body?.code]);
 
-  // 只在支持 hover 的设备上处理鼠标事件
-  const handleMouseEnter = () => {
-    if (supportsHover) {
-      setIsHovered(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (supportsHover) {
-      setIsHovered(false);
-    }
-  };
-
   return (
     <article
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       className="group relative border-b border-zinc-200/60 py-5 transition-colors dark:border-zinc-800/60 last:border-b-0"
     >
       <div className="relative">
