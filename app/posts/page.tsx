@@ -72,7 +72,7 @@ const PostCard = ({ post }: PostCardProps) => {
       className="group relative border-b border-zinc-200/60 py-5 transition-colors dark:border-zinc-800/60 last:border-b-0"
     >
       <div className="relative">
-        {/* 主要内容区域 - 可点击 */}
+        {/* 主要内容区域和元数据 - 可点击 */}
         <Link
           href={post.url}
           className="block"
@@ -94,43 +94,43 @@ const PostCard = ({ post }: PostCardProps) => {
               {post.description}
             </p>
           )}
+
+          {/* 元数据 */}
+          <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-zinc-400 dark:text-zinc-500">
+            {/* 置顶标签 */}
+            {post.top && (
+              <div className="flex items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-3 w-3"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
+                  />
+                </svg>
+                <span>置顶</span>
+              </div>
+            )}
+
+            {/* 日期 */}
+            <time dateTime={post.date} className="flex items-center gap-1">
+              {format(parseISO(post.date), 'yyyy-MM-dd')}
+            </time>
+
+            {/* 阅读信息 */}
+            <span className="flex items-center gap-1">
+              {words} 字 · {readingTime} 分钟
+            </span>
+          </div>
         </Link>
 
-        {/* 元数据 */}
-        <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-zinc-400 dark:text-zinc-500">
-          {/* 置顶标签 */}
-          {post.top && (
-            <div className="flex items-center gap-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="h-3 w-3"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                />
-              </svg>
-              <span>置顶</span>
-            </div>
-          )}
-
-          {/* 日期 */}
-          <time dateTime={post.date} className="flex items-center gap-1">
-            {format(parseISO(post.date), 'yyyy-MM-dd')}
-          </time>
-
-          {/* 阅读信息 */}
-          <span className="flex items-center gap-1">
-            {words} 字 · {readingTime} 分钟
-          </span>
-        </div>
-
-        {/* 标签 */}
+        {/* 标签 - 独立链接，不在文章链接内 */}
         {post.tags.length > 0 && (
           <div className="flex flex-wrap items-center gap-2">
             {post.tags.map((tag) => (
