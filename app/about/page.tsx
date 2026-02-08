@@ -168,7 +168,7 @@ export default function About() {
           <ul>
             <li>
               <b>Computer</b>
-              ：MacBook Pro 14-inch (2021) / Mac mini M4
+              ：MacBook Pro 14-inch (M1) / MacBook Pro, 14-inch(M4)
             </li>
             <li>
               <b>Phone</b>：iPhone 16
@@ -183,10 +183,10 @@ export default function About() {
               <b>Watch</b>：Apple Watch Series 10
             </li>
             <li>
-              <b>Headphone</b>： AirPods4 / Sony WH-1000XM4
+              <b>Headphone</b>：AirPods4 
             </li>
             <li>
-              <b>iPad</b>： iPad Air 5
+              <b>iPad</b>： iPad Pro 13‑inch (M4)
             </li>
             <li>
               <b>Game</b>： Nintendo Switch
