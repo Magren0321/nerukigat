@@ -47,7 +47,7 @@ const PostTitle = ({
             <Link
               key={tag}
               className="inline-block px-1 font-medium uppercase"
-              href={`/weekly?tag=${tag}`}
+              href={`/archive?tag=${tag}`}
             >
               #{tag}
             </Link>

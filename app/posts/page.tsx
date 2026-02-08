@@ -120,7 +120,7 @@ const PostCard = ({ post }: PostCardProps) => {
             {post.tags.map((tag) => (
               <Link
                 key={tag}
-                href={`/weekly?tag=${encodeURIComponent(tag)}`}
+                href={`/archive?tag=${encodeURIComponent(tag)}`}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
@@ -237,10 +237,12 @@ const Pagination = ({
 export default function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 获取所有文章并排序
+  // 获取所有文章并排序（排除 weekly 类型的文章）
   const allPostsData = useMemo(() => {
     let posts = allPosts
       .slice()
+      // 排除 weekly 类型的文章
+      .filter((post) => post._raw.flattenedPath !== 'weekly' && !post._raw.flattenedPath.startsWith('weekly/'))
       .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
     if (process.env.NODE_ENV !== 'development') {
