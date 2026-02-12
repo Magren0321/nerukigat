@@ -93,6 +93,11 @@ const friendData: FriendItem[] = [
     link: 'https://mengbooo.github.io/BemoDB',
     avatar: 'https://avatars.githubusercontent.com/u/143786942?v=4',
     desc: 'Bolaxious的文档库🥰',
+  },{
+    name: 'eell的博客',
+    link: 'https://www.eell.net',
+    avatar: 'https://files.eell.net/uploads/file_68e49e122b2a6.jpg',
+    desc: '思想的沃土，灵感的绿洲'
   }
 ];
 
