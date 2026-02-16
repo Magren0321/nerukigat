@@ -54,7 +54,7 @@ export default function Weekly() {
                   >
                     <time
                       dateTime={post.date}
-                      className="flex-shrink-0 tabular-nums text-zinc-500 dark:text-zinc-400"
+                      className="w-16 flex-shrink-0 tabular-nums text-zinc-500 dark:text-zinc-400"
                     >
                       {format(parseISO(post.date), 'MMM d')}
                     </time>
