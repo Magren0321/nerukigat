@@ -27,9 +27,9 @@ export async function GET() {
   data.forEach((post: Post) => {
     feed.item({
       title: post.title,
-      guid: post.slug,
-      url: `https://magren.cc/posts/${post.slug}`,
-      description: `${post.description || ''} <br/> <a href="https://magren.cc/posts/${post.slug}">Continue to read</a>`,
+      guid: post._raw.flattenedPath,
+      url: `https://magren.cc${post.url}`,
+      description: `${post.description || ''} <br/> <a href="https://magren.cc${post.url}">Continue to read</a>`,
       date: new Date(post.date),
     });
   });
