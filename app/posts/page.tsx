@@ -10,27 +10,19 @@ import Link from 'next/link';
 
 // 检测是否支持真正的 hover（而非触摸）
 const useSupportsHover = () => {
-  const [supportsHover, setSupportsHover] = useState(false);
+  const [supportsHover, setSupportsHover] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  );
 
   useEffect(() => {
-    // 检测是否支持真正的 hover（不是触摸设备的伪 hover）
     const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-    setSupportsHover(mediaQuery.matches);
 
-    // 监听变化（例如设备方向改变）
     const handleChange = (e: MediaQueryListEvent) => {
       setSupportsHover(e.matches);
     };
 
-    // 使用 addEventListener 替代 addListener（更好的兼容性）
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
-    } else {
-      // 降级方案（旧浏览器）
-      mediaQuery.addListener(handleChange);
-      return () => mediaQuery.removeListener(handleChange);
-    }
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   return supportsHover;
@@ -49,7 +41,7 @@ const PostCard = ({ post }: PostCardProps) => {
       return { words: 0, readingTime: 1 };
     }
     return calculateReadingStats(post.body.code);
-  }, [post.body?.code]);
+  }, [post.body]);
 
   return (
     <article
