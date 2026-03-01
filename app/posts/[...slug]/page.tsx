@@ -58,13 +58,26 @@ const PostTitle = ({
   );
 };
 
+const MDXContent = ({ code }: { code: string }) => {
+  const Component = useMDXComponent(code);
+  return (
+    // eslint-disable-next-line react-hooks/static-components
+    <Component
+      components={{
+        img: Image,
+        h1: Heading1,
+        h2: Heading2,
+        h3: Heading3,
+      }}
+    />
+  );
+};
+
 const PostLayout = (props: { params: Promise<{ slug: string[] }> }) => {
   const params = use(props.params);
   const slugPath = params.slug.join('/');
   const post = allPosts.find((post) => post._raw.flattenedPath === slugPath);
   if (!post) throw new Error(`Post not found for slug: ${slugPath}`);
-
-  const Component = useMDXComponent(post.body.code);
 
   return (
     <PostContainer>
@@ -72,7 +85,7 @@ const PostLayout = (props: { params: Promise<{ slug: string[] }> }) => {
         <div className="w-full">
           <article
             className={clsx(
-              'prose w-full max-w-full font-sans  text-zinc-900',
+              'prose w-full max-w-full text-zinc-900',
               'dark:prose-invert dark:text-zinc-200',
               'prose-code:whitespace-pre-wrap prose-pre:w-full',
               'prose-th:px-2 prose-td:px-2',
@@ -82,14 +95,7 @@ const PostLayout = (props: { params: Promise<{ slug: string[] }> }) => {
             <PostTitle {...post} />
             <PhotoProvider>
               <PostProvider>
-                <Component
-                  components={{
-                    img: Image,
-                    h1: Heading1,
-                    h2: Heading2,
-                    h3: Heading3,
-                  }}
-                />
+                <MDXContent code={post.body.code} />
               </PostProvider>
             </PhotoProvider>
           </article>

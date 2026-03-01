@@ -11,7 +11,7 @@ const slugify = (text: string): string => {
   return text
     .trim()
     .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/[^\w\u0080-\uffff\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
@@ -36,7 +36,7 @@ export const Heading3 = (props: HeadingProps) => {
 
 const levelClassMap: Record<number, string> = {
   1: 'text-2xl font-bold',
-  2: 'text-xl font-bold',
+  2: 'text-xl font-bold mt-0',
   3: 'text-lg font-bold',
 };
 

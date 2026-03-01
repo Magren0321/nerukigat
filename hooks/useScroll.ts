@@ -10,8 +10,7 @@ export const useScroll = (ids: string[]) => {
   const handleScroll = useCallback(() => {
     if (ids.length === 0) return;
 
-    // 在回调中动态获取视口高度，避免 SSR 问题
-    const topOffset = window.innerHeight * 0.3;
+    const topOffset = window.innerHeight * 0.9;
 
     // 获取所有标题元素及其位置
     const headingPositions = ids
@@ -39,11 +38,14 @@ export const useScroll = (ids: string[]) => {
   useEffect(() => {
     if (ids.length === 0) return;
 
-    // 初始化时执行一次
-    handleScroll();
+    // 用 requestAnimationFrame 延迟初始化，避免在 effect 中同步 setState
+    const raf = requestAnimationFrame(handleScroll);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [ids, handleScroll]);
 
   return activeId;

@@ -2,7 +2,7 @@
 'use client'
 
 import clsx from "clsx"
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 export const PlaceholderImage = ({
   link,
   alt,
@@ -14,10 +14,9 @@ export const PlaceholderImage = ({
 }) => {
 
   const [isReady, setIsReady] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {
-    if (imgRef.current && imgRef.current.complete) {
+  const imgRef = useCallback((img: HTMLImageElement | null) => {
+    if (img && img.complete) {
       setIsReady(true);
     }
   }, []);

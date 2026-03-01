@@ -2,10 +2,27 @@ import { Header } from '@/components/layout/header/Header';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const openHuninn = localFont({
+  src: '../public/fonts/jf-openhuninn-2.1.ttf',
+  display: 'swap',
+  fallback: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'Helvetica Neue',
+    'Arial',
+    'Noto Sans',
+    'sans-serif',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji',
+  ],
+});
 
 export const metadata: Metadata = {
   title: "Magren's Blog",
@@ -25,7 +42,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={openHuninn.className}>
         <Analytics mode={'production'} />
         <ScrollToTop />
         <div>

@@ -15,6 +15,7 @@ export const Image = (
   >
 ) => {
   const [isReady, setIsReady] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
 
   const width = typeof props.width === 'number' ? props.width : 1200;
   const height = typeof props.height === 'number' ? props.height : 800;
@@ -28,10 +29,15 @@ export const Image = (
           width={width}
           height={height}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-          onLoad={() => setIsReady(true)}
+          onLoad={(e) => {
+            const img = e.currentTarget;
+            setIsPortrait(img.naturalHeight > img.naturalWidth);
+            setIsReady(true);
+          }}
           onError={() => setIsReady(false)}
           className={clsx(
             'h-auto w-full rounded-xl opacity-0 transition-opacity duration-500',
+            isPortrait ? 'md:max-w-[450px] md:mx-auto' : 'md:max-w-[650px] md:mx-auto',
             isReady && 'opacity-100'
           )}
           loading="lazy"
