@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function About() {
   return (
     <PostContainer>
-      <article className="prose max-w-full font-sans text-sm/7 text-zinc-900 dark:prose-invert dark:text-zinc-200">
+      <article className="prose max-w-full text-sm/7 text-zinc-900 dark:prose-invert dark:text-zinc-200">
         <h2>👋 About Me</h2>
         <blockquote>
           一片树林分出两条路 ——
@@ -43,7 +43,7 @@ export default function About() {
         <h2>🎮 喜欢什么</h2>
         <ul>
           <li>
-            📷 偶尔拿着一台<del> 富士 X-T5 </del>尼康 Zf 到处瞎拍扫街出废片，可以点这里查看一些{' '}
+            📷 偶尔拿着一台<del> 富士 X-T5 </del>尼康 Zf / 美能达 Autocord 到处瞎拍扫街出废片，可以点这里查看一些{' '}
             <a
               target="_blank"
               href="https://magren.afilmory.art/"

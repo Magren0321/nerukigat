@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
 import Link from 'next/link';
 import { PlaceholderImage } from '@/components/ui/img/PlaceholderImage';
