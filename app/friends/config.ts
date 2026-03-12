@@ -98,6 +98,11 @@ const friendData: FriendItem[] = [
     link: 'https://www.eell.net',
     avatar: 'https://files.eell.net/uploads/file_68e49e122b2a6.jpg',
     desc: '思想的沃土，灵感的绿洲'
+  },{
+    name: 'Cynosura',
+    link: 'https://cynosura.one',
+    desc: 'Trying to light up the dark.',
+    avatar: 'https://cynosura.one/img/avatar.webp'
   }
 ];
 
