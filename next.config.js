@@ -3,7 +3,6 @@ const { withContentlayer } = require('next-contentlayer2');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  turbopack: {},
   serverExternalPackages: ['mdx-bundler', 'esbuild'],
   images: {
     remotePatterns: [

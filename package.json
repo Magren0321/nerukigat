@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "contentlayer2 dev & next dev --turbopack",
-    "build": "contentlayer2 build && next build",
+    "dev": "contentlayer2 dev & next dev --webpack",
+    "build": "contentlayer2 build && next build --webpack",
     "start": "next start",
     "lint": "eslint ."
   },

@@ -29,10 +29,10 @@ export default function About() {
         <br></br>
         <span>生活简单无趣，尚未脱离低级趣味。</span>
         <br></br><br></br>
-        <span>工作日常在学习并且使用 React、Vue、Next.js、TypeScript、Node.js、Electron、TailwindCSS、Sass…</span>
+        <span>工作日常在学习并且使用 React, Vue, Next.js, TypeScript, Node.js, Electron, TailwindCSS, Sass…</span>
         <br></br>
         <span>
-          同时喜欢折腾点别的，偶尔学习 Swift、Android、React Native、Go...
+          同时喜欢折腾点别的，偶尔学习 Swift, Android, React Native, Go...
         </span>
         <br></br>
         <span>总是在自己折腾没用的 & 不有趣的玩具并自娱自乐。</span>
@@ -104,12 +104,16 @@ export default function About() {
         <ul>
           <li>
             {' '}
-            <b>前端开发工程师</b>（2020-至今），技术栈 Vue.js、React、Next.js...
+            <b>AI指挥工程师</b>（2025-至今），Claude Code, CodeX ...
+          </li>
+          <li>
+            {' '}
+            <b>前端开发工程师</b>（2020-至今），技术栈 Vue.js, React, Next.js...
           </li>
           <li>
             {' '}
             <b>准后端开发工程师</b>（2020-至今），技术栈
-            Node.js、NestJS、Go、Express、MongoDB、PostgreSQL...
+            Node.js, NestJS, Go, Express, MongoDB, PostgreSQL...
           </li>
           <li>
             {' '}
