@@ -1,15 +1,13 @@
 import { use } from "react";
 import { PostContainer } from '@/components/layout/container/PostContainer';
-import { Heading1, Heading2, Heading3 } from '@/components/ui/heading/Heading';
-import { Image } from '@/components/ui/img/Image';
 import { PostTree } from '@/components/ui/toc/PostTree';
 import { PostProvider } from '@/providers/post/PostProvider';
 import { PhotoProvider } from '@/components/ui/img/PreviewImage';
 import { BackButton } from '@/components/ui/button/BackButton';
+import { MDXContent } from '@/components/MDXContent';
 import clsx from 'clsx';
 import { allPosts } from 'contentlayer2/generated';
 import { format, parseISO } from 'date-fns';
-import { useMDXComponent } from 'next-contentlayer2/hooks';
 import Link from 'next/link';
 
 export const generateStaticParams = async () =>
@@ -55,21 +53,6 @@ const PostTitle = ({
         </span>
       </div>
     </div>
-  );
-};
-
-const MDXContent = ({ code }: { code: string }) => {
-  const Component = useMDXComponent(code);
-  return (
-    // eslint-disable-next-line react-hooks/static-components
-    <Component
-      components={{
-        img: Image,
-        h1: Heading1,
-        h2: Heading2,
-        h3: Heading3,
-      }}
-    />
   );
 };
 
