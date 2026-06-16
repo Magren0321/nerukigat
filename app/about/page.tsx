@@ -43,7 +43,7 @@ export default function About() {
         <h2>🎮 喜欢什么</h2>
         <ul>
           <li>
-            📷 偶尔拿着一台<del> 富士 X-T5 </del>尼康 Zf / 美能达 Autocord 到处瞎拍扫街出废片，可以点这里查看一些{' '}
+            📷 偶尔拿着一台<del> 富士 X-T5 </del>尼康 Zf / 美能达 Autocord / 尼康FE2 到处瞎拍扫街出废片，可以点这里查看一些{' '}
             <a
               target="_blank"
               href="https://magren.afilmory.art/"
@@ -184,7 +184,7 @@ export default function About() {
               <b>Mouse</b>：MX Master 3s for Mac / Magic Trackpad
             </li>
             <li>
-              <b>Watch</b>：Apple Watch Series 10
+              <b>Watch</b>：Apple Watch Series 10 / Hamilton Murph 38mm
             </li>
             <li>
               <b>Headphone</b>：AirPods4 
@@ -194,6 +194,12 @@ export default function About() {
             </li>
             <li>
               <b>Game</b>： Nintendo Switch
+            </li>
+            <li>
+              <b>Camera</b>：Nikon Zf / Minolta Autocord / Nikon FE2
+            </li>
+            <li>
+              <b>Lens</b>：NIKKOR Z 50mm f/1.8 S / NIKKOR Z 24-120mm f/4 S
             </li>
             <li>
               <b>Browser</b>
