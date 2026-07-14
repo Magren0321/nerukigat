@@ -1,44 +1,43 @@
-'use client';
+import { compareDesc, format, parseISO } from 'date-fns';
 
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
 import { TimeLine } from '@/components/ui/timeline/TimeLine';
-import { getPostTimeLine } from '@/utils';
-import { useSearchParams } from 'next/navigation';
-import { Suspense, useMemo } from 'react';
+import {
+  listPublicPostSummaries,
+  type PublicPostSummaryView,
+} from '@/lib/content';
 
-export default function Archive() {
-  return (
-    <Suspense fallback={null}>
-      <ArchiveContent />
-    </Suspense>
-  );
+interface ArchivePageProps {
+  searchParams: Promise<{ tag?: string | string[] }>;
 }
 
-function ArchiveContent() {
-  const searchParams = useSearchParams();
-  const tag = searchParams.get('tag') || '';
-  
-  // 解析多个 tag（逗号分割）
-  const tags = useMemo(() => {
-    return tag
-      ? tag
-          .split(',')
-          .map((t) => t.trim())
-          .filter((t) => t.length > 0)
-      : [];
-  }, [tag]);
-  
-  const { value, length } = getPostTimeLine(tag);
+export default async function Archive({ searchParams }: ArchivePageProps) {
+  const parameters = await searchParams;
+  const rawTag = Array.isArray(parameters.tag)
+    ? parameters.tag.join(',')
+    : parameters.tag ?? '';
+  const selectedTags = rawTag
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter(Boolean);
 
-  const displayTitle = useMemo(() => {
-    if (tags.length === 0) {
-      return '归档';
-    }
-    if (tags.length === 1) {
-      return tags[0];
-    }
-    return tags.join(', ');
-  }, [tags]);
+  const posts = (await listPublicPostSummaries())
+    .filter((post) =>
+      selectedTags.every((selectedTag) => post.tags.includes(selectedTag))
+    )
+    .sort((left, right) =>
+      compareDesc(parseISO(left.date), parseISO(right.date))
+    );
+  const dateMap: Record<string, PublicPostSummaryView[]> = {};
+
+  for (const post of posts) {
+    const year = format(parseISO(post.date), 'yyyy');
+    dateMap[year] ??= [];
+    dateMap[year].push(post);
+  }
+
+  const displayTitle =
+    selectedTags.length === 0 ? '归档' : selectedTags.join(', ');
 
   return (
     <NormalContainer>
@@ -47,11 +46,10 @@ function ArchiveContent() {
           {displayTitle}
         </h1>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          共 {length} 篇文章
+          共 {posts.length} 篇文章
         </p>
       </div>
-      <TimeLine dateMap={value} />
+      <TimeLine dateMap={dateMap} />
     </NormalContainer>
   );
 }
-

@@ -1,5 +1,5 @@
-import { filterVisiblePosts } from '@/utils';
-import { allPosts, Post } from 'contentlayer2/generated';
+import { listPublicPostSummaries } from '@/lib/content';
+import { publishedDateToInstant } from '@/lib/content/date';
 import { compareDesc } from 'date-fns';
 import RSS from 'rss';
 
@@ -21,17 +21,17 @@ export async function GET() {
     language: 'en',
     image_url: 'https://magren.cc/avatar.png',
   });
-  const data = filterVisiblePosts(allPosts).sort((a, b) =>
+  const data = (await listPublicPostSummaries()).sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date))
   );
 
-  data.forEach((post: Post) => {
+  data.forEach((post) => {
     feed.item({
       title: post.title,
-      guid: post._raw.flattenedPath,
+      guid: post.canonicalPath,
       url: `https://magren.cc${post.url}`,
       description: `${post.description || ''} <br/> <a href="https://magren.cc${post.url}">Continue to read</a>`,
-      date: new Date(post.date),
+      date: publishedDateToInstant(post.date),
     });
   });
 

@@ -1,17 +1,15 @@
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
-import { filterVisiblePosts } from '@/utils';
-import { allPosts, Post } from 'contentlayer2/generated';
+import { listPublicPostSummaries, type PublicPostSummaryView } from '@/lib/content';
 import { compareDesc, format, parseISO } from 'date-fns';
 import { WeeklyLink } from '@/components/ui/link/WeeklyLink';
 
-export default function Weekly() {
-  // 在服务器端处理数据
-  const weeklyPosts = filterVisiblePosts(allPosts)
-    .filter((post) => post._raw.flattenedPath === 'weekly' || post._raw.flattenedPath.startsWith('weekly/'))
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+export default async function Weekly() {
+  const weeklyPosts = (await listPublicPostSummaries())
+    .filter((post) => post.kind === 'weekly')
+    .sort((a, b) => compareDesc(parseISO(a.date), parseISO(b.date)));
 
   // 按年份分组
-  const groupedByYear: Record<string, Post[]> = {};
+  const groupedByYear: Record<string, PublicPostSummaryView[]> = {};
   weeklyPosts.forEach((post) => {
     const year = format(parseISO(post.date), 'yyyy');
     if (!groupedByYear[year]) {
@@ -49,7 +47,7 @@ export default function Weekly() {
               <div className="relative space-y-3 pt-6">
                 {groupedByYear[year].map((post) => (
                   <div
-                    key={post._id}
+                    key={post.id}
                     className="flex min-w-0 flex-1 items-baseline gap-4 text-base"
                   >
                     <time

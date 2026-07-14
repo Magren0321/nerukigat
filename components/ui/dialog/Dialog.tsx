@@ -2,11 +2,11 @@ import {
   DialogContext,
   DialogProvider,
 } from '@/providers/dialog/DialogProvider';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { ReactNode, useContext } from 'react';
 import { MenuToggle } from './MenuToggle';
 
-const sidebar = {
+const sidebar: Variants = {
   open: {
     y: 0,
     opacity: 1,

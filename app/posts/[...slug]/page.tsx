@@ -1,29 +1,39 @@
-import { use } from "react";
-import { PostContainer } from '@/components/layout/container/PostContainer';
-import { PostTree } from '@/components/ui/toc/PostTree';
-import { PostProvider } from '@/providers/post/PostProvider';
-import { PhotoProvider } from '@/components/ui/img/PreviewImage';
-import { BackButton } from '@/components/ui/button/BackButton';
-import { MDXContent } from '@/components/MDXContent';
-import { filterVisiblePosts, findVisiblePostByFlattenedPath } from '@/utils';
 import clsx from 'clsx';
-import { allPosts } from 'contentlayer2/generated';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export const generateStaticParams = async () =>
-  filterVisiblePosts(allPosts).map((post) => ({ slug: post._raw.flattenedPath.split('/') }));
+import { MarkdownContent } from '@/components/MarkdownContent';
+import { MDXContent } from '@/components/MDXContent';
+import { BackButton } from '@/components/ui/button/BackButton';
+import { PostContainer } from '@/components/layout/container/PostContainer';
+import { PhotoProvider } from '@/components/ui/img/PreviewImage';
+import { PostTree } from '@/components/ui/toc/PostTree';
+import {
+  getPublicPostByPath,
+  listPublicPostPaths,
+} from '@/lib/content';
+import { PostProvider } from '@/providers/post/PostProvider';
 
-export const generateMetadata = async (props: { params: Promise<{ slug: string[] }> }) => {
-  const params = await props.params;
-  const slugPath = params.slug.join('/');
-  const post = findVisiblePostByFlattenedPath(allPosts, slugPath);
+interface PostPageProps {
+  params: Promise<{ slug: string[] }>;
+}
+
+export const generateStaticParams = async () =>
+  (await listPublicPostPaths()).map((canonicalPath) => ({
+    slug: canonicalPath.split('/'),
+  }));
+
+export const generateMetadata = async ({ params }: PostPageProps) => {
+  const { slug } = await params;
+  const post = await getPublicPostByPath(slug.join('/'));
   if (!post) notFound();
+
   return {
     title: post.title,
     description: post.description,
     date: post.date,
+    alternates: { canonical: post.url },
   };
 };
 
@@ -35,33 +45,30 @@ const PostTitle = ({
   title: string;
   date: string;
   tags: string[];
-}) => {
-  return (
-    <div className="mb-8 text-center">
-      <h1 className="text-2xl font-bold">{title}</h1>
-      <div className="text-xs text-gray-600 dark:text-zinc-100">
-        <time dateTime={date}>{format(parseISO(date), 'LLLL d, yyyy')}</time>
-        <span> • </span>
-        <span>
-          {tags.map((tag) => (
-            <Link
-              key={tag}
-              className="inline-block px-1 font-medium uppercase"
-              href={`/archive?tag=${tag}`}
-            >
-              #{tag}
-            </Link>
-          ))}
-        </span>
-      </div>
+}) => (
+  <div className="mb-8 text-center">
+    <h1 className="text-2xl font-bold">{title}</h1>
+    <div className="text-xs text-gray-600 dark:text-zinc-100">
+      <time dateTime={date}>{format(parseISO(date), 'LLLL d, yyyy')}</time>
+      <span> • </span>
+      <span>
+        {tags.map((tag) => (
+          <Link
+            key={tag}
+            className="inline-block px-1 font-medium uppercase"
+            href={`/archive?tag=${encodeURIComponent(tag)}`}
+          >
+            #{tag}
+          </Link>
+        ))}
+      </span>
     </div>
-  );
-};
+  </div>
+);
 
-const PostLayout = (props: { params: Promise<{ slug: string[] }> }) => {
-  const params = use(props.params);
-  const slugPath = params.slug.join('/');
-  const post = findVisiblePostByFlattenedPath(allPosts, slugPath);
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params;
+  const post = await getPublicPostByPath(slug.join('/'));
   if (!post) notFound();
 
   return (
@@ -77,23 +84,21 @@ const PostLayout = (props: { params: Promise<{ slug: string[] }> }) => {
               'text-sm/7 lg:text-base/8'
             )}
           >
-            <PostTitle {...post} />
+            <PostTitle title={post.title} date={post.date} tags={post.tags} />
             <PhotoProvider>
               <PostProvider>
-                <MDXContent code={post.body.code} />
+                {post.source === 'contentlayer' ? (
+                  <MDXContent code={post.compiledCode} />
+                ) : (
+                  <MarkdownContent markdown={post.markdown} />
+                )}
               </PostProvider>
             </PhotoProvider>
           </article>
           <BackButton />
-          {/* <Comment
-            path={'/' + params.slug}
-            serverURL={'https://waline.magren.cc'}
-          /> */}
         </div>
         <PostTree />
       </div>
     </PostContainer>
   );
-};
-
-export default PostLayout;
+}

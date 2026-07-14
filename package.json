@@ -2,51 +2,80 @@
   "name": "nerukigat",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@11.6.0",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "contentlayer2 dev & next dev --webpack",
     "build": "contentlayer2 build && next build --webpack",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:unit && npm run test:storage && npm run test:media && npm run test:auth",
+    "test:unit": "tsx --test tests/post-visibility.test.mjs tests/db-schema.test.ts tests/mdx-import.test.ts tests/markdown-renderer.test.ts tests/posts-domain.test.ts tests/content-date.test.ts",
+    "test:storage": "NODE_OPTIONS='--conditions=react-server' tsx --test 'tests/storage-*.test.ts'",
+    "test:media": "NODE_OPTIONS='--conditions=react-server' tsx --test 'tests/media-*.test.ts'",
+    "test:auth": "NODE_OPTIONS='--conditions=react-server' tsx --test 'tests/auth-*.test.ts'",
+    "content:audit": "tsx scripts/import-mdx.ts",
+    "auth:create-owner": "tsx scripts/create-owner.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1086.0",
+    "@aws-sdk/s3-request-presigner": "^3.1086.0",
+    "@better-auth/drizzle-adapter": "^1.6.23",
     "@vercel/analytics": "^1.2.2",
+    "better-auth": "^1.6.23",
     "clsx": "^2.1.0",
     "contentlayer2": "^0.5.4",
     "date-fns": "^3.0.6",
+    "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.5.0",
-    "next": "16.0.8",
+    "gray-matter": "^4.0.3",
+    "next": "^16.2.10",
     "next-contentlayer2": "^0.5.4",
+    "pg": "^8.22.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
+    "react-markdown": "^10.1.0",
     "react-photo-view": "^1.2.4",
+    "rehype-raw": "^7.0.0",
+    "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.0",
     "rss": "^1.2.2",
-    "typed.js": "^2.1.0"
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.3",
+    "typed.js": "^2.1.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.1",
     "@iconify/json": "^2.2.179",
     "@iconify/tailwind": "^0.1.4",
+    "@next/env": "^16.2.10",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20",
+    "@types/pg": "^8.20.0",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/rss": "^0.0.30",
     "autoprefixer": "^10.0.1",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.1",
-    "eslint-config-next": "16.0.8",
+    "eslint-config-next": "^16.2.10",
     "eslint-config-prettier": "^9.1.0",
     "postcss": "^8",
     "prettier-plugin-organize-imports": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.2.7",
-      "@types/react-dom": "19.2.3"
-    }
+  "overrides": {
+    "postcss": "$postcss"
   }
 }

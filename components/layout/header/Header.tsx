@@ -5,24 +5,22 @@ import { Dialog } from '@/components/ui/dialog/Dialog';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { NavigationBar } from './NavigationBar';
 
-import clsx from 'clsx';
+const subscribeToScroll = (onStoreChange: () => void) => {
+  window.addEventListener('scroll', onStoreChange, { passive: true });
+  return () => window.removeEventListener('scroll', onStoreChange);
+};
+
+const getScrollSnapshot = () => window.scrollY > 80;
 
 export const Header = () => {
-  const [isShow, setIsShow] = useState(false);
-
-  useEffect(() => {
-    setIsShow(window.scrollY > 80);
-    const handleScroll = () => {
-      setIsShow(window.scrollY > 80);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const isShow = useSyncExternalStore(
+    subscribeToScroll,
+    getScrollSnapshot,
+    () => false
+  );
 
   return (
     <div className="sticky top-0 z-[999]">

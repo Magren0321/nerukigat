@@ -1,5 +1,4 @@
-import { Header } from '@/components/layout/header/Header';
-import { ScrollToTop } from '@/components/ScrollToTop';
+import { SiteChrome } from '@/components/layout/SiteChrome';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -25,12 +24,13 @@ const openHuninn = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://magren.cc'),
   title: "Magren's Blog",
   description: '不为繁华易匠心',
   alternates: {
-    canonical: 'https://magren.cc',
+    canonical: '/',
     types: {
-      'application/rss+xml': [{ url: 'feed.xml', title: 'RSS' }],
+      'application/rss+xml': [{ url: '/feed.xml', title: 'RSS' }],
     },
   },
 };
@@ -44,11 +44,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={openHuninn.className}>
         <Analytics mode={'production'} />
-        <ScrollToTop />
-        <div>
-          <Header />
-          <main>{children}</main>
-        </div>
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
