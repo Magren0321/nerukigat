@@ -23,6 +23,7 @@ services:
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-nerukigat}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-nerukigat-local-secret}
+      MINIO_API_CORS_ALLOW_ORIGIN: http://localhost:3000
     ports:
       - "127.0.0.1:9000:9000"
       - "127.0.0.1:9001:9001"
@@ -46,8 +47,6 @@ services:
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-nerukigat-local-secret}
       MINIO_PUBLIC_BUCKET: ${MINIO_PUBLIC_BUCKET:-nerukigat-public}
       MINIO_PRIVATE_BUCKET: ${MINIO_PRIVATE_BUCKET:-nerukigat-private}
-    volumes:
-      - ./infra/minio/cors.json:/config/cors.json:ro
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
@@ -56,7 +55,6 @@ services:
         mc mb --ignore-existing "local/$${MINIO_PRIVATE_BUCKET}"
         mc anonymous set download "local/$${MINIO_PUBLIC_BUCKET}"
         mc anonymous set none "local/$${MINIO_PRIVATE_BUCKET}"
-        mc cors set "local/$${MINIO_PRIVATE_BUCKET}" /config/cors.json
     restart: "no"
 
 volumes:

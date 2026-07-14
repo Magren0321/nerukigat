@@ -8,11 +8,11 @@ Magren 的个人博客。公开站点继续使用原有样式与 Markdown 展示
 
 ## 启动静态博客
 
-要求 Node.js 20.9 或更高版本，项目统一使用 npm。
+要求 Node.js 20.9 或更高版本，项目统一使用 pnpm。
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 打开 [http://localhost:3000](http://localhost:3000)。
@@ -24,7 +24,7 @@ npm run dev
 
    ```bash
    docker compose up -d
-   npm run db:migrate
+   pnpm db:migrate
    ```
 
    Compose 会幂等创建 `nerukigat-public` 与 `nerukigat-private` 两个本地桶，并给私有桶设置浏览器上传 CORS。
@@ -32,23 +32,23 @@ npm run dev
 3. 设置临时 `ADMIN_BOOTSTRAP_PASSWORD` 后初始化站主账号：
 
    ```bash
-   npm run auth:create-owner
+   pnpm auth:create-owner
    ```
 
    登录成功后从环境变量中删除这项临时密码。
 
-4. 运行 `npm run dev`，打开 [http://localhost:3000/admin](http://localhost:3000/admin)。
+4. 运行 `pnpm dev`，打开 [http://localhost:3000/admin](http://localhost:3000/admin)。
 
 现有文章迁移先执行只读审计：
 
 ```bash
-npm run content:audit
+pnpm content:audit
 ```
 
 确认报告无错误并已执行数据库迁移后，显式执行一次性写入：
 
 ```bash
-npm run content:audit -- --write --confirm-write
+pnpm content:audit --write --confirm-write
 ```
 
 导入在单个事务中完成；目标库只要存在相同文章路径就会整体回滚，不会覆盖已有内容。
@@ -56,10 +56,10 @@ npm run content:audit -- --write --confirm-write
 ## 常用检查
 
 ```bash
-npm test
-npm run typecheck
-npm run lint
-npm run build
+pnpm test
+pnpm typecheck
+pnpm lint
+pnpm build
 ```
 
 ## 文档

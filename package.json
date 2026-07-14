@@ -2,7 +2,7 @@
   "name": "nerukigat",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "npm@11.6.0",
+  "packageManager": "pnpm@10.12.2",
   "engines": {
     "node": ">=20.9.0"
   },
@@ -12,13 +12,13 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "npm run test:unit && npm run test:storage && npm run test:media && npm run test:auth",
+    "test": "pnpm run test:unit && pnpm run test:storage && pnpm run test:media && pnpm run test:auth",
     "test:unit": "tsx --test tests/post-visibility.test.mjs tests/db-schema.test.ts tests/mdx-import.test.ts tests/markdown-renderer.test.ts tests/posts-domain.test.ts tests/content-date.test.ts",
     "test:storage": "NODE_OPTIONS='--conditions=react-server' tsx --test 'tests/storage-*.test.ts'",
     "test:media": "NODE_OPTIONS='--conditions=react-server' tsx --test 'tests/media-*.test.ts'",
     "test:auth": "NODE_OPTIONS='--conditions=react-server' tsx --test 'tests/auth-*.test.ts'",
-    "content:audit": "tsx scripts/import-mdx.ts",
-    "auth:create-owner": "tsx scripts/create-owner.ts",
+    "content:audit": "NODE_OPTIONS='--conditions=react-server' tsx scripts/import-mdx.ts",
+    "auth:create-owner": "NODE_OPTIONS='--conditions=react-server' tsx scripts/create-owner.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio"
