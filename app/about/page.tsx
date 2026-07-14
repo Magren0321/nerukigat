@@ -196,7 +196,7 @@ export default function About() {
               <b>Game</b>： Nintendo Switch
             </li>
             <li>
-              <b>Camera</b>：Nikon Zf / Minolta Autocord / Nikon FE2
+              <b>Camera</b>：Nikon Zf / FUJIFILM X100VI / Minolta Autocord / Nikon FE2
             </li>
             <li>
               <b>Lens</b>：NIKKOR Z 50mm f/1.8 S / NIKKOR Z 24-120mm f/4 S
