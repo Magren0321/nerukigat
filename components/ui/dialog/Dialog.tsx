@@ -2,11 +2,11 @@ import {
   DialogContext,
   DialogProvider,
 } from '@/providers/dialog/DialogProvider';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { ReactNode, useContext } from 'react';
 import { MenuToggle } from './MenuToggle';
 
-const sidebar = {
+const sidebar: Variants = {
   open: {
     y: 0,
     opacity: 1,
@@ -37,12 +37,16 @@ const DialogContent = ({ children }: { children: ReactNode }) => {
       className="z-10 flex h-full items-center justify-center"
     >
       <motion.div
+        id="mobile-navigation"
         className="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-zinc-800"
         variants={sidebar}
       >
         {isOpen && children}
       </motion.div>
-      <MenuToggle toggle={() => updateIsOpen()} />
+      <MenuToggle
+        isOpen={isOpen}
+        toggle={() => updateIsOpen()}
+      />
     </motion.nav>
   );
 };

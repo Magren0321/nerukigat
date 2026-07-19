@@ -43,7 +43,7 @@ export default function About() {
         <h2>🎮 喜欢什么</h2>
         <ul>
           <li>
-            📷 偶尔拿着一台<del> 富士 X-T5 </del>尼康 Zf / 美能达 Autocord / 尼康FE2 到处瞎拍扫街出废片，可以点这里查看一些{' '}
+            📷 偶尔拿着一台<del> 富士 X-T5 </del>Nikon Zf / FUJIFILM X100VI / Minolta Autocord / Nikon FE2 到处瞎拍扫街出废片，可以点这里查看一些{' '}
             <a
               target="_blank"
               href="https://magren.afilmory.art/"

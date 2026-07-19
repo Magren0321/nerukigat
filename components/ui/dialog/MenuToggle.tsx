@@ -1,40 +1,39 @@
-import { SVGMotionProps, motion } from 'framer-motion';
+import clsx from 'clsx';
 import * as React from 'react';
 
-const Path = (
-  props: React.JSX.IntrinsicAttributes &
-    SVGMotionProps<SVGPathElement> &
-    React.RefAttributes<SVGPathElement>
-) => <motion.path strokeWidth="3" strokeLinecap="round" {...props} />;
+type MenuToggleProps = {
+  isOpen: boolean;
+  toggle: () => void;
+};
 
-export const MenuToggle = ({ toggle }: { toggle: () => void }) => (
-  <button onClick={toggle} className="z-10 mr-[10px]">
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      className="stroke-zinc-600 dark:stroke-zinc-400"
-    >
-      <Path
-        variants={{
-          closed: { d: 'M 2 2.5 L 20 2.5' },
-          open: { d: 'M 3 16.5 L 17 2.5' },
-        }}
-      />
-      <Path
-        d="M 2 9.423 L 20 9.423"
-        variants={{
-          closed: { opacity: 1 },
-          open: { opacity: 0 },
-        }}
-        transition={{ duration: 0.1 }}
-      />
-      <Path
-        variants={{
-          closed: { d: 'M 2 16.346 L 20 16.346' },
-          open: { d: 'M 3 2.5 L 17 16.346' },
-        }}
-      />
-    </svg>
+export const MenuToggle = React.forwardRef<
+  HTMLButtonElement,
+  MenuToggleProps
+>(({ isOpen, toggle }, ref) => (
+  <button
+    ref={ref}
+    type="button"
+    onClick={toggle}
+    aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+    aria-expanded={isOpen}
+    aria-controls="mobile-navigation"
+    className={clsx(
+      'filter-bg relative z-10 inline-flex min-h-11 min-w-[88px] items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold',
+      'text-zinc-800 transition-[transform,color,box-shadow] duration-200 dark:text-zinc-100',
+      'hover:text-blue-700 dark:hover:text-blue-300',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-bgColor dark:focus-visible:ring-blue-400',
+      'active:scale-[0.98] motion-reduce:transition-none'
+    )}
+  >
+    <span
+      aria-hidden="true"
+      className={clsx(
+        'size-5 shrink-0',
+        isOpen ? 'icon-[tabler--x]' : 'icon-[tabler--menu-2]'
+      )}
+    />
+    <span>{isOpen ? 'Close' : 'Menu'}</span>
   </button>
-);
+));
+
+MenuToggle.displayName = 'MenuToggle';
