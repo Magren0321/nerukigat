@@ -27,7 +27,13 @@ const sidebar: Variants = {
   },
 };
 
-const DialogContent = ({ children }: { children: ReactNode }) => {
+const DialogContent = ({
+  children,
+  hasHeaderBackground,
+}: {
+  children: ReactNode;
+  hasHeaderBackground: boolean;
+}) => {
   const { isOpen, updateIsOpen } = useContext(DialogContext);
 
   return (
@@ -45,16 +51,25 @@ const DialogContent = ({ children }: { children: ReactNode }) => {
       </motion.div>
       <MenuToggle
         isOpen={isOpen}
+        hasHeaderBackground={hasHeaderBackground}
         toggle={() => updateIsOpen()}
       />
     </motion.nav>
   );
 };
 
-export const Dialog = ({ children }: { children: ReactNode }) => {
+export const Dialog = ({
+  children,
+  hasHeaderBackground = false,
+}: {
+  children: ReactNode;
+  hasHeaderBackground?: boolean;
+}) => {
   return (
     <DialogProvider>
-      <DialogContent>{children}</DialogContent>
+      <DialogContent hasHeaderBackground={hasHeaderBackground}>
+        {children}
+      </DialogContent>
     </DialogProvider>
   );
 };

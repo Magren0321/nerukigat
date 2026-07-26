@@ -52,17 +52,16 @@ export default function About() {
             </a>
           </li>
           <li>
-            📖 偶尔看看书，可以点这里查看{' '}
-            <a
-              target="_blank"
-              href="https://concrete-lightning-e25.notion.site/bad22ab2bf6f4d6c9bf22ee1f911028d?v=7ead59cbdefc48809733e13dbde17e57&pvs=4"
-            >
+            📖 偶尔看看书，可以点这里查看
+            <Link href="/collection/books">
               我的书单
-            </a>
+            </Link>
           </li>
           <li>
             🎮 偶尔打打游戏，端游还有主机游戏玩的比较多，<del>任天堂就是世界主宰！</del>{' '}
             基本上任天堂第一方游戏都很喜欢，PC 上 Steam 里面也有玩一些，最近刚买怪猎，如果缺腿部挂件的话可以加个好友
+            ，也可以看看
+            <Link href="/collection/games">我的游戏记录</Link>
             <ul>
               <li>
                 <b>Steam</b>：{' '}
@@ -83,12 +82,9 @@ export default function About() {
           </li>
           <li>
             🎬 偶尔也看看电影，这里可以看到我都看了什么
-            <a
-              target="_blank"
-              href="https://concrete-lightning-e25.notion.site/9400eef421fc4c428c68d8e69454023c?pvs=4"
-            >
+            <Link href="/collection/films">
               我的影单
-            </a>
+            </Link>
           </li>
           <li>
             🎹 偶尔弹琴：constantly struggle with practicing regularly

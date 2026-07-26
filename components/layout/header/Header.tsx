@@ -2,27 +2,29 @@
 
 import { Navigation } from '@/components/layout/header/TabNavigation';
 import { Dialog } from '@/components/ui/dialog/Dialog';
-import { AnimatePresence, motion } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NavigationBar } from './NavigationBar';
-
-import clsx from 'clsx';
 
 export const Header = () => {
   const [isShow, setIsShow] = useState(false);
+  const { scrollY } = useScroll();
+  const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    setIsShow(window.scrollY > 80);
-    const handleScroll = () => {
-      setIsShow(window.scrollY > 80);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const nextIsShow = latest > 80;
+    setIsShow((current) =>
+      current === nextIsShow ? current : nextIsShow
+    );
+  });
 
   return (
     <div className="sticky top-0 z-[999]">
@@ -34,7 +36,10 @@ export const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.3,
+                ease: 'easeInOut',
+              }}
               className="absolute inset-0 filter-bg"
             />
           )}
@@ -47,6 +52,7 @@ export const Header = () => {
               width={40}
               height={40}
               alt="avatar"
+              priority
               className="rounded-full"
             />
           </Link>
@@ -59,7 +65,7 @@ export const Header = () => {
         </div>
       </div>
       <div className="fixed right-4 top-2 z-50 lg:hidden">
-        <Dialog>
+        <Dialog hasHeaderBackground={isShow}>
           <AnimatePresence mode="wait">
             <motion.div
               initial={{ y: 50, opacity: 0 }}

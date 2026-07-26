@@ -1,29 +1,7 @@
 import { DialogContext } from '@/providers/dialog/DialogProvider';
 import Link from 'next/link';
 import * as React from 'react';
-
-const navigationItems = [
-  {
-    href: '/',
-    text: 'Home',
-  },
-  {
-    href: '/posts',
-    text: 'Blog',
-  },
-  {
-    href: '/weekly',
-    text: 'Weekly',
-  },
-  {
-    href: '/friends',
-    text: 'Friends',
-  },
-  {
-    href: '/about',
-    text: 'About',
-  },
-];
+import { navigationItems } from './navigation';
 
 export const Navigation = () => {
   const { updateIsOpen } = React.useContext(DialogContext);

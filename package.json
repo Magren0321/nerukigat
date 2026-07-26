@@ -33,6 +33,7 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/rss": "^0.0.30",
+    "agentation": "^3.0.2",
     "autoprefixer": "^10.0.1",
     "eslint": "^9.39.1",
     "eslint-config-next": "16.0.8",

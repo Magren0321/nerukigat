@@ -1,6 +1,7 @@
 import { Header } from '@/components/layout/header/Header';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { Analytics } from '@vercel/analytics/react';
+import { Agentation } from 'agentation';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -41,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body className={openHuninn.className}>
         <Analytics mode={'production'} />
         <ScrollToTop />
@@ -49,6 +50,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
         </div>
+        {process.env.NODE_ENV === 'development' && <Agentation />}
       </body>
     </html>
   );

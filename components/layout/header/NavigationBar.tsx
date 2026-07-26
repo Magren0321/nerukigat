@@ -5,29 +5,7 @@ import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-
-const navigationItems = [
-  {
-    href: '/',
-    text: 'Home',
-  },
-  {
-    href: '/posts',
-    text: 'Blog',
-  },
-  {
-    href: '/weekly',
-    text: 'Weekly',
-  },
-  {
-    href: '/friends',
-    text: 'Friends',
-  },
-  {
-    href: '/about',
-    text: 'About',
-  },
-];
+import { navigationItems } from './navigation';
 
 function NavItem({
   href,
@@ -38,7 +16,11 @@ function NavItem({
   children: React.ReactNode;
   hasBackground: boolean;
 }) {
-  const isActive = usePathname() === href;
+  const pathname = usePathname();
+  const isActive =
+    href === '/'
+      ? pathname === href
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <li>
