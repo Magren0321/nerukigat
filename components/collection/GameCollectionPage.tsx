@@ -109,8 +109,8 @@ export function GameCollectionPage({
     <CollectionPage
       kind="games"
       icon="icon-[ph--game-controller]"
-      title="游戏记录"
-      intro="记录玩过、正在玩和还没开始的游戏。"
+      title="Game"
+      intro="即使引导早已破碎，也请您当上艾尔登之王。 ——《艾尔登法环》"
       statusLabels={{
         done: '已通关',
         active: '正在玩',

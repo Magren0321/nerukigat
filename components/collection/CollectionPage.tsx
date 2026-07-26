@@ -39,7 +39,7 @@ export function CollectionPage({
 
   return (
     <>
-      <header className="border-b border-zinc-200 pb-6 pt-7 sm:pb-7 sm:pt-9 dark:border-zinc-800">
+      <header className="border-b border-zinc-200 pb-6 pt-7 sm:pb-4 sm:pt-9 dark:border-zinc-800">
         <span
           aria-hidden="true"
           className={clsx(
@@ -50,8 +50,8 @@ export function CollectionPage({
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50">
           {title}
         </h1>
-        <div className="mt-2 flex flex-wrap items-center gap-x-8 gap-y-3">
-          <p className="max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+        <div className="mt-2 flex min-h-[86px] flex-wrap items-start gap-x-8 gap-y-3 sm:min-h-11 sm:items-center">
+          <p className="max-w-2xl text-sm italic leading-6 text-zinc-600 dark:text-zinc-400">
             {intro}
           </p>
           {headerControl && (
@@ -60,7 +60,7 @@ export function CollectionPage({
         </div>
       </header>
 
-      <section aria-labelledby="records-heading" className="pt-6">
+      <section aria-labelledby="records-heading" className="pt-6 sm:pt-4">
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
           <h2
             id="records-heading"

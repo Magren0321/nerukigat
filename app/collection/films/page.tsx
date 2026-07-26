@@ -3,8 +3,8 @@ import { filmRecords } from '@/data/collections/films';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "影视记录 | Magren's Blog",
-  description: '记录看过、正在看和准备看的电影、动画与剧集。',
+  title: "Film | Magren's Blog",
+  description: '敬那些勇于追梦的愚人。 ——《爱乐之城》',
 };
 
 export default function FilmsPage() {
@@ -12,8 +12,8 @@ export default function FilmsPage() {
     <CollectionPage
       kind="films"
       icon="icon-[ph--film-slate]"
-      title="影视记录"
-      intro="记录看过、正在看和准备看的电影、动画与剧集。"
+      title="Film"
+      intro="敬那些勇于追梦的愚人。 ——《爱乐之城》"
       statusLabels={{
         done: '已看',
         active: '正在看',

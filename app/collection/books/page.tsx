@@ -3,8 +3,8 @@ import { bookRecords } from '@/data/collections/books';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "书籍记录 | Magren's Blog",
-  description: '记录读过、正在读和还没读的书。',
+  title: "Book | Magren's Blog",
+  description: '知识可以传授，智慧却不能。 ——《悉达多》',
 };
 
 export default function BooksPage() {
@@ -12,8 +12,8 @@ export default function BooksPage() {
     <CollectionPage
       kind="books"
       icon="icon-[ph--book-open-text]"
-      title="书籍记录"
-      intro="记录读过、正在读和还没读的书。"
+      title="Book"
+      intro="知识可以传授，智慧却不能。 ——《悉达多》"
       statusLabels={{
         done: '已读',
         active: '正在读',
