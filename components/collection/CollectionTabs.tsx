@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
 import clsx from 'clsx';
+import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { CollectionKind } from './types';
@@ -13,10 +13,10 @@ const tabs: Array<{
   icon: string;
 }> = [
   {
-    href: '/collection/games',
-    label: '游戏',
-    kind: 'games',
-    icon: 'icon-[ph--game-controller]',
+    href: '/collection/books',
+    label: '书籍',
+    kind: 'books',
+    icon: 'icon-[ph--book-open-text]',
   },
   {
     href: '/collection/films',
@@ -25,10 +25,10 @@ const tabs: Array<{
     icon: 'icon-[ph--film-slate]',
   },
   {
-    href: '/collection/books',
-    label: '书籍',
-    kind: 'books',
-    icon: 'icon-[ph--book-open-text]',
+    href: '/collection/games',
+    label: '游戏',
+    kind: 'games',
+    icon: 'icon-[ph--game-controller]',
   },
 ];
 
