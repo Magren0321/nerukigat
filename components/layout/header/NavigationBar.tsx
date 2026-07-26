@@ -7,6 +7,30 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { navigationItems } from './navigation';
 
+function matchesPath(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function isNavigationItemActive(pathname: string, href: string) {
+  if (href === '/') {
+    return pathname === href;
+  }
+
+  if (href === '/weekly') {
+    return (
+      matchesPath(pathname, href) || matchesPath(pathname, '/posts/weekly')
+    );
+  }
+
+  if (href === '/posts') {
+    return (
+      matchesPath(pathname, href) && !matchesPath(pathname, '/posts/weekly')
+    );
+  }
+
+  return matchesPath(pathname, href);
+}
+
 function NavItem({
   href,
   children,
@@ -17,15 +41,13 @@ function NavItem({
   hasBackground: boolean;
 }) {
   const pathname = usePathname();
-  const isActive =
-    href === '/'
-      ? pathname === href
-      : pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = isNavigationItemActive(pathname, href);
 
   return (
     <li>
       <Link
         href={href}
+        aria-current={isActive ? 'page' : undefined}
         className={clsx(
           'relative block whitespace-nowrap px-3 py-2 transition',
           isActive

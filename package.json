@@ -6,7 +6,8 @@
     "dev": "contentlayer2 dev & next dev --webpack",
     "build": "contentlayer2 build && next build --webpack",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "new:weekly": "node scripts/create-weekly.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
