@@ -1,136 +1,22 @@
 'use client';
 
 import clsx from 'clsx';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useMemo, useState } from 'react';
 import type {
+  CollectionKind,
   CollectionRating,
   CollectionRecord,
   CollectionStatus,
 } from './types';
 
-const RECORDS_PER_BATCH = 30;
-const LOADING_FEEDBACK_DURATION = 300;
-
-const undatedTimeStyle = clsx(
-  'bg-zinc-100 text-zinc-600 ring-zinc-700/10',
-  'dark:bg-zinc-800 dark:text-zinc-300 dark:ring-white/10'
-);
-
-type TimeColorProperties = CSSProperties & {
-  '--time-bg': string;
-  '--time-dark-bg': string;
-  '--time-dark-ring': string;
-  '--time-dark-text': string;
-  '--time-ring': string;
-  '--time-text': string;
-};
-
 const statusStyles: Record<CollectionStatus, string> = {
-  done: clsx(
-    'bg-emerald-50 text-emerald-700 ring-emerald-700/10',
-    'dark:bg-emerald-950/45 dark:text-emerald-300 dark:ring-emerald-300/10'
-  ),
-  active: clsx(
-    'bg-blue-50 text-blue-700 ring-blue-700/10',
-    'dark:bg-blue-950/50 dark:text-blue-300 dark:ring-blue-300/10'
-  ),
-  casual: clsx(
-    'bg-cyan-50 text-cyan-700 ring-cyan-700/10',
-    'dark:bg-cyan-950/50 dark:text-cyan-300 dark:ring-cyan-300/10'
-  ),
-  paused: clsx(
-    'bg-amber-50 text-amber-700 ring-amber-700/10',
-    'dark:bg-amber-950/45 dark:text-amber-300 dark:ring-amber-300/10'
-  ),
-  retired: clsx(
-    'bg-rose-50 text-rose-700 ring-rose-700/10',
-    'dark:bg-rose-950/45 dark:text-rose-300 dark:ring-rose-300/10'
-  ),
-  planned: clsx(
-    'bg-zinc-100 text-zinc-600 ring-zinc-700/10',
-    'dark:bg-zinc-800 dark:text-zinc-300 dark:ring-white/10'
-  ),
+  done: 'text-zinc-500 dark:text-zinc-400',
+  active: 'text-blue-700 dark:text-blue-300',
+  casual: 'text-blue-700 dark:text-blue-300',
+  paused: 'text-zinc-500 dark:text-zinc-400',
+  retired: 'text-zinc-500 dark:text-zinc-400',
+  planned: 'text-zinc-500 dark:text-zinc-400',
 };
-
-function hashTime(time: string) {
-  let hash = 2166136261;
-
-  for (let index = 0; index < time.length; index += 1) {
-    hash ^= time.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
-  }
-
-  hash ^= hash >>> 16;
-  hash = Math.imul(hash, 2246822507);
-  hash ^= hash >>> 13;
-  hash = Math.imul(hash, 3266489909);
-  hash ^= hash >>> 16;
-
-  return hash >>> 0;
-}
-
-function getTimeColor(time: string): TimeColorProperties | undefined {
-  if (!/^\d{4}$/.test(time)) {
-    return undefined;
-  }
-
-  const hash = hashTime(time);
-  const hue = ((hash & 0xfff) / 0xfff) * 360;
-  const chroma = 0.08 + (((hash >>> 12) & 0x3ff) / 0x3ff) * 0.035;
-  const textLightness = 0.4 + (((hash >>> 22) & 0x3ff) / 0x3ff) * 0.04;
-  const backgroundChroma = chroma * 0.35;
-  const darkBackgroundChroma = chroma * 0.55;
-  const darkTextChroma = chroma * 0.78;
-
-  return {
-    '--time-bg': `oklch(96% ${backgroundChroma.toFixed(4)} ${hue.toFixed(2)})`,
-    '--time-text': `oklch(${textLightness.toFixed(4)} ${chroma.toFixed(4)} ${hue.toFixed(2)})`,
-    '--time-ring': `oklch(58% ${chroma.toFixed(4)} ${hue.toFixed(2)} / 18%)`,
-    '--time-dark-bg': `oklch(27% ${darkBackgroundChroma.toFixed(4)} ${hue.toFixed(2)} / 78%)`,
-    '--time-dark-text': `oklch(80% ${darkTextChroma.toFixed(4)} ${hue.toFixed(2)})`,
-    '--time-dark-ring': `oklch(72% ${darkTextChroma.toFixed(4)} ${hue.toFixed(2)} / 16%)`,
-  };
-}
-
-function TimeBadge({ time }: { time: string }) {
-  const color = getTimeColor(time);
-
-  return (
-    <span
-      style={color}
-      className={clsx(
-        'inline-flex w-fit items-center rounded-full px-2 py-0.5 font-mono text-xs font-medium tabular-nums ring-1 ring-inset',
-        color
-          ? clsx(
-              'bg-[var(--time-bg)] text-[var(--time-text)] ring-[var(--time-ring)]',
-              'dark:bg-[var(--time-dark-bg)] dark:text-[var(--time-dark-text)] dark:ring-[var(--time-dark-ring)]'
-            )
-          : undatedTimeStyle
-      )}
-    >
-      {time}
-    </span>
-  );
-}
-
-function StatusBadge({
-  status,
-  label,
-}: {
-  status: CollectionStatus;
-  label: string;
-}) {
-  return (
-    <span
-      className={clsx(
-        'inline-flex w-fit items-center rounded-full px-2 py-0.5 text-xs font-medium ring-1 ring-inset',
-        statusStyles[status]
-      )}
-    >
-      {label}
-    </span>
-  );
-}
 
 const ratingLabels: Record<CollectionRating, string> = {
   1: '无感',
@@ -158,9 +44,9 @@ function RatingStars({ rating }: { rating?: CollectionRating }) {
           key={step}
           aria-hidden="true"
           className={clsx(
-            'h-4 w-4 shrink-0',
+            'size-3.5 shrink-0',
             rating && step <= rating
-              ? 'icon-[ph--star-fill] text-amber-500 dark:text-amber-400'
+              ? 'icon-[ph--star-fill] text-blue-600 dark:text-blue-300'
               : 'icon-[ph--star] text-zinc-300 dark:text-zinc-700'
           )}
         />
@@ -169,158 +55,219 @@ function RatingStars({ rating }: { rating?: CollectionRating }) {
   );
 }
 
+interface RecordGroup {
+  key: string;
+  label: string;
+  records: CollectionRecord[];
+}
+
+function groupRecords(
+  records: CollectionRecord[],
+  kind: CollectionKind
+): RecordGroup[] {
+  const groups: RecordGroup[] = [];
+
+  records.forEach((record) => {
+    const rawLabel =
+      kind === 'games' ? record.category || '其他' : record.time || '待定';
+    const label = rawLabel === '待定' ? '计划清单' : rawLabel;
+    const previousGroup = groups.at(-1);
+
+    if (previousGroup?.key === rawLabel) {
+      previousGroup.records.push(record);
+      return;
+    }
+
+    groups.push({
+      key: rawLabel,
+      label,
+      records: [record],
+    });
+  });
+
+  return groups;
+}
+
+function matchesQuery(
+  record: CollectionRecord,
+  query: string,
+  statusLabels: Partial<Record<CollectionStatus, string>>
+) {
+  if (!query) {
+    return true;
+  }
+
+  return [
+    record.title,
+    record.category,
+    record.meta,
+    record.note,
+    record.time,
+    record.status ? statusLabels[record.status] : undefined,
+  ].some((value) => value?.toLocaleLowerCase().includes(query));
+}
+
+function RecordItem({
+  detailColumn,
+  record,
+  statusLabels,
+}: {
+  detailColumn: 'time' | 'rating';
+  record: CollectionRecord;
+  statusLabels: Partial<Record<CollectionStatus, string>>;
+}) {
+  return (
+    <li className="group grid min-h-[76px] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-xl px-4 py-3 transition-colors duration-200 hover:bg-zinc-100/80 motion-reduce:transition-none sm:px-5 dark:hover:bg-zinc-800/65">
+      <div className="min-w-0">
+        <h4 className="text-[15px] font-semibold leading-6 text-zinc-900 transition-colors duration-200 group-hover:text-blue-700 motion-reduce:transition-none dark:text-zinc-100 dark:group-hover:text-blue-300">
+          {record.title}
+        </h4>
+        {(record.meta || record.note) && (
+          <p className="mt-0.5 truncate text-xs leading-5 text-zinc-500 dark:text-zinc-400">
+            {[record.meta, record.note].filter(Boolean).join(' / ')}
+          </p>
+        )}
+      </div>
+
+      <div className="flex min-w-[5.5rem] flex-col items-end gap-1.5 text-right">
+        {detailColumn === 'rating' && <RatingStars rating={record.rating} />}
+        {record.status ? (
+          <span
+            className={clsx(
+              'text-xs font-medium',
+              statusStyles[record.status]
+            )}
+          >
+            {statusLabels[record.status] ?? '未记录'}
+          </span>
+        ) : (
+          <span className="text-xs text-zinc-400 dark:text-zinc-500">
+            未记录
+          </span>
+        )}
+      </div>
+    </li>
+  );
+}
+
+const unitLabels: Record<CollectionKind, string> = {
+  books: '本',
+  films: '部',
+  games: '款',
+};
+
 export function CollectionRecordList({
   detailColumn,
+  kind,
   records,
   statusLabels,
 }: {
   detailColumn: 'time' | 'rating';
+  kind: CollectionKind;
   records: CollectionRecord[];
   statusLabels: Partial<Record<CollectionStatus, string>>;
 }) {
-  const [visibleCount, setVisibleCount] = useState(() =>
-    Math.min(RECORDS_PER_BATCH, records.length)
+  const [query, setQuery] = useState('');
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  const filteredRecords = useMemo(
+    () =>
+      records.filter((record) =>
+        matchesQuery(record, normalizedQuery, statusLabels)
+      ),
+    [normalizedQuery, records, statusLabels]
   );
-  const [isLoading, setIsLoading] = useState(false);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-  const isLoadingRef = useRef(false);
-  const loadingTimerRef = useRef<number | null>(null);
-
-  const hasMore = visibleCount < records.length;
-
-  useEffect(() => {
-    const loadMoreElement = loadMoreRef.current;
-
-    if (!hasMore || !loadMoreElement) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting || isLoadingRef.current) {
-          return;
-        }
-
-        isLoadingRef.current = true;
-        setIsLoading(true);
-        observer.unobserve(entry.target);
-
-        loadingTimerRef.current = window.setTimeout(() => {
-          setVisibleCount((count) =>
-            Math.min(count + RECORDS_PER_BATCH, records.length)
-          );
-          isLoadingRef.current = false;
-          setIsLoading(false);
-        }, LOADING_FEEDBACK_DURATION);
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(loadMoreElement);
-
-    return () => {
-      observer.disconnect();
-
-      if (loadingTimerRef.current !== null) {
-        window.clearTimeout(loadingTimerRef.current);
-        loadingTimerRef.current = null;
-      }
-    };
-  }, [hasMore, records.length, visibleCount]);
+  const groups = useMemo(
+    () => groupRecords(filteredRecords, kind),
+    [filteredRecords, kind]
+  );
 
   if (records.length === 0) {
     return (
-      <div className="border-b border-zinc-200 py-16 text-center text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-        这里还没有记录。
+      <div className="mt-8 rounded-2xl bg-white/55 px-6 py-20 text-center ring-1 ring-zinc-200/80 dark:bg-zinc-900/45 dark:ring-zinc-800">
+        <span
+          aria-hidden="true"
+          className="icon-[ph--tray] mx-auto block size-7 text-zinc-400"
+        />
+        <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+          这里还没有记录。
+        </p>
       </div>
     );
   }
 
-  const visibleRecords = records.slice(0, visibleCount);
-
   return (
-    <div>
-      <div role="table" aria-label="收藏记录">
-        <div
-          role="row"
-          className="hidden grid-cols-[minmax(0,1fr)_7rem_8rem] gap-5 border-b border-zinc-200 px-1 py-2 text-xs font-medium text-zinc-500 md:grid dark:border-zinc-800 dark:text-zinc-400"
-        >
-          <span role="columnheader">名称</span>
-          <span role="columnheader">
-            {detailColumn === 'time' ? '时间' : '喜爱程度'}
-          </span>
-          <span role="columnheader">状态</span>
-        </div>
-
-        <div id="collection-records" role="rowgroup">
-          {visibleRecords.map((record) => (
-            <article
-              role="row"
-              key={`${record.title}-${record.time ?? record.rating ?? 'unrated'}`}
-              className={clsx(
-                'group grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-2 border-b border-zinc-200 px-1 py-3',
-                'transition-colors duration-200 hover:bg-white/70 motion-reduce:transition-none md:grid-cols-[minmax(0,1fr)_7rem_8rem] md:items-center md:gap-5',
-                'dark:border-zinc-800 dark:hover:bg-zinc-900/45'
-              )}
+    <div className="pt-7">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <label className="relative block w-full sm:max-w-sm">
+          <span className="sr-only">搜索收藏</span>
+          <span
+            aria-hidden="true"
+            className="icon-[ph--magnifying-glass] pointer-events-none absolute left-4 top-1/2 size-[18px] -translate-y-1/2 text-zinc-400"
+          />
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="搜索收藏"
+            className="h-11 w-full rounded-xl bg-white/65 pl-11 pr-11 text-sm text-zinc-900 ring-1 ring-inset ring-zinc-200 transition-shadow placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-600 motion-reduce:transition-none dark:bg-zinc-900/55 dark:text-zinc-100 dark:ring-zinc-800 dark:placeholder:text-zinc-500 dark:focus:ring-blue-400"
+          />
+          {query && (
+            <button
+              type="button"
+              aria-label="清除搜索"
+              onClick={() => setQuery('')}
+              className="absolute right-2 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-900 active:translate-y-[calc(-50%+1px)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 motion-reduce:transition-none dark:hover:bg-zinc-800 dark:hover:text-zinc-100 dark:focus-visible:ring-blue-400"
             >
-              <div role="cell" className="min-w-0">
-                <h2 className="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  {record.title}
-                </h2>
-                {(record.category || record.meta || record.note) && (
-                  <div className="mt-0.5 flex flex-wrap gap-x-3 text-xs leading-4 text-zinc-500 dark:text-zinc-400">
-                    {record.category && <span>{record.category}</span>}
-                    {record.meta && <span>{record.meta}</span>}
-                    {record.note && <span>{record.note}</span>}
-                  </div>
-                )}
-              </div>
+              <span aria-hidden="true" className="icon-[ph--x] size-4" />
+            </button>
+          )}
+        </label>
 
-              <div
-                role="cell"
-                className="col-start-1 row-start-2 md:col-start-auto md:row-start-auto"
-              >
-                {detailColumn === 'time' ? (
-                  <TimeBadge time={record.time ?? '待定'} />
-                ) : (
-                  <RatingStars rating={record.rating} />
-                )}
-              </div>
-
-              <div
-                role="cell"
-                className="col-start-2 row-span-2 row-start-1 self-center md:col-start-auto md:row-span-1 md:row-start-auto"
-              >
-                {record.status ? (
-                  <StatusBadge
-                    status={record.status}
-                    label={statusLabels[record.status] ?? '未记录'}
-                  />
-                ) : (
-                  <span className="text-xs text-zinc-400 dark:text-zinc-500">
-                    未记录
-                  </span>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
+        <p aria-live="polite" className="text-sm text-zinc-500 dark:text-zinc-400">
+          {normalizedQuery
+            ? `找到 ${filteredRecords.length} 项`
+            : `${groups.length} 组收藏`}
+        </p>
       </div>
 
-      {hasMore && (
-        <div
-          ref={loadMoreRef}
-          className="flex min-h-10 items-center justify-center py-2"
-        >
-          {isLoading && (
-            <p
-              role="status"
-              aria-live="polite"
-              className="text-xs text-zinc-500 motion-safe:animate-pulse dark:text-zinc-400"
-            >
-              正在加载…
-            </p>
-          )}
+      {filteredRecords.length === 0 ? (
+        <div className="mt-8 rounded-2xl bg-white/55 px-6 py-20 text-center ring-1 ring-zinc-200/80 dark:bg-zinc-900/45 dark:ring-zinc-800">
+          <span
+            aria-hidden="true"
+            className="icon-[ph--magnifying-glass] mx-auto block size-7 text-zinc-400"
+          />
+          <p className="mt-3 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            没有找到相关收藏
+          </p>
+          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+            换一个名称、年份或状态试试。
+          </p>
+        </div>
+      ) : (
+        <div className="mt-9 space-y-10">
+          {groups.map((group, groupIndex) => (
+            <section key={`${group.key}-${groupIndex}`}>
+              <div className="mb-3 flex items-baseline gap-3 px-1">
+                <h3 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+                  {group.label}
+                </h3>
+                <span className="font-mono text-xs tabular-nums text-zinc-400 dark:text-zinc-500">
+                  {group.records.length} {unitLabels[kind]}
+                </span>
+              </div>
+
+              <ul className="grid gap-1 rounded-2xl bg-white/60 p-2 ring-1 ring-zinc-200/75 sm:grid-cols-2 dark:bg-zinc-900/45 dark:ring-zinc-800">
+                {group.records.map((record) => (
+                  <RecordItem
+                    key={`${record.title}-${record.time ?? record.rating ?? 'unrated'}`}
+                    detailColumn={detailColumn}
+                    record={record}
+                    statusLabels={statusLabels}
+                  />
+                ))}
+              </ul>
+            </section>
+          ))}
         </div>
       )}
     </div>

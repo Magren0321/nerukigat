@@ -1,21 +1,25 @@
-import { use } from "react";
+import { MDXContent } from '@/components/MDXContent';
 import { PostContainer } from '@/components/layout/container/PostContainer';
+import { BackButton } from '@/components/ui/button/BackButton';
+import { PhotoProvider } from '@/components/ui/img/PreviewImage';
 import { PostTree } from '@/components/ui/toc/PostTree';
 import { PostProvider } from '@/providers/post/PostProvider';
-import { PhotoProvider } from '@/components/ui/img/PreviewImage';
-import { BackButton } from '@/components/ui/button/BackButton';
-import { MDXContent } from '@/components/MDXContent';
 import { filterVisiblePosts, findVisiblePostByFlattenedPath } from '@/utils';
 import clsx from 'clsx';
 import { allPosts } from 'contentlayer2/generated';
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { use } from 'react';
 
 export const generateStaticParams = async () =>
-  filterVisiblePosts(allPosts).map((post) => ({ slug: post._raw.flattenedPath.split('/') }));
+  filterVisiblePosts(allPosts).map((post) => ({
+    slug: post._raw.flattenedPath.split('/'),
+  }));
 
-export const generateMetadata = async (props: { params: Promise<{ slug: string[] }> }) => {
+export const generateMetadata = async (props: {
+  params: Promise<{ slug: string[] }>;
+}) => {
   const params = await props.params;
   const slugPath = params.slug.join('/');
   const post = findVisiblePostByFlattenedPath(allPosts, slugPath);
@@ -66,8 +70,8 @@ const PostLayout = (props: { params: Promise<{ slug: string[] }> }) => {
 
   return (
     <PostContainer>
-      <div className="relative flex min-h-[120px] lg:flex lg:flex-row">
-        <div className="w-full">
+      <div className="relative grid min-h-[120px] lg:grid-cols-[minmax(0,820px)_240px] lg:justify-center lg:gap-14 xl:gap-16">
+        <div className="w-full min-w-0">
           <article
             className={clsx(
               'prose w-full max-w-full text-zinc-900',

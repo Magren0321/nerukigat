@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Film | Magren's Blog",
-  description: '敬那些勇于追梦的愚人。 ——《爱乐之城》',
+  description: '敬那些勇于追梦的愚人。《爱乐之城》',
 };
 
 export default function FilmsPage() {
@@ -12,8 +12,10 @@ export default function FilmsPage() {
     <CollectionPage
       kind="films"
       icon="icon-[ph--film-slate]"
-      title="Film"
-      intro="敬那些勇于追梦的愚人。 ——《爱乐之城》"
+      label="Films"
+      title="影视"
+      intro="敬那些勇于追梦的愚人。"
+      source="《爱乐之城》"
       statusLabels={{
         done: '已看',
         active: '正在看',

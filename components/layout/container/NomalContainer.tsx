@@ -1,19 +1,20 @@
 import { clsx } from 'clsx';
 import React from 'react';
 import { AnimateContainer } from './AnimatieContainer';
+import { PageContainer } from './PageContainer';
 
 export const NormalContainer = ({
   children,
+  className,
 }: {
   children: React.ReactNode;
+  className?: string;
 }) => {
   return (
-    <div
-      className={clsx(
-        'relative z-10 mx-auto mb-[80px] mt-14 max-w-3xl px-4 lg:mt-[80px] lg:px-0'
-      )}
+    <PageContainer
+      className={clsx('relative z-10 mb-20 mt-14 lg:mt-20', className)}
     >
       <AnimateContainer>{children}</AnimateContainer>
-    </div>
+    </PageContainer>
   );
 };

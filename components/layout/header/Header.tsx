@@ -12,6 +12,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { PageContainer } from '../container/PageContainer';
 import { NavigationBar } from './NavigationBar';
 
 export const Header = () => {
@@ -21,14 +22,12 @@ export const Header = () => {
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const nextIsShow = latest > 80;
-    setIsShow((current) =>
-      current === nextIsShow ? current : nextIsShow
-    );
+    setIsShow((current) => (current === nextIsShow ? current : nextIsShow));
   });
 
   return (
     <div className="sticky top-0 z-[999]">
-      <div className="relative w-full px-5 py-2">
+      <div className="relative w-full py-2">
         {/* 背景层，使用动画 */}
         <AnimatePresence>
           {isShow && (
@@ -40,12 +39,12 @@ export const Header = () => {
                 duration: shouldReduceMotion ? 0 : 0.3,
                 ease: 'easeInOut',
               }}
-              className="absolute inset-0 filter-bg"
+              className="filter-bg absolute inset-0"
             />
           )}
         </AnimatePresence>
 
-        <div className="relative mx-auto flex max-w-4xl items-center justify-center">
+        <PageContainer className="relative flex items-center justify-center">
           <Link href="/" className="z-0 mr-auto lg:z-[5]">
             <Image
               src={'/avatar.png'}
@@ -62,16 +61,16 @@ export const Header = () => {
               hasBackground={isShow}
             />
           </div>
-        </div>
+        </PageContainer>
       </div>
       <div className="fixed right-4 top-2 z-50 lg:hidden">
         <Dialog hasHeaderBackground={isShow}>
           <AnimatePresence mode="wait">
             <motion.div
-              initial={{ y: 50, opacity: 0 }}
+              initial={shouldReduceMotion ? false : { y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -50, opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              exit={shouldReduceMotion ? undefined : { y: -50, opacity: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
             >
               <Navigation />
             </motion.div>

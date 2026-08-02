@@ -8,10 +8,6 @@ export const navigationItems = [
     text: 'Blog',
   },
   {
-    href: '/weekly',
-    text: 'Weekly',
-  },
-  {
     href: '/collection',
     text: 'Collection',
   },

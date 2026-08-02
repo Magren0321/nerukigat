@@ -4,7 +4,17 @@ import type { CollectionRecord } from '@/components/collection/types';
 // status 支持 done、active、planned，meta 和 note 均可省略。
 
 export const filmRecords = [
-    {
+  {
+    title: '瑞克和莫蒂',
+    time: '2026',
+    status: 'active',
+  },
+  {
+    title: '蜘蛛侠4 崭新之日',
+    time: '2026',
+    status: 'done'
+  },
+  {
     title: '爱乐之城',
     time: '2026',
     status: 'done',

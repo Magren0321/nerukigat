@@ -1,13 +1,15 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 
 export function Avatar() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      transition={{ duration: 0.5 }}
-      whileHover={{ rotate: 360 }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+      whileHover={shouldReduceMotion ? undefined : { rotate: 360 }}
       className="w-[220px]  lg:w-[300px] "
     >
       <Image

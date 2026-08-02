@@ -4,13 +4,44 @@ import Link from 'next/link';
 export default function About() {
   return (
     <PostContainer>
-      <article className="prose max-w-full text-sm/7 text-zinc-900 dark:prose-invert dark:text-zinc-200">
-        <h2>👋 About Me</h2>
+      <div className="grid gap-10 lg:grid-cols-[minmax(220px,0.65fr)_minmax(0,1.75fr)] lg:gap-14 xl:gap-20">
+        <aside className="h-fit lg:sticky lg:top-28">
+          <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
+            About
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 lg:text-5xl">
+            关于我
+          </h1>
+          <nav className="mt-8 hidden text-sm lg:block" aria-label="关于页目录">
+            <ul className="space-y-3 text-zinc-500 dark:text-zinc-400">
+              {[
+                ['#hello', 'About Me'],
+                ['#profile', '关于我'],
+                ['#favorites', '喜欢什么'],
+                ['#current', '现状'],
+                ['#contact', 'Find me'],
+                ['#uses', 'Uses'],
+              ].map(([href, label]) => (
+                <li key={href}>
+                  <Link
+                    className="transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+                    href={href}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+
+        <article className="prose min-w-0 max-w-4xl text-sm/7 text-zinc-900 dark:prose-invert dark:text-zinc-200">
+          <h2 id="hello" className="scroll-mt-28">👋 About Me</h2>
         <blockquote>
-          一片树林分出两条路 ——
+          一片树林分出两条路，
           而我选择了人迹更少的一条，从此决定了我一生的道路。
         </blockquote>
-        <h2>🎩 关于我</h2>
+        <h2 id="profile" className="scroll-mt-28">🎩 关于我</h2>
         <span>Hi，我是<b>Magren</b>，网上的朋友更多的叫我<b>虫二</b>，见字如晤，很高兴认识你。</span>
         <br></br>
         <span>我已经忘记了为什么取 Magren 这个 ID，但我已经习惯了它，我的各个平台基本都是这个ID，曾想赋予它独特的意义，然而我连它怎么读都不清楚，遂放弃</span>
@@ -40,7 +71,7 @@ export default function About() {
         <span>
           <Link href="/posts">这里</Link> 持续用于记录我的生活、工作和思考
         </span>
-        <h2>🎮 喜欢什么</h2>
+        <h2 id="favorites" className="scroll-mt-28">🎮 喜欢什么</h2>
         <ul>
           <li>
             📷 偶尔拿着一台<del> 富士 X-T5 </del>Nikon Zf / FUJIFILM X100VI / Minolta Autocord / Nikon FE2 到处瞎拍扫街出废片，可以点这里查看一些{' '}
@@ -96,7 +127,7 @@ export default function About() {
             🏃 偶尔吃顿好吃的然后漫无目的地瞎逛
           </li>
         </ul>
-        <h2>👨‍💻 现状</h2>
+        <h2 id="current" className="scroll-mt-28">👨‍💻 现状</h2>
         <ul>
           <li>
             {' '}
@@ -124,7 +155,7 @@ export default function About() {
             <b>准准准准准准产品经理（N/A）</b>{' '}
           </li>
         </ul>
-        <h2>🛸 Find me</h2>
+        <h2 id="contact" className="scroll-mt-28">🛸 Find me</h2>
         <i>
           <b>交个朋友吧，反正不要钱</b>
         </i>
@@ -164,7 +195,7 @@ export default function About() {
           </li>
         </ul>
         <div>
-          <h2>💻 Uses</h2>
+          <h2 id="uses" className="scroll-mt-28">💻 Uses</h2>
           <ul>
             <li>
               <b>Computer</b>
@@ -234,10 +265,11 @@ export default function About() {
               The people who are crazy enough to think they can change the world
               are the ones who do.
             </p>
-            <footer>— 《 Steve Jobs 》</footer>
+            <footer>《 Steve Jobs 》</footer>
           </blockquote>
         </div>
-      </article>
+        </article>
+      </div>
       {/* <Comment path={'/about-me'} serverURL={'https://waline.magren.cc'} /> */}
     </PostContainer>
   );

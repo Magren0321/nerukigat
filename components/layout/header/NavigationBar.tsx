@@ -16,18 +16,6 @@ function isNavigationItemActive(pathname: string, href: string) {
     return pathname === href;
   }
 
-  if (href === '/weekly') {
-    return (
-      matchesPath(pathname, href) || matchesPath(pathname, '/posts/weekly')
-    );
-  }
-
-  if (href === '/posts') {
-    return (
-      matchesPath(pathname, href) && !matchesPath(pathname, '/posts/weekly')
-    );
-  }
-
   return matchesPath(pathname, href);
 }
 

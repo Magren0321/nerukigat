@@ -1,5 +1,5 @@
 'use client';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import React from 'react';
 
 export const AnimateContainer = ({
@@ -7,13 +7,15 @@ export const AnimateContainer = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        initial={{ y: 30, opacity: 0 }}
+        initial={shouldReduceMotion ? false : { y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -30, opacity: 0 }}
-        transition={{ duration: 0.3 }}
+        exit={shouldReduceMotion ? undefined : { y: -30, opacity: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
       >
         {children}
       </motion.div>

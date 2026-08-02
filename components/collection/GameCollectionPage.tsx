@@ -51,7 +51,7 @@ export function GameCollectionPage({
     <div
       role="group"
       aria-label="选择游戏平台"
-      className="inline-flex max-w-full items-center rounded-full bg-zinc-100 p-1 dark:bg-zinc-900"
+      className="grid w-full max-w-sm grid-cols-2 gap-1 rounded-xl bg-zinc-200/65 p-1 dark:bg-zinc-800/70"
     >
       {platforms.map(({ id, label }) => {
         const isActive = id === platform;
@@ -63,9 +63,9 @@ export function GameCollectionPage({
             aria-pressed={isActive}
             onClick={() => setPlatform(id)}
             className={clsx(
-              'relative isolate inline-flex min-h-9 items-center gap-2 rounded-full px-3 text-sm font-semibold',
+              'relative isolate inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold',
               'transition-colors duration-200 motion-reduce:transition-none',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-100 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-zinc-900',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-200 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-zinc-800',
               isActive
                 ? 'text-zinc-950 dark:text-zinc-50'
                 : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
@@ -75,7 +75,7 @@ export function GameCollectionPage({
               <motion.span
                 layoutId="game-platform-selection"
                 aria-hidden="true"
-                className="absolute inset-0 -z-10 rounded-full bg-white ring-1 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-700"
+                className="absolute inset-0 -z-10 rounded-lg bg-white shadow-sm shadow-zinc-400/10 ring-1 ring-zinc-300/60 dark:bg-zinc-900 dark:shadow-none dark:ring-zinc-700"
                 transition={
                   reduceMotion
                     ? { duration: 0 }
@@ -109,8 +109,10 @@ export function GameCollectionPage({
     <CollectionPage
       kind="games"
       icon="icon-[ph--game-controller]"
-      title="Game"
-      intro="即使引导早已破碎，也请您当上艾尔登之王。 ——《艾尔登法环》"
+      label="Games"
+      title="游戏"
+      intro="即使引导早已破碎，也请您当上艾尔登之王。"
+      source="《艾尔登法环》"
       statusLabels={{
         done: '已通关',
         active: '正在玩',

@@ -1,33 +1,14 @@
 'use client';
 
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
-import { calculateReadingStats } from '@/utils/post';
+import { useSupportsHover } from '@/hooks/useSupportsHover';
 import { filterVisiblePosts } from '@/utils';
+import { calculateReadingStats } from '@/utils/post';
 import { Post, allPosts } from 'contentlayer2/generated';
-import { AnimatePresence, motion } from 'framer-motion';
 import { compareDesc, format, parseISO } from 'date-fns';
-import { useEffect, useMemo, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-
-// 检测是否支持真正的 hover（而非触摸）
-const useSupportsHover = () => {
-  const [supportsHover, setSupportsHover] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
-  );
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setSupportsHover(e.matches);
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  return supportsHover;
-};
+import { useEffect, useMemo, useState } from 'react';
 
 const POSTS_PER_PAGE = 10;
 
@@ -45,15 +26,10 @@ const PostCard = ({ post }: PostCardProps) => {
   }, [post.body]);
 
   return (
-    <article
-      className="group relative border-b border-zinc-200/60 py-5 transition-colors dark:border-zinc-800/60 last:border-b-0"
-    >
+    <article className="group relative border-b border-zinc-200/60 py-5 transition-colors last:border-b-0 dark:border-zinc-800/60">
       <div className="relative">
         {/* 主要内容区域和元数据 - 可点击 */}
-        <Link
-          href={post.url}
-          className="block"
-        >
+        <Link href={post.url} className="block">
           {/* 标题 */}
           <h2
             className={`mb-2 text-lg font-medium text-zinc-900 transition-colors dark:text-zinc-100 ${
@@ -132,7 +108,6 @@ const PostCard = ({ post }: PostCardProps) => {
     </article>
   );
 };
-
 
 interface PaginationProps {
   currentPage: number;
@@ -229,13 +204,12 @@ const Pagination = ({
 
 export default function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
+  const shouldReduceMotion = useReducedMotion();
 
-  // 获取所有文章并排序（排除 weekly 类型的文章）
+  // 获取所有文章并排序
   const allPostsData = useMemo(() => {
     const posts = filterVisiblePosts(allPosts)
       .slice()
-      // 排除 weekly 类型的文章
-      .filter((post) => post._raw.flattenedPath !== 'weekly' && !post._raw.flattenedPath.startsWith('weekly/'))
       .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
     return posts;
@@ -261,6 +235,24 @@ export default function Posts() {
     return [...topPosts, ...regularPosts];
   }, [topPosts, regularPosts]);
 
+  const sortedTags = useMemo(() => {
+    const tagCounts = new Map<string, number>();
+
+    allPostsData.forEach((post) => {
+      post.tags.forEach((tag) => {
+        tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+      });
+    });
+
+    return Array.from(tagCounts.entries()).sort(
+      ([tagA, countA], [tagB, countB]) => {
+        if (countA !== countB) return countB - countA;
+        if (tagA === tagB) return 0;
+        return tagA < tagB ? -1 : 1;
+      }
+    );
+  }, [allPostsData]);
+
   // 分页
   const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
   const paginatedPosts = useMemo(() => {
@@ -272,8 +264,11 @@ export default function Posts() {
   // 翻页时滚动到顶部
   useEffect(() => {
     // 滚动到页面顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentPage]);
+    window.scrollTo({
+      top: 0,
+      behavior: shouldReduceMotion ? 'auto' : 'smooth',
+    });
+  }, [currentPage, shouldReduceMotion]);
 
   // 处理翻页，添加滚动
   const handlePageChange = (page: number) => {
@@ -282,47 +277,96 @@ export default function Posts() {
 
   return (
     <NormalContainer>
-      <div className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-          Blog
-        </h1>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          共 {sortedPosts.length} 篇文章
-        </p>
-      </div>
+      <div className="grid gap-10 lg:grid-cols-[minmax(250px,0.7fr)_minmax(0,1.7fr)] lg:gap-14 xl:gap-20">
+        <header className="h-fit lg:sticky lg:top-28">
+          <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
+            Writing
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight text-zinc-950 lg:text-5xl dark:text-zinc-50">
+            Blog
+          </h1>
+          <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">
+            共 {sortedPosts.length} 篇文章
+          </p>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentPage}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-        >
-          {paginatedPosts.length === 0 ? (
-            <div className="py-12 text-center text-zinc-500 dark:text-zinc-400">
-              暂无文章
-            </div>
-          ) : (
-            paginatedPosts.map((post, index) => (
-              <motion.div
-                key={post._id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+          <div className="mt-8 hidden lg:block">
+            {sortedTags.length > 0 && (
+              <nav
+                className="border-t border-zinc-200/70 pt-6 dark:border-zinc-800"
+                aria-label="全部主题"
               >
-                <PostCard post={post} />
-              </motion.div>
-            ))
-          )}
-        </motion.div>
-      </AnimatePresence>
+                <div className="flex items-center justify-between">
+                  <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                    全部主题
+                  </h2>
+                  <Link
+                    href="/archive"
+                    className="text-xs text-zinc-500 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
+                  >
+                    全部归档
+                  </Link>
+                </div>
+                <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
+                  {sortedTags.map(([tag, count]) => (
+                    <li key={tag}>
+                      <Link
+                        href={`/archive?tag=${encodeURIComponent(tag)}`}
+                        className="group/tag flex min-w-0 items-baseline justify-between gap-2 text-sm text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
+                      >
+                        <span className="truncate">#{tag}</span>
+                        <span className="shrink-0 text-xs tabular-nums text-zinc-400 transition-colors group-hover/tag:text-blue-500 dark:text-zinc-500">
+                          {count}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </div>
+        </header>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+        <section className="min-w-0" aria-label="文章列表">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={shouldReduceMotion ? undefined : { opacity: 0, y: -20 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.3,
+                ease: 'easeInOut',
+              }}
+            >
+              {paginatedPosts.length === 0 ? (
+                <div className="py-12 text-center text-zinc-500 dark:text-zinc-400">
+                  暂无文章
+                </div>
+              ) : (
+                paginatedPosts.map((post, index) => (
+                  <motion.div
+                    key={post._id}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: shouldReduceMotion ? 0 : 0.3,
+                      delay: shouldReduceMotion ? 0 : index * 0.05,
+                    }}
+                  >
+                    <PostCard post={post} />
+                  </motion.div>
+                ))
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </section>
+      </div>
     </NormalContainer>
   );
 }

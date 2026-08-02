@@ -11,7 +11,10 @@ export const PostTree = () => {
   if (headings.length === 0) return null;
 
   return (
-    <div className="group sticky top-28 hidden h-fit w-[200px] shrink-0 pl-8 text-sm lg:block">
+    <aside
+      className="group sticky top-28 hidden h-fit w-full pl-2 text-sm lg:block"
+      aria-label="文章目录"
+    >
       {headings.map((heading) => (
         <PostItem
           key={heading.id}
@@ -21,6 +24,6 @@ export const PostTree = () => {
           id={heading.id}
         />
       ))}
-    </div>
+    </aside>
   );
 };

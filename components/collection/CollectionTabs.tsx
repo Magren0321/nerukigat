@@ -3,7 +3,6 @@
 import clsx from 'clsx';
 import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import type { CollectionKind } from './types';
 
 const tabs: Array<{
@@ -32,18 +31,17 @@ const tabs: Array<{
   },
 ];
 
-export function CollectionTabs() {
-  const pathname = usePathname();
+export function CollectionTabs({ activeKind }: { activeKind: CollectionKind }) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <nav
-      aria-label="收藏分类"
-      className="border-b border-zinc-200 dark:border-zinc-800"
-    >
-      <ul className="flex items-center gap-6">
+    <nav aria-label="收藏分类">
+      <p className="mb-3 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+        切换收藏
+      </p>
+      <ul className="grid w-full grid-cols-3 gap-1 rounded-xl bg-zinc-200/65 p-1 dark:bg-zinc-800/70">
         {tabs.map((tab) => {
-          const isActive = pathname === tab.href;
+          const isActive = activeKind === tab.kind;
 
           return (
             <li key={tab.href}>
@@ -51,24 +49,19 @@ export function CollectionTabs() {
                 href={tab.href}
                 aria-current={isActive ? 'page' : undefined}
                 className={clsx(
-                  'relative inline-flex min-h-11 items-center gap-2 py-3 text-sm font-semibold',
+                  'relative isolate inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold',
                   'transition-colors duration-200 active:translate-y-px motion-reduce:transition-none',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-4 focus-visible:ring-offset-bgColor',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-200 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-zinc-800',
                   isActive
-                    ? 'text-blue-700 dark:text-blue-300'
+                    ? 'text-blue-700 dark:text-blue-200'
                     : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
                 )}
               >
-                <span
-                  aria-hidden="true"
-                  className={clsx('size-[18px]', tab.icon)}
-                />
-                {tab.label}
                 {isActive && (
                   <motion.span
                     layoutId="collection-active-tab"
                     aria-hidden="true"
-                    className="absolute inset-x-0 -bottom-px h-0.5 bg-blue-600 dark:bg-blue-400"
+                    className="absolute inset-0 -z-10 rounded-lg bg-white shadow-sm shadow-zinc-400/10 ring-1 ring-zinc-300/60 dark:bg-zinc-900 dark:shadow-none dark:ring-zinc-700"
                     transition={
                       reduceMotion
                         ? { duration: 0 }
@@ -81,6 +74,11 @@ export function CollectionTabs() {
                     }
                   />
                 )}
+                <span
+                  aria-hidden="true"
+                  className={clsx('size-[18px]', tab.icon)}
+                />
+                {tab.label}
               </Link>
             </li>
           );

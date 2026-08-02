@@ -1,6 +1,6 @@
 import { NormalContainer } from '@/components/layout/container/NomalContainer';
-import Link from 'next/link';
 import { PlaceholderImage } from '@/components/ui/img/PlaceholderImage';
+import Link from 'next/link';
 import friendData from './config';
 
 const FriendCard = (data: {
@@ -11,10 +11,14 @@ const FriendCard = (data: {
 }) => {
   return (
     <Link
-      className="relative mb-3 flex break-inside-avoid rounded-lg bg-zinc-200/45  px-3 py-4 dark:bg-zinc-600"
+      className="relative flex h-full break-inside-avoid rounded-xl bg-zinc-200/45 px-4 py-5 transition-colors hover:bg-zinc-200/80 dark:bg-zinc-800/70 dark:hover:bg-zinc-800"
       href={data.link}
     >
-      <PlaceholderImage link={data.avatar} alt={data.name} className="h-14 w-14" />
+      <PlaceholderImage
+        link={data.avatar}
+        alt={data.name}
+        className="h-14 w-14"
+      />
       <div className="ml-3 flex h-fit flex-col justify-between ">
         <div className="font-bold">{data.name}</div>
         <div className="mt-3 text-wrap break-all">{data.desc}</div>
@@ -25,7 +29,7 @@ const FriendCard = (data: {
 
 const AddFriendRead = () => {
   return (
-    <div className="prose mb-12 mt-5 max-w-full text-textColor dark:prose-invert">
+    <div className="prose mb-12 mt-12 max-w-3xl border-t border-zinc-200/70 pt-10 text-textColor dark:prose-invert dark:border-zinc-800">
       <h1 className="mb-5 text-lg font-bold">友链申请</h1>
       <div className="mb-5 text-sm">
         <span>
@@ -70,24 +74,37 @@ const AddFriendRead = () => {
 export default function Friends() {
   return (
     <NormalContainer>
-      <h1 className="mb-10 text-xl font-bold">
-        天下快意之事莫若友,快友之事莫若谈
-      </h1>
-      {friendData.length === 0 ? (
-        <div className="border-b-2 border-dashed  py-20 text-center font-bold">
-          暂无友链，快来跟我申请吧
+      <div className="grid gap-10 lg:grid-cols-[minmax(250px,0.7fr)_minmax(0,1.7fr)] lg:gap-14 xl:gap-20">
+        <header className="h-fit lg:sticky lg:top-28">
+          <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
+            Friends
+          </p>
+          <h1 className="max-w-sm text-3xl font-bold leading-tight tracking-tight text-zinc-950 lg:text-4xl dark:text-zinc-50">
+            天下快意之事莫若友，快友之事莫若谈
+          </h1>
+          <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">
+            {friendData.length} 个朋友的站点
+          </p>
+        </header>
+
+        <div className="min-w-0">
+          {friendData.length === 0 ? (
+            <div className="border-b-2 border-dashed py-20 text-center font-bold">
+              暂无友链，快来跟我申请吧
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {friendData.map((item) => (
+                <FriendCard key={item.link} {...item} />
+              ))}
+            </div>
+          )}
+          <footer>
+            <AddFriendRead />
+            {/* <Comment path={'/friends'} serverURL={'https://waline.magren.cc'} /> */}
+          </footer>
         </div>
-      ) : (
-        <div className="columns-1 border-b-2 border-dashed pb-10 lg:columns-2">
-          {friendData.map((item, index) => {
-            return <FriendCard key={index} {...item} />;
-          })}
-        </div>
-      )}
-      <footer>
-        <AddFriendRead />
-        {/* <Comment path={'/friends'} serverURL={'https://waline.magren.cc'} /> */}
-      </footer>
+      </div>
     </NormalContainer>
   );
 }
