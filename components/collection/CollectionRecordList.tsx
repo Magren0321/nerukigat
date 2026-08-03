@@ -65,27 +65,36 @@ function groupRecords(
   records: CollectionRecord[],
   kind: CollectionKind
 ): RecordGroup[] {
-  const groups: RecordGroup[] = [];
+  const groups = new Map<string, RecordGroup>();
 
   records.forEach((record) => {
     const rawLabel =
       kind === 'games' ? record.category || '其他' : record.time || '待定';
     const label = rawLabel === '待定' ? '计划清单' : rawLabel;
-    const previousGroup = groups.at(-1);
+    const existingGroup = groups.get(rawLabel);
 
-    if (previousGroup?.key === rawLabel) {
-      previousGroup.records.push(record);
+    if (existingGroup) {
+      existingGroup.records.push(record);
       return;
     }
 
-    groups.push({
+    groups.set(rawLabel, {
       key: rawLabel,
       label,
       records: [record],
     });
   });
 
-  return groups;
+  if (kind === 'games') {
+    const otherGroup = groups.get('其他');
+
+    if (otherGroup) {
+      groups.delete('其他');
+      groups.set('其他', otherGroup);
+    }
+  }
+
+  return Array.from(groups.values());
 }
 
 function matchesQuery(
@@ -133,10 +142,7 @@ function RecordItem({
         {detailColumn === 'rating' && <RatingStars rating={record.rating} />}
         {record.status ? (
           <span
-            className={clsx(
-              'text-xs font-medium',
-              statusStyles[record.status]
-            )}
+            className={clsx('text-xs font-medium', statusStyles[record.status])}
           >
             {statusLabels[record.status] ?? '未记录'}
           </span>
@@ -216,14 +222,17 @@ export function CollectionRecordList({
               type="button"
               aria-label="清除搜索"
               onClick={() => setQuery('')}
-              className="absolute right-2 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-900 active:translate-y-[calc(-50%+1px)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 motion-reduce:transition-none dark:hover:bg-zinc-800 dark:hover:text-zinc-100 dark:focus-visible:ring-blue-400"
+              className="absolute right-2 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:translate-y-[calc(-50%+1px)] motion-reduce:transition-none dark:hover:bg-zinc-800 dark:hover:text-zinc-100 dark:focus-visible:ring-blue-400"
             >
               <span aria-hidden="true" className="icon-[ph--x] size-4" />
             </button>
           )}
         </label>
 
-        <p aria-live="polite" className="text-sm text-zinc-500 dark:text-zinc-400">
+        <p
+          aria-live="polite"
+          className="text-sm text-zinc-500 dark:text-zinc-400"
+        >
           {normalizedQuery
             ? `找到 ${filteredRecords.length} 项`
             : `${groups.length} 组收藏`}
