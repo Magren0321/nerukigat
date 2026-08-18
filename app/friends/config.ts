@@ -89,10 +89,10 @@ const friendData: FriendItem[] = [
     avatar: 'https://s2.loli.net/2024/02/01/gaE47y5fKM6kosV.png',
     desc: '循此苦旅，以达星辰',
   },{
-    name: 'BemoDB',
-    link: 'https://mengbooo.github.io/BemoDB',
-    avatar: 'https://avatars.githubusercontent.com/u/143786942?v=4',
-    desc: 'Bolaxious的文档库🥰',
+    name: 'BemoDB 2.0',
+    link: 'https://bolaxious.cn',
+    avatar: 'https://bolaxious.cn/favicon/favicon.ico',
+    desc: 'Hello World!',
   },{
     name: 'eell的博客',
     link: 'https://www.eell.net',
@@ -103,6 +103,11 @@ const friendData: FriendItem[] = [
     link: 'https://cynosura.one',
     desc: 'Trying to light up the dark.',
     avatar: 'https://cynosura.one/img/avatar.webp'
+  },{
+    name: 'Geuo',
+    link: 'https://geuo.org',
+    desc: '记录创造，探索未知',
+    avatar: 'https://geuo.org/image/avatar.png'
   }
 ];
 
