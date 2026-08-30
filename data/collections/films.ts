@@ -5,9 +5,9 @@ import type { CollectionRecord } from '@/components/collection/types';
 
 export const filmRecords = [
   {
-    title: '瑞克和莫蒂',
+    title: '瑞克和莫蒂 1-9季',
     time: '2026',
-    status: 'active',
+    status: 'done',
   },
   {
     title: '蜘蛛侠4 崭新之日',

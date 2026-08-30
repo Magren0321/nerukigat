@@ -60,10 +60,12 @@ export default function About() {
         <br></br>
         <span>生活简单无趣，尚未脱离低级趣味。</span>
         <br></br><br></br>
-        <span>工作日常在学习并且使用 React, Vue, Next.js, TypeScript, Node.js, Electron, TailwindCSS, Sass…</span>
+        <span>之前工作日常在学习并使用 React, Vue, Next.js, TypeScript, Node.js, Electron, TailwindCSS, Sass…</span>
         <br></br>
+        <span>现在工作日常在学习并使用各种 AI 工具以及其底层的运行机制</span>
+        <br></br><br></br>
         <span>
-          同时喜欢折腾点别的，偶尔学习 Swift, Android, React Native, Go...
+          <del>同时喜欢折腾点别的，偶尔学习 Swift, Android, React Native, Go ...</del> 有 AI 了，大人时代变了！
         </span>
         <br></br>
         <span>总是在自己折腾没用的 & 不有趣的玩具并自娱自乐。</span>
@@ -126,6 +128,9 @@ export default function About() {
           <li>
             🏃 偶尔吃顿好吃的然后漫无目的地瞎逛
           </li>
+          <li>
+            🛏️ 偶尔躺在家里什么都不干
+          </li>
         </ul>
         <h2 id="current" className="scroll-mt-28">👨‍💻 现状</h2>
         <ul>
@@ -153,6 +158,10 @@ export default function About() {
           <li>
             {' '}
             <b>准准准准准准产品经理（N/A）</b>{' '}
+          </li>
+          <li>
+            {' '}
+            <b>准准准准准准准独立开发者（N/A）</b>{' '}
           </li>
         </ul>
         <h2 id="contact" className="scroll-mt-28">🛸 Find me</h2>
