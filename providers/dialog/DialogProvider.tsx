@@ -1,20 +1,36 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
-export const DialogContext = createContext({
+type DialogContextValue = {
+  isOpen: boolean;
+  closeDialog: () => void;
+  toggleDialog: () => void;
+};
+
+export const DialogContext = createContext<DialogContextValue>({
   isOpen: false,
-  updateIsOpen: () => {},
+  closeDialog: () => {},
+  toggleDialog: () => {},
 });
 
 export const DialogProvider = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const updateIsOpen = () => {
-    setIsOpen(!isOpen);
-    document.body.style.overflow = isOpen ? 'auto' : 'hidden';
-  };
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
+  const closeDialog = () => setIsOpen(false);
+  const toggleDialog = () => setIsOpen((current) => !current);
 
   return (
-    <DialogContext.Provider value={{ isOpen, updateIsOpen }}>
+    <DialogContext.Provider value={{ isOpen, closeDialog, toggleDialog }}>
       {children}
     </DialogContext.Provider>
   );

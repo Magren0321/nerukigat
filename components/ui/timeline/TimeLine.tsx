@@ -42,7 +42,7 @@ export const TimeLine = ({ dateMap }: { dateMap: Record<string, Post[]> }) => {
                     <div className="flex min-w-0 flex-1 items-start gap-3 text-sm">
                       <time
                         dateTime={post.date}
-                        className="flex-shrink-0 text-zinc-500 dark:text-zinc-400"
+                        className="flex-shrink-0 text-zinc-600 dark:text-zinc-400"
                       >
                         {format(parseISO(post.date), 'MM/dd')}
                       </time>
@@ -75,7 +75,7 @@ export const TimeLine = ({ dateMap }: { dateMap: Record<string, Post[]> }) => {
                             </button>
                           ))}
                         {post.tags.length > MAX_VISIBLE_TAGS && (
-                          <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                          <span className="text-xs text-zinc-600 dark:text-zinc-400">
                             +{post.tags.length - MAX_VISIBLE_TAGS}
                           </span>
                         )}

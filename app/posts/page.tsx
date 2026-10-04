@@ -1,6 +1,10 @@
 'use client';
 
-import { NormalContainer } from '@/components/layout/container/NomalContainer';
+import {
+  SplitLayout,
+  SplitPageContainer,
+  SplitSidebar,
+} from '@/components/layout/container/SplitPageLayout';
 import { useSupportsHover } from '@/hooks/useSupportsHover';
 import { filterVisiblePosts } from '@/utils';
 import { calculateReadingStats } from '@/utils/post';
@@ -43,13 +47,13 @@ const PostCard = ({ post }: PostCardProps) => {
 
           {/* 描述 */}
           {post.description && (
-            <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+            <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
               {post.description}
             </p>
           )}
 
           {/* 元数据 */}
-          <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-zinc-400 dark:text-zinc-500">
+          <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-zinc-600 dark:text-zinc-400">
             {/* 置顶标签 */}
             {post.top && (
               <div className="flex items-center gap-1">
@@ -93,7 +97,7 @@ const PostCard = ({ post }: PostCardProps) => {
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                className={`text-xs text-zinc-400 transition-colors dark:text-zinc-500 ${
+                className={`text-xs text-zinc-600 transition-colors dark:text-zinc-400 ${
                   supportsHover
                     ? 'hover:text-zinc-600 dark:hover:text-zinc-400'
                     : 'active:text-zinc-600 dark:active:text-zinc-400'
@@ -159,7 +163,7 @@ const Pagination = ({
           >
             1
           </button>
-          {startPage > 2 && <span className="px-2 text-zinc-500">...</span>}
+          {startPage > 2 && <span className="px-2 text-zinc-600">...</span>}
         </>
       )}
 
@@ -169,7 +173,7 @@ const Pagination = ({
           onClick={() => onPageChange(page)}
           className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
             page === currentPage
-              ? 'bg-blue-500 text-white'
+              ? 'bg-blue-600 text-white'
               : `text-zinc-700 dark:text-zinc-300 ${hoverClasses}`
           }`}
         >
@@ -180,7 +184,7 @@ const Pagination = ({
       {endPage < totalPages && (
         <>
           {endPage < totalPages - 1 && (
-            <span className="px-2 text-zinc-500">...</span>
+            <span className="px-2 text-zinc-600">...</span>
           )}
           <button
             onClick={() => onPageChange(totalPages)}
@@ -276,9 +280,9 @@ export default function Posts() {
   };
 
   return (
-    <NormalContainer>
-      <div className="grid gap-10 lg:grid-cols-[minmax(250px,0.7fr)_minmax(0,1.7fr)] lg:gap-14 xl:gap-20">
-        <header className="h-fit lg:sticky lg:top-28">
+    <SplitPageContainer>
+      <SplitLayout>
+        <SplitSidebar>
           <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
             Writing
           </p>
@@ -301,7 +305,7 @@ export default function Posts() {
                   </h2>
                   <Link
                     href="/archive"
-                    className="text-xs text-zinc-500 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
+                    className="text-xs text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
                   >
                     全部归档
                   </Link>
@@ -314,7 +318,7 @@ export default function Posts() {
                         className="group/tag flex min-w-0 items-baseline justify-between gap-2 text-sm text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
                       >
                         <span className="truncate">#{tag}</span>
-                        <span className="shrink-0 text-xs tabular-nums text-zinc-400 transition-colors group-hover/tag:text-blue-500 dark:text-zinc-500">
+                        <span className="shrink-0 text-xs tabular-nums text-zinc-600 transition-colors group-hover/tag:text-blue-600 dark:text-zinc-400 dark:group-hover/tag:text-blue-400">
                           {count}
                         </span>
                       </Link>
@@ -324,7 +328,7 @@ export default function Posts() {
               </nav>
             )}
           </div>
-        </header>
+        </SplitSidebar>
 
         <section className="min-w-0" aria-label="文章列表">
           <AnimatePresence mode="wait">
@@ -339,7 +343,7 @@ export default function Posts() {
               }}
             >
               {paginatedPosts.length === 0 ? (
-                <div className="py-12 text-center text-zinc-500 dark:text-zinc-400">
+                <div className="py-12 text-center text-zinc-600 dark:text-zinc-400">
                   暂无文章
                 </div>
               ) : (
@@ -366,7 +370,7 @@ export default function Posts() {
             onPageChange={handlePageChange}
           />
         </section>
-      </div>
-    </NormalContainer>
+      </SplitLayout>
+    </SplitPageContainer>
   );
 }

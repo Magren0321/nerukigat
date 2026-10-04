@@ -5,6 +5,7 @@
 @layer base {
   :root {
     color-scheme: light;
+    --site-header-height: 3.5rem;
     --theme-bg: 0deg 0% 96%;
     --theme-text: 203deg 11% 15%;
   }

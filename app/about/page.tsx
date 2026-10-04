@@ -1,11 +1,15 @@
-import { PostContainer } from '@/components/layout/container/PostContainer';
+import {
+  SplitLayout,
+  SplitPageContainer,
+  SplitSidebar,
+} from '@/components/layout/container/SplitPageLayout';
 import Link from 'next/link';
 
 export default function About() {
   return (
-    <PostContainer>
-      <div className="grid gap-10 lg:grid-cols-[minmax(220px,0.65fr)_minmax(0,1.75fr)] lg:gap-14 xl:gap-20">
-        <aside className="h-fit lg:sticky lg:top-28">
+    <SplitPageContainer>
+      <SplitLayout>
+        <SplitSidebar>
           <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
             About
           </p>
@@ -13,7 +17,7 @@ export default function About() {
             关于我
           </h1>
           <nav className="mt-8 hidden text-sm lg:block" aria-label="关于页目录">
-            <ul className="space-y-3 text-zinc-500 dark:text-zinc-400">
+            <ul className="space-y-3 text-zinc-600 dark:text-zinc-400">
               {[
                 ['#hello', 'About Me'],
                 ['#profile', '关于我'],
@@ -33,9 +37,9 @@ export default function About() {
               ))}
             </ul>
           </nav>
-        </aside>
+        </SplitSidebar>
 
-        <article className="prose min-w-0 max-w-4xl text-sm/7 text-zinc-900 dark:prose-invert dark:text-zinc-200">
+        <article className="prose min-w-0 max-w-none text-sm/7 text-zinc-900 lg:text-base/8 dark:prose-invert dark:text-zinc-200">
           <h2 id="hello" className="scroll-mt-28">👋 About Me</h2>
         <blockquote>
           一片树林分出两条路，
@@ -278,8 +282,8 @@ export default function About() {
           </blockquote>
         </div>
         </article>
-      </div>
+      </SplitLayout>
       {/* <Comment path={'/about-me'} serverURL={'https://waline.magren.cc'} /> */}
-    </PostContainer>
+    </SplitPageContainer>
   );
 }

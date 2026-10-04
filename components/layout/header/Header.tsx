@@ -27,7 +27,7 @@ export const Header = () => {
 
   return (
     <div className="sticky top-0 z-[999]">
-      <div className="relative w-full py-2">
+      <div className="relative h-[var(--site-header-height)] w-full py-2">
         {/* 背景层，使用动画 */}
         <AnimatePresence>
           {isShow && (

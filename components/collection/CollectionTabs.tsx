@@ -36,7 +36,7 @@ export function CollectionTabs({ activeKind }: { activeKind: CollectionKind }) {
 
   return (
     <nav aria-label="收藏分类">
-      <p className="mb-3 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+      <p className="mb-3 text-xs font-medium text-zinc-600 dark:text-zinc-400">
         切换收藏
       </p>
       <ul className="grid w-full grid-cols-3 gap-1 rounded-xl bg-zinc-200/65 p-1 dark:bg-zinc-800/70">
@@ -54,7 +54,7 @@ export function CollectionTabs({ activeKind }: { activeKind: CollectionKind }) {
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-200 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-zinc-800',
                   isActive
                     ? 'text-blue-700 dark:text-blue-200'
-                    : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
+                    : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
                 )}
               >
                 {isActive && (

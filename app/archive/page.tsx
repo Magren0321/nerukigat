@@ -1,6 +1,10 @@
 'use client';
 
-import { NormalContainer } from '@/components/layout/container/NomalContainer';
+import {
+  SplitLayout,
+  SplitPageContainer,
+  SplitSidebar,
+} from '@/components/layout/container/SplitPageLayout';
 import { TimeLine } from '@/components/ui/timeline/TimeLine';
 import { getPostTimeLine } from '@/utils';
 import { useSearchParams } from 'next/navigation';
@@ -41,9 +45,9 @@ function ArchiveContent() {
   }, [tags]);
 
   return (
-    <NormalContainer>
-      <div className="grid gap-10 lg:grid-cols-[minmax(250px,0.7fr)_minmax(0,1.7fr)] lg:gap-14 xl:gap-20">
-        <header className="h-fit lg:sticky lg:top-28">
+    <SplitPageContainer>
+      <SplitLayout>
+        <SplitSidebar>
           <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
             Archive
           </p>
@@ -53,11 +57,11 @@ function ArchiveContent() {
           <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">
             共 {length} 篇文章
           </p>
-        </header>
+        </SplitSidebar>
         <section className="min-w-0" aria-label="文章归档">
           <TimeLine dateMap={value} />
         </section>
-      </div>
-    </NormalContainer>
+      </SplitLayout>
+    </SplitPageContainer>
   );
 }

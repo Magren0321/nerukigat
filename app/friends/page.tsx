@@ -1,4 +1,8 @@
-import { NormalContainer } from '@/components/layout/container/NomalContainer';
+import {
+  SplitLayout,
+  SplitPageContainer,
+  SplitSidebar,
+} from '@/components/layout/container/SplitPageLayout';
 import { PlaceholderImage } from '@/components/ui/img/PlaceholderImage';
 import Link from 'next/link';
 import friendData from './config';
@@ -11,17 +15,23 @@ const FriendCard = (data: {
 }) => {
   return (
     <Link
-      className="relative flex h-full break-inside-avoid rounded-xl bg-zinc-200/45 px-4 py-5 transition-colors hover:bg-zinc-200/80 dark:bg-zinc-800/70 dark:hover:bg-zinc-800"
+      className="group grid h-full grid-cols-[3.5rem_minmax(0,1fr)] items-start gap-4 rounded-xl bg-zinc-200/45 p-5 transition-colors hover:bg-zinc-200/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:translate-y-px motion-reduce:transition-none dark:bg-zinc-800/70 dark:hover:bg-zinc-800 dark:focus-visible:ring-blue-400"
       href={data.link}
     >
-      <PlaceholderImage
-        link={data.avatar}
-        alt={data.name}
-        className="h-14 w-14"
-      />
-      <div className="ml-3 flex h-fit flex-col justify-between ">
-        <div className="font-bold">{data.name}</div>
-        <div className="mt-3 text-wrap break-all">{data.desc}</div>
+      <div className="relative size-14">
+        <PlaceholderImage
+          link={data.avatar}
+          alt={data.name}
+          className="size-14 object-cover !left-0 !top-0"
+        />
+      </div>
+      <div className="min-w-0">
+        <div className="font-semibold leading-6 text-zinc-900 transition-colors group-hover:text-blue-600 motion-reduce:transition-none dark:text-zinc-100 dark:group-hover:text-blue-400">
+          {data.name}
+        </div>
+        <p className="mt-2 break-words text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+          {data.desc}
+        </p>
       </div>
     </Link>
   );
@@ -30,7 +40,7 @@ const FriendCard = (data: {
 const AddFriendRead = () => {
   return (
     <div className="prose mb-12 mt-12 max-w-3xl border-t border-zinc-200/70 pt-10 text-textColor dark:prose-invert dark:border-zinc-800">
-      <h1 className="mb-5 text-lg font-bold">友链申请</h1>
+      <h2 className="mb-5 text-lg font-bold">友链申请</h2>
       <div className="mb-5 text-sm">
         <span>
           如果你想和我交换友链，可以
@@ -73,19 +83,19 @@ const AddFriendRead = () => {
 
 export default function Friends() {
   return (
-    <NormalContainer>
-      <div className="grid gap-10 lg:grid-cols-[minmax(250px,0.7fr)_minmax(0,1.7fr)] lg:gap-14 xl:gap-20">
-        <header className="h-fit lg:sticky lg:top-28">
+    <SplitPageContainer>
+      <SplitLayout>
+        <SplitSidebar>
           <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
             Friends
           </p>
-          <h1 className="max-w-sm text-3xl font-bold leading-tight tracking-tight text-zinc-950 lg:text-4xl dark:text-zinc-50">
+          <h1 className="max-w-sm text-3xl font-bold leading-tight tracking-tight text-zinc-950 dark:text-zinc-50">
             天下快意之事莫若友，快友之事莫若谈
           </h1>
           <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">
             {friendData.length} 个朋友的站点
           </p>
-        </header>
+        </SplitSidebar>
 
         <div className="min-w-0">
           {friendData.length === 0 ? (
@@ -93,7 +103,7 @@ export default function Friends() {
               暂无友链，快来跟我申请吧
             </div>
           ) : (
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {friendData.map((item) => (
                 <FriendCard key={item.link} {...item} />
               ))}
@@ -104,7 +114,7 @@ export default function Friends() {
             {/* <Comment path={'/friends'} serverURL={'https://waline.magren.cc'} /> */}
           </footer>
         </div>
-      </div>
-    </NormalContainer>
+      </SplitLayout>
+    </SplitPageContainer>
   );
 }

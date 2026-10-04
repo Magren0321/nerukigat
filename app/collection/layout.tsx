@@ -1,9 +1,13 @@
-import { PageContainer } from '@/components/layout/container/PageContainer';
+import { SplitPageContainer } from '@/components/layout/container/SplitPageLayout';
 
 export default function CollectionLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <PageContainer className="mt-5 lg:mt-7">{children}</PageContainer>;
+  return (
+    <SplitPageContainer animated={false}>
+      {children}
+    </SplitPageContainer>
+  );
 }

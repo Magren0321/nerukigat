@@ -1,11 +1,5 @@
-import { NormalContainer } from '@/components/layout/container/NomalContainer';
-import { Loading } from '@/components/ui/loading/Loading';
+import { SplitPageLoading } from '@/components/layout/container/SplitPageLoading';
 
 export default function ArchiveLoading() {
-  return (
-    <NormalContainer>
-      <Loading />
-    </NormalContainer>
-  );
+  return <SplitPageLoading label="正在加载文章归档" />;
 }
-

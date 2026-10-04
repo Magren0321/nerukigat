@@ -63,12 +63,12 @@ export function GameCollectionPage({
             aria-pressed={isActive}
             onClick={() => setPlatform(id)}
             className={clsx(
-              'relative isolate inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold',
+              'relative isolate inline-flex min-h-10 items-center justify-center gap-1.5 rounded-lg px-2 text-xs font-semibold sm:gap-2 sm:px-3 sm:text-sm lg:gap-1.5 lg:px-2 lg:text-xs',
               'transition-colors duration-200 motion-reduce:transition-none',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-200 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-zinc-800',
               isActive
                 ? 'text-zinc-950 dark:text-zinc-50'
-                : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
+                : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100'
             )}
           >
             {isActive && (
@@ -88,13 +88,13 @@ export function GameCollectionPage({
                 }
               />
             )}
-            <span>{label}</span>
+            <span className="whitespace-nowrap">{label}</span>
             <span
               className={clsx(
                 'font-mono text-xs tabular-nums',
                 isActive
                   ? 'text-blue-700 dark:text-blue-300'
-                  : 'text-zinc-400 dark:text-zinc-500'
+                  : 'text-zinc-600 dark:text-zinc-400'
               )}
             >
               {platformCounts[id]}

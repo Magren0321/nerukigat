@@ -1,9 +1,11 @@
+import { SplitLayout } from '@/components/layout/container/SplitPageLayout';
+
 export default function CollectionLoading() {
   return (
-    <div
+    <SplitLayout
       aria-label="正在加载收藏记录"
       aria-busy="true"
-      className="grid animate-pulse gap-12 pb-20 pt-9 motion-reduce:animate-none lg:grid-cols-[minmax(16rem,0.72fr)_minmax(0,1.8fr)] lg:gap-16 lg:pt-14 xl:gap-24"
+      className="animate-pulse motion-reduce:animate-none"
     >
       <div>
         <div className="h-8 w-24 rounded-lg bg-zinc-200 dark:bg-zinc-800" />
@@ -32,6 +34,6 @@ export default function CollectionLoading() {
           ))}
         </div>
       </div>
-    </div>
+    </SplitLayout>
   );
 }

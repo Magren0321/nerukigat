@@ -39,7 +39,7 @@ function NavItem({
         className={clsx(
           'relative block whitespace-nowrap px-3 py-2 transition',
           isActive
-            ? 'text-blue-600 dark:text-blue-600'
+            ? 'text-blue-600 dark:text-blue-400'
             : 'hover:text-blue-700 dark:hover:text-blue-700'
         )}
       >
