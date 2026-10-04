@@ -85,13 +85,7 @@ const DialogContent = ({
               role="dialog"
               aria-modal="true"
               aria-label="Navigation"
-              className="fixed inset-x-2 z-10 mx-auto max-w-lg overflow-hidden rounded-[1.75rem] border border-zinc-900/10 bg-zinc-50 shadow-[0_-16px_48px_rgba(24,24,27,0.16)] dark:border-zinc-50/10 dark:bg-zinc-900 dark:shadow-[0_-16px_48px_rgba(0,0,0,0.4)]"
-              style={{
-                bottom:
-                  process.env.NODE_ENV === 'development'
-                    ? 'max(4.75rem, calc(env(safe-area-inset-bottom) + 4rem))'
-                    : 'max(0.5rem, env(safe-area-inset-bottom))',
-              }}
+              className="fixed inset-x-0 bottom-0 z-10 mx-auto max-w-lg overflow-hidden rounded-t-[1.75rem] border border-zinc-900/10 bg-zinc-50 shadow-[0_-16px_48px_rgba(24,24,27,0.16)] dark:border-zinc-50/10 dark:bg-zinc-900 dark:shadow-[0_-16px_48px_rgba(0,0,0,0.4)]"
               initial={
                 shouldReduceMotion ? false : { y: 'calc(100% + 1rem)', opacity: 0 }
               }
