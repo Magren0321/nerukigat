@@ -48,11 +48,11 @@ export default function About() {
         <h2 id="profile" className="scroll-mt-28">🎩 关于我</h2>
         <span>Hi，我是<b>Magren</b>，网上的朋友更多的叫我<b>虫二</b>，见字如晤，很高兴认识你。</span>
         <br></br>
-        <span>我已经忘记了为什么取 Magren 这个 ID，但我已经习惯了它，我的各个平台基本都是这个ID，曾想赋予它独特的意义，然而我连它怎么读都不清楚，遂放弃</span>
+        <span>我已经忘记了为什么取 Magren 这个 ID，但是从小学到现在我已经习惯了它，我的各个平台基本都是这个ID，曾想赋予它独特的意义，然而我连它怎么读都不清楚，遂放弃</span>
         <br></br>
         <span>而虫二则是出自風月无边这个成语</span>
         <br></br>
-        <span>如果你是我现实中认识且知道我本名的朋友，请直接叫我名字就好😭</span>
+        <span>如果你是我现实中认识且知道我本名的朋友，请直接叫我名字就好🙏</span>
         <br></br><br></br>
         <span>
           是一个只会听粤语但不会讲的广东人
@@ -66,7 +66,7 @@ export default function About() {
         <br></br><br></br>
         <span>之前工作日常在学习并使用 React, Vue, Next.js, TypeScript, Node.js, Electron, TailwindCSS, Sass…</span>
         <br></br>
-        <span>现在工作日常在学习并使用各种 AI 工具以及其底层的运行机制</span>
+        <span>现在工作日常在学习并使用各种 AI 工具以及各种兴起的 AI 概念知识</span>
         <br></br><br></br>
         <span>
           <del>同时喜欢折腾点别的，偶尔学习 Swift, Android, React Native, Go ...</del> 有 AI 了，大人时代变了！
@@ -75,22 +75,22 @@ export default function About() {
         <span>总是在自己折腾没用的 & 不有趣的玩具并自娱自乐。</span>
         <br></br><br></br>        
         <span>
-          <Link href="/posts">这里</Link> 持续用于记录我的生活、工作和思考
+          <Link href="/posts" target="_blank">这里</Link> 持续用于记录我的生活、工作和思考
         </span>
         <h2 id="favorites" className="scroll-mt-28">🎮 喜欢什么</h2>
         <ul>
           <li>
             📷 偶尔拿着一台<del> 富士 X-T5 </del>Nikon Zf / FUJIFILM X100VI / Minolta Autocord / Nikon FE2 到处瞎拍扫街出废片，可以点这里查看一些{' '}
-            <a
-              target="_blank"
+            <Link
               href="https://magren.afilmory.art/"
+              target="_blank"
             >
              我的摄影作品
-            </a>
+            </Link>
           </li>
           <li>
             📖 偶尔看看书，可以点这里查看
-            <Link href="/collection/books">
+            <Link href="/collection/books" target="_blank">
               我的书单
             </Link>
           </li>
@@ -98,16 +98,16 @@ export default function About() {
             🎮 偶尔打打游戏，端游还有主机游戏玩的比较多，<del>任天堂就是世界主宰！</del>{' '}
             基本上任天堂第一方游戏都很喜欢，PC 上 Steam 里面也有玩一些，最近刚买怪猎，如果缺腿部挂件的话可以加个好友
             ，也可以看看
-            <Link href="/collection/games">我的游戏记录</Link>
+            <Link href="/collection/games" target="_blank">我的游戏记录</Link>
             <ul>
               <li>
                 <b>Steam</b>：{' '}
-                <a
-                  target="_blank"
+                <Link
                   href="https://steamcommunity.com/profiles/76561198811700203/"
+                  target="_blank"
                 >
                   Magren
-                </a>
+                </Link>
               </li>
               <li>
                 <b>Nintendo FC</b>: SW-1418-2466-9500
@@ -119,7 +119,7 @@ export default function About() {
           </li>
           <li>
             🎬 偶尔也看看电影，这里可以看到我都看了什么
-            <Link href="/collection/films">
+            <Link href="/collection/films" target="_blank">
               我的影单
             </Link>
           </li>
@@ -231,9 +231,6 @@ export default function About() {
             </li>
             <li>
               <b>iPad</b>： iPad Pro 13‑inch (M4)
-            </li>
-            <li>
-              <b>Game</b>： Nintendo Switch
             </li>
             <li>
               <b>Camera</b>：Nikon Zf / FUJIFILM X100VI / Minolta Autocord / Nikon FE2
