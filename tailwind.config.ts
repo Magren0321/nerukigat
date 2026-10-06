@@ -17,6 +17,27 @@ const config: Config = {
         bgColor: 'hsl(var(--theme-bg) / <alpha-value>)',
         textColor: 'hsl(var(--theme-text) / <alpha-value>)',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            blockquote: {
+              fontWeight: '700',
+              color: 'var(--tw-prose-body)',
+              borderLeftWidth: '2px',
+              paddingLeft: '1em',
+              quotes: 'none',
+            },
+            'blockquote p': {
+              marginTop: '0.5em',
+              marginBottom: '0.5em',
+            },
+            'blockquote > :first-child': { marginTop: '0' },
+            'blockquote > :last-child': { marginBottom: '0' },
+            'blockquote p:first-of-type::before': { content: 'none' },
+            'blockquote p:last-of-type::after': { content: 'none' },
+          },
+        },
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
