@@ -1,27 +1,27 @@
 export const navigationItems = [
   {
     href: '/',
-    text: 'Home',
+    text: '首页',
     icon: 'icon-[tabler--home]',
   },
   {
     href: '/posts',
-    text: 'Blog',
+    text: '文章',
     icon: 'icon-[tabler--article]',
   },
   {
     href: '/collection',
-    text: 'Collection',
+    text: '收藏',
     icon: 'icon-[tabler--books]',
   },
   {
     href: '/friends',
-    text: 'Friends',
+    text: '友链',
     icon: 'icon-[tabler--users]',
   },
   {
     href: '/about',
-    text: 'About',
+    text: '关于',
     icon: 'icon-[tabler--user-circle]',
   },
 ];
