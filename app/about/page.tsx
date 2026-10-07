@@ -249,9 +249,6 @@ export default function About() {
               <b>Launcher</b>：Raycast
             </li>
             <li>
-              <b>Git</b>：Git & SourceTree & GitHub Desktop
-            </li>
-            <li>
               <b>Editor</b>：VSCode( You can find my vscode setting in{' '}
               <a href="https://github.com/Magren0321/vscode-settings">here</a> ) & Cursor
             </li>
