@@ -11,7 +11,6 @@ export default function BooksPage() {
   return (
     <CollectionPage
       kind="books"
-      icon="icon-[ph--book-open-text]"
       label="Books"
       title="书籍"
       intro="知识可以传授，智慧却不能。"

@@ -5,6 +5,7 @@ import {
   SplitPageContainer,
   SplitSidebar,
 } from '@/components/layout/container/SplitPageLayout';
+import { SplitPageHeading } from '@/components/layout/container/SplitPageHeading';
 import { useSupportsHover } from '@/hooks/useSupportsHover';
 import { filterVisiblePosts } from '@/utils';
 import { calculateReadingStats } from '@/utils/post';
@@ -283,12 +284,10 @@ export default function Posts() {
     <SplitPageContainer>
       <SplitLayout>
         <SplitSidebar>
-          <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
-            Writing
-          </p>
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-950 lg:text-5xl dark:text-zinc-50">
-            Blog
-          </h1>
+          <SplitPageHeading
+            label="Writing"
+            title="文章"
+          />
           <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">
             共 {sortedPosts.length} 篇文章
           </p>

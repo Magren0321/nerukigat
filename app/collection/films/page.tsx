@@ -11,7 +11,6 @@ export default function FilmsPage() {
   return (
     <CollectionPage
       kind="films"
-      icon="icon-[ph--film-slate]"
       label="Films"
       title="影视"
       intro="敬那些勇于追梦的愚人。"

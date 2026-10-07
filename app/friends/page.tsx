@@ -3,6 +3,7 @@ import {
   SplitPageContainer,
   SplitSidebar,
 } from '@/components/layout/container/SplitPageLayout';
+import { SplitPageHeading } from '@/components/layout/container/SplitPageHeading';
 import { PlaceholderImage } from '@/components/ui/img/PlaceholderImage';
 import Link from 'next/link';
 import friendData from './config';
@@ -86,13 +87,14 @@ export default function Friends() {
     <SplitPageContainer>
       <SplitLayout>
         <SplitSidebar>
-          <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
-            Friends
-          </p>
-          <h1 className="max-w-sm text-3xl font-bold leading-tight tracking-tight text-zinc-950 dark:text-zinc-50">
+          <SplitPageHeading
+            label="Friends"
+            title="友链"
+          />
+          <p className="mt-4 max-w-sm text-base leading-7 text-zinc-600 dark:text-zinc-400">
             天下快意之事莫若友，快友之事莫若谈
-          </h1>
-          <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">
+          </p>
+          <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
             {friendData.length} 个朋友的站点
           </p>
         </SplitSidebar>

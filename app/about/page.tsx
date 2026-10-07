@@ -3,6 +3,7 @@ import {
   SplitPageContainer,
   SplitSidebar,
 } from '@/components/layout/container/SplitPageLayout';
+import { SplitPageHeading } from '@/components/layout/container/SplitPageHeading';
 import Link from 'next/link';
 
 export default function About() {
@@ -10,12 +11,10 @@ export default function About() {
     <SplitPageContainer>
       <SplitLayout>
         <SplitSidebar>
-          <p className="mb-3 text-sm font-medium text-blue-600 dark:text-blue-400">
-            About
-          </p>
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50 lg:text-5xl">
-            关于我
-          </h1>
+          <SplitPageHeading
+            label="About"
+            title="关于我"
+          />
           <nav className="mt-8 hidden text-sm lg:block" aria-label="关于页目录">
             <ul className="space-y-3 text-zinc-600 dark:text-zinc-400">
               {[

@@ -2,7 +2,7 @@ import {
   SplitLayout,
   SplitSidebar,
 } from '@/components/layout/container/SplitPageLayout';
-import clsx from 'clsx';
+import { SplitPageHeading } from '@/components/layout/container/SplitPageHeading';
 import type { ReactNode } from 'react';
 import { CollectionRecordList } from './CollectionRecordList';
 import { CollectionTabs } from './CollectionTabs';
@@ -20,7 +20,6 @@ export type {
 
 interface CollectionPageProps {
   kind: CollectionKind;
-  icon: string;
   title: string;
   label: string;
   intro: string;
@@ -39,7 +38,6 @@ const sectionLabels: Record<CollectionKind, string> = {
 
 export function CollectionPage({
   kind,
-  icon,
   title,
   label,
   intro,
@@ -59,17 +57,7 @@ export function CollectionPage({
   return (
     <SplitLayout>
       <SplitSidebar>
-        <div className="flex items-center gap-3 text-blue-700 dark:text-blue-300">
-          <span
-            aria-hidden="true"
-            className={clsx('size-7 shrink-0 sm:size-8', icon)}
-          />
-          <span className="text-sm font-semibold">{label}</span>
-        </div>
-
-        <h1 className="mt-5 text-5xl font-bold leading-none tracking-[-0.045em] text-zinc-950 sm:text-6xl dark:text-zinc-50">
-          {title}
-        </h1>
+        <SplitPageHeading label={label} title={title} />
 
         <blockquote className="mt-7 max-w-md text-base leading-7 text-zinc-600 dark:text-zinc-300">
           <p>“{intro}”</p>

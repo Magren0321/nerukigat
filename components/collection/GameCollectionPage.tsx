@@ -108,7 +108,6 @@ export function GameCollectionPage({
   return (
     <CollectionPage
       kind="games"
-      icon="icon-[ph--game-controller]"
       label="Games"
       title="游戏"
       intro="即使引导早已破碎，也请您当上艾尔登之王。"
