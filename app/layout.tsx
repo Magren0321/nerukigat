@@ -1,5 +1,4 @@
 import { Header } from '@/components/layout/header/Header';
-import { ScrollToTop } from '@/components/ScrollToTop';
 import { Analytics } from '@vercel/analytics/react';
 import { Agentation } from 'agentation';
 import type { Metadata } from 'next';
@@ -45,7 +44,6 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className={openHuninn.className}>
         <Analytics mode={'production'} />
-        <ScrollToTop />
         <div>
           <Header />
           <main>{children}</main>
