@@ -22,7 +22,7 @@ const friendData: FriendItem[] = [
     name: "智子",
     link: "https://sxzz.dev/zh",
     avatar: "https://sxzz.dev/avatar-zh.jpg",
-    desc: "一名探索前端开发的开源爱好者。"
+    desc: "探寻存在的意义"
   },
   {
     name: '折影轻梦',
