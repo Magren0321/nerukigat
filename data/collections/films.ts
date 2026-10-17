@@ -5,6 +5,11 @@ import type { CollectionRecord } from '@/components/collection/types';
 
 export const filmRecords = [
   {
+    title: '尽管如此，也要活下去',
+    time: '2026',
+    status: 'done',
+  },
+  {
     title: '对不起青春！',
     time: '2026',
     status: 'done',
