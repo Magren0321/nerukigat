@@ -108,7 +108,13 @@ const friendData: FriendItem[] = [
     link: 'https://geuo.org',
     desc: '记录创造，探索未知',
     avatar: 'https://geuo.org/image/avatar.png'
-  }
+  },
+  {
+    name: 'Lev Wu',
+    link: 'https://levwu.me/',
+    avatar: 'https://avatars.githubusercontent.com/u/66096254?v=4',
+    desc: 'You only live once',
+  },
 ];
 
 export default friendData;
