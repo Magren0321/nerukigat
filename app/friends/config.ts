@@ -115,6 +115,12 @@ const friendData: FriendItem[] = [
     avatar: 'https://avatars.githubusercontent.com/u/66096254?v=4',
     desc: 'You only live once',
   },
+  {
+    name: '梧桐雨の博客',
+    link: 'https://www.wutongyu.site/',
+    desc: '关于我的代码和生活',
+    avatar: 'https://www.wutongyu.site/avatar.webp'
+  }
 ];
 
 export default friendData;
